@@ -179,7 +179,7 @@ int main()
 
     MostrarAlquileres(listaA);
 
-    delete listaC.lista;
-    delete listaA.lista;
+    delete[] listaC.lista;
+    delete[] listaA.lista;
 }
 
