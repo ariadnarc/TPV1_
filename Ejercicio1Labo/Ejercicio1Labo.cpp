@@ -25,7 +25,7 @@ struct Alquiler
 
 struct ListaCoches
 {
-    Coche* lista;
+    Coche** lista;
     int size, numElementos;
 };
 
@@ -39,16 +39,16 @@ int BuscarCoche(int codigo, const ListaCoches& listaCoches)
 {
     int cotaInferior = 0, cotaSuperior = listaCoches.numElementos, valorMedio = cotaSuperior/2, resultado = -1;
     bool encontrado = false;
-    while (!encontrado && cotaInferior <= cotaSuperior) 
+    while (!encontrado && cotaInferior <= cotaSuperior && valorMedio >= 0 && valorMedio < listaCoches.numElementos) 
     {
-        if (codigo == listaCoches.lista[valorMedio].codigo) 
+        if (codigo == listaCoches.lista[valorMedio]->codigo) 
         {
             resultado = valorMedio;
             encontrado = true;
         }
         else 
         {
-            if (codigo > listaCoches.lista[valorMedio].codigo) 
+            if (codigo > listaCoches.lista[valorMedio]->codigo) 
             {
                 cotaInferior = valorMedio + 1;
                 valorMedio = (cotaSuperior + cotaInferior) / 2;
@@ -94,17 +94,21 @@ bool LeerModelos(ListaCoches& listaC)
 
     listaC.size = listaC.numElementos + 10;
 
-    listaC.lista = new Coche[listaC.size];
+    listaC.lista = new Coche*[listaC.size];
 
     for (int i = 0; i < listaC.numElementos; i++)
     {
-        entrada >> listaC.lista[i].codigo;
-        entrada >> listaC.lista[i].precioDia;
-        entrada >> listaC.lista[i].marca;
+        Coche* Cocheaux = new Coche();
+
+        listaC.lista[i] = Cocheaux;
+
+        entrada >> listaC.lista[i]->codigo;
+        entrada >> listaC.lista[i]->precioDia;
+        entrada >> listaC.lista[i]->marca;
 
         string aux;
         entrada >> aux;
-        listaC.lista[i].marca += " " + aux;
+        listaC.lista[i]->marca += " " + aux;
       
     }
 
@@ -139,7 +143,7 @@ bool LeerAlquileres(ListaAlquileres& listaA, ListaCoches& listaC)
         }
         else
         {
-            listaA.lista[i].coche = &listaC.lista[indiceCoche];
+            listaA.lista[i].coche = listaC.lista[indiceCoche];
         }
 
         entrada >> listaA.lista[i].fecha;
@@ -179,7 +183,16 @@ int main()
 
     MostrarAlquileres(listaA);
 
+
+
+    // limpiar la memoria
+    for (int i = 0; i < listaC.numElementos; i++) {
+        delete listaC.lista[i];
+    }
+
     delete[] listaC.lista;
     delete[] listaA.lista;
+
+
 }
 
