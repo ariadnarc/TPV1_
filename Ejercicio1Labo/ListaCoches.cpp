@@ -1,6 +1,7 @@
 #include<iostream>
 #include "ListaCoches.h"
 #include <fstream>
+#include<string>
 
 using namespace std;
 
@@ -53,19 +54,13 @@ bool ListaCoches::LeerModelos()
     lista = new Coche* [size];
 
     for (int i = 0; i < numElementos; i++)
-    {
-        Coche* Cocheaux = new Coche();
+    {       
+        lista[i] = new Coche();
 
-        lista[i] = Cocheaux;
+        entrada >> lista[i]->codigo 
+                >> lista[i]->precioDia;
 
-        entrada >> lista[i]->codigo;
-        entrada >> lista[i]->precioDia;
-        entrada >> lista[i]->marca;
-
-        string aux;
-        entrada >> aux;
-        lista[i]->marca += " " + aux;
-
+        getline(entrada, lista[i]->marca);
     }
 
     return true;

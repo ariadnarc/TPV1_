@@ -9,15 +9,18 @@ using namespace std;
 void ListaAlquileres::MostrarAlquileres()
 {
     for (int i = 0; i < numElementos; i++)
-    {        
-        if (lista[i].coche == nullptr)
+    {
+        //referencia, muy util
+        const Alquiler& alq = lista[i];
+
+        if (alq.coche == nullptr)
         {
-            cout << lista[i].fecha << " " << "ERROR: modelo inexistente." << endl;
+            cout << alq.fecha << " " << "ERROR: modelo inexistente." << endl;
         }
         else
         {
-            cout << lista[i].fecha << " " << lista[i].coche->marca << " " << lista[i].dias << " día(s) por " 
-                << lista[i].dias * lista[i].coche->precioDia << " euros." << endl;
+            cout << alq.fecha << " " << alq.coche->marca << " " << alq.dias << " día(s) por " 
+                << alq.dias * alq.coche->precioDia << " euros." << endl;
         }
     }
 }
@@ -55,9 +58,10 @@ bool ListaAlquileres::LeerAlquileres(ListaCoches& listaC)
             lista[i].coche = listaC.GetCoche(indiceCoche);
         }
 
-        entrada >> lista[i].fecha;
 
-        entrada >> lista[i].dias;
+        // flujo de entrada
+        entrada >> lista[i].fecha
+                >> lista[i].dias;
 
 
     }
