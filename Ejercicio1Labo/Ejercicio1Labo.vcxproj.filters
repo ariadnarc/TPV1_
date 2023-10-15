@@ -30,6 +30,9 @@
     <ClCompile Include="Alquiler.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="Coche.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alquiler.h">
@@ -42,6 +45,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="ListaCoches.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Desarrollo de videojuegos UCM\Segundo\Primer cuatri\TPV 1\Laboratorio 19 septiembre\Date.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Downloads\checkML.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

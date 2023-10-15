@@ -1,33 +1,62 @@
 #include<iostream>
-#include<fstream>
+#include<fstream>//para flujo de archivos, entrada/salida
 #include "ListaAlquileres.h"
-#include<algorithm>
+#include<algorithm>//para usar el sort
 
-using namespace std;
+using namespace std;//en los cpp si se puede poner el using
 
-
-void ListaAlquileres::MostrarAlquileres()
+//constructor pasando campos
+ListaAlquileres::ListaAlquileres(Alquiler* _lista, int _size, int numElem)
+    : lista(_lista), size(_size), numElementos(numElem) {};
+//constructor por copia
+ListaAlquileres::ListaAlquileres(const ListaAlquileres& listaA)
+    : size(listaA.size), numElementos(listaA.numElementos)
 {
-    for (int i = 0; i < numElementos; i++)
-    {
-        //referencia, muy util
-        const Alquiler& alq = lista[i];
+    lista = new Alquiler[size];
 
-        if (alq.coche == nullptr)
-        {
-            cout << alq.fecha << " " << "ERROR: modelo inexistente." << endl;
-        }
-        else
-        {
-            cout << alq.fecha << " " << alq.coche->marca << " " << alq.dias << " día(s) por " 
-                << alq.dias * alq.coche->precioDia << " euros." << endl;
-        }
+    for (int i = 0; i < numElementos; i++) {
+        lista[i] = listaA.lista[i];
     }
+};
+
+
+//sobrecarga del operador =, constructor por asignacion
+ListaAlquileres& ListaAlquileres::operator=(const ListaAlquileres& listaA) {
+
+    //borrar memoria anterior
+    this->~ListaAlquileres();
+    
+    size = listaA.size;
+    numElementos = listaA.numElementos;
+
+    lista = new Alquiler[size];
+
+    for (int i = 0; i < numElementos; i++) {
+        lista[i] = listaA.lista[i];
+    }
+
+    return *this;
 }
 
 
 
-bool ListaAlquileres::LeerAlquileres(ListaCoches& listaC)
+
+void ListaAlquileres::MostrarAlquileres() const
+{
+    cout << *this;
+}
+
+//sobrecarga del operador de escritura
+ostream& operator <<(ostream& out, const ListaAlquileres& listaA) {
+    for (int i = 0; i < listaA.numElementos; i++) {
+        out << listaA.lista[i];
+    }
+    return out;
+}
+
+
+
+bool ListaAlquileres::LeerAlquileres(const ListaCoches& listaC)
 {
     ifstream entrada("rent.txt");
 
@@ -44,38 +73,88 @@ bool ListaAlquileres::LeerAlquileres(ListaCoches& listaC)
 
     for (int i = 0; i < numElementos; i++)
     {
+        //leer el codigo del coche alquilado
         int codigo;
         entrada >> codigo;
 
-        int indiceCoche = listaC.BuscarCoche(codigo);
+        AsignarIndiceCoche(codigo, listaC, lista[i]);
 
-        if (indiceCoche == -1)
-        {
-            lista[i].coche = nullptr;
-        }
-        else
-        {
-            lista[i].coche = listaC.GetCoche(indiceCoche);
-        }
-
-
-        // flujo de entrada
-        entrada >> lista[i].fecha
-                >> lista[i].dias;
-
-
+        lista[i].leerFechaYDias(entrada);                
     }
-
     return true;
 }
 
 
-void ListaAlquileres:: OrdenarAlquileres()
-{
+void ListaAlquileres:: OrdenarAlquileres(){
     sort(lista, lista + numElementos);
 }
 
 
-void ListaAlquileres::LimpiarMemoria() {
+void ListaAlquileres::AgregarAlquiler(Alquiler& alq) {
+    
+    if (numElementos == size) RedimensionarLista();
+
+    Date fecha = alq.getFecha();
+
+    //esto en vez de ser lineal podría ser logaritmico
+    int i = 0;
+    while (i < numElementos && lista[i].getFecha() < fecha)i++;
+
+
+    int j = numElementos;
+
+    //abrir hueco en el array
+    while (j > i) {
+        lista[j] = lista[j - 1];
+        j--;
+    }
+
+
+    lista[i] = alq;
+    numElementos++;
+}
+
+
+
+
+
+
+void ListaAlquileres::AsignarIndiceCoche(int codigo, const ListaCoches& listaC, Alquiler& alq) {
+    //buscar el indice correspondiente al coche
+    int indiceCoche = listaC.BuscarCoche(codigo);
+   
+    //asignar el puntero del coche
+    alq.setCoche(indiceCoche == -1 ? nullptr : listaC.GetCoche(indiceCoche));
+    
+
+    /*
+    Otra forma de hacerlo
+    if (indiceCoche == -1) {
+        alq.setCoche(nullptr);
+    }
+    else {
+        alq.setCoche(listaC.GetCoche(indiceCoche));
+    }
+    */  
+}
+
+void ListaAlquileres::RedimensionarLista() {
+    Alquiler* aux = new Alquiler[size * 2];
+
+    for (int i = 0; i < numElementos; i++) {
+        aux[i] = lista[i];
+    }
+
+    delete[] lista;
+
+    lista = aux;
+    size = size * 2;
+}
+
+
+
+
+//destructor 
+ListaAlquileres::~ListaAlquileres() {
     delete[] lista;
 }
