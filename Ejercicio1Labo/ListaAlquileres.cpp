@@ -23,6 +23,8 @@ ListaAlquileres::ListaAlquileres(const ListaAlquileres& listaA)
 //sobrecarga del operador =, constructor por asignacion
 ListaAlquileres& ListaAlquileres::operator=(const ListaAlquileres& listaA) {
 
+    if (this == &listaA) return *this;
+
     //borrar memoria anterior
     this->~ListaAlquileres();
     

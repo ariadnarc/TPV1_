@@ -30,6 +30,8 @@ ListaCoches::ListaCoches(const ListaCoches& listaC)
 
 ListaCoches& ListaCoches::operator=(const ListaCoches& listaC) {
 
+    if (this == &listaC) return *this;
+
     //borrar memoria anterior
     this->~ListaCoches();
 
