@@ -437,11 +437,11 @@ void Game::UpdateScoreUI() {
 }
 
 
-//falta guardar mas datos
+//falta guardar mas datos, direccion de los aliens,info de las balas, current AtkCD de los aliens...,musica...
 void Game::SaveGame() {
 	std::ofstream out;
 
-	out.open("partidas_guardadas/tmp.txt");
+	out.open("partidas_guardadas/save.txt");
 
 	//puntuacion
 	out << score << std::endl;
@@ -533,9 +533,14 @@ void Game::TryRename(SDL_Event ev) {
 	//manejo del input
 	if (ev.type == SDL_KEYDOWN) {
 		if (code >= 30 && code <= 38) {
+
 			slotNumber = code - 29;
+			
 			saving = false;
-			std::rename("","");
+			
+			std::string newName = "partidas_guardadas/save" + code + '.txt';	
+
+			int success = std::rename(std::string("partidas_guardadas/tmp.txt").c_str(),newName.c_str());
 		}	
 	}
 	

@@ -1,0 +1,34 @@
+Grupo 15
+Ariadna Alicia Ruiz Castillo
+Samuel Garcia Bazan
+
+Funcionalidades basicas implementadas(todas):
+	Movimiento del jugador y los alienigenas
+	Los alienigenas rebotan con las paredes
+	El movimiento del jugador esta gestionado por booleanos y funciona con el WASD
+	El jugador puede lanzar balas
+	Los alienigenas disparan balas aleatoriamente 
+	Los bunkers tienen 4 vidas y actualizan su imagen al recibir un disparo
+	Hay colisiones
+	Se pueden leer mapas de archivos de texto
+	Se lanzan excepciones
+	El jugador tambien esta limitado por los bordes de la ventana
+	No hay fugas de memoria
+	El juego acaba cuando el jugador mata a todos los aliens o cuando se muera el jugador
+
+Funcionalidades opcionales implementadas:
+	Los alienigenas tienen una animacion que se actualiza con su movimiento
+	Se muestran las vidas del jugador y se actualizan correctamente(clase infoBar)
+
+Funcionalidades opcionales(solo Samuel):
+	Movimiento del jugador con el WASD y flechas
+	Bunkers con cualquier numero de vidas
+	Se muestra el texto SCORE(desde una imagen de todas las letrasg) y la puntuacion del jugador
+	Hay musica de fondo(no está en bucle)
+	Los alienigenas bajan y aumentan su velocidad con el avance del juego(en particular cada 100 puntos)
+	Distintos frameRates para las entidades del juego
+	Movimiento continuo del jugador y discreto de los aliens
+	Se pueden guardar y cargar las partidas , desde la propia ventana de SDL, no hay slots solo una partida
+	Cuando los aliens bajan de un determinado umbral el jugador pierde
+	Un modo random, si esta en true los tipos de todos los aliens son aleatorios y se puede modificar la probabilidad de aparicion de los aliens disparadores
+

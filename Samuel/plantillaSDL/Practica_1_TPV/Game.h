@@ -174,7 +174,7 @@ public:
 
 	void UpdateScoreUI();
 
-	//esto a lo mejor hay que cambiarlo a una clase
+	//esto a lo mejor hay que cambiarlo a una clase,para la carga de partidas con slots
 	void TryRename(SDL_Event ev);
 
 	//constructor
