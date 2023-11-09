@@ -229,9 +229,18 @@ void Game::Update() {
 	} 
 
 
+	//guardado de slots
+	if (saving) {
+		currentRenameFrames++;
+		if (currentRenameFrames >= savingRenameFrames) {
+			saving = false;
+			currentRenameFrames = 0;
 
-	currentRenameFrames++;
+			//de momento no hacer nada
+			//hay que buscar el primer archivo libre, si lo hay guardar ahí, sino sobreescribir
+		}
 
+	}
 
 }
 
@@ -253,7 +262,12 @@ void Game::HandleEvents() {
 			else if (evento.type == SDL_KEYDOWN && evento.key.keysym.scancode == SDL_SCANCODE_C) {
 				LoadGame();
 			}
+
+
 			if (saving) {
+				TryRename(evento);
+			}
+			if (loading) {
 
 			}
 			//handleEvents de los objetos
@@ -544,9 +558,12 @@ void Game::TryRename(SDL_Event ev) {
 			slotNumber = code - 29;
 			
 			saving = false;
+			currentRenameFrames = 0;
 			
-			std::string newName = "partidas_guardadas/save" + code + '.txt';	
+			std::string newName = "partidas_guardadas/save" + std::to_string(slotNumber)+ ".txt";
+			
 
+			//falta lanzar un error
 			int success = std::rename(std::string("partidas_guardadas/tmp.txt").c_str(),newName.c_str());
 		}	
 	}

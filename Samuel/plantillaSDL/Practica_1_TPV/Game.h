@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <string> //para usar to string
 
 #include "SDL.h"
 
@@ -118,11 +119,15 @@ class Game {
 	int scoreToIncreaseVelocity = 100;
 
 
+	//guardado de partidas
 	bool saving = false;
 	int currentRenameFrames = 0;
 	int savingRenameFrames = 100;
 
 	int slotNumber;
+
+
+	bool loading = false;
 
 	//bucle de juego
 	void Render()const;
