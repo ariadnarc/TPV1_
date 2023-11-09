@@ -27,13 +27,16 @@ private:
 	const static int WIDTH = 4;
 	const static int HEIGHT = 18;
 
-	static const int velocity = 10;
+
+	static const int alienLaserVel = 4;
+	static const int playerLaserVel = 12;
+	int velocity;
 
 	bool hited = false;
 
 	//gestion de diferentes frame rates
 	int _currentFrame = 0;
-	const static int _frameRate = 5;
+	const static int _frameRate = 2;
 
 	void Move();
 	bool Colisions();
@@ -41,7 +44,8 @@ private:
 public:
 
 	Laser(Point2D<> _pos, bool originA, Game* _game)
- 		:pos(_pos), originAlien(originA), game(_game),velocityVector(0, originAlien ? 1 :-1) {};
+ 		:pos(_pos), originAlien(originA), game(_game),velocityVector(0, originAlien ? 1 :-1),
+		velocity(originAlien ? alienLaserVel : playerLaserVel) {};
 
 	void Render();
 

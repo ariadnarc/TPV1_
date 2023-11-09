@@ -55,8 +55,8 @@ const std::string MAP_PATH = "mapas/original.txt";
 
 //puntuaciones de los aliens
 
-const int SCR_ALIEN_TYPE_0 = 10;
-const int SCR_ALIEN_TYPE_1 = 10;
+const int SCR_ALIEN_TYPE_0 = 30;
+const int SCR_ALIEN_TYPE_1 = 20;
 const int SCR_ALIEN_TYPE_2 = 10;
 
 //CONSTANTES DE JUEGO

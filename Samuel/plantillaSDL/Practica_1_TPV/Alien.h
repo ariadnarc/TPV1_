@@ -9,7 +9,7 @@
 
 #include "checkML.h"
 
-constexpr int ALIENS_LIMIT_Y = 380;
+constexpr int ALIENS_LIMIT_Y = 380;//500 posicion cañon
 
 
 class Game;

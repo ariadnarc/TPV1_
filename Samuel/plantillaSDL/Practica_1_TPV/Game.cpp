@@ -294,9 +294,13 @@ void Game::Run() {
 
 		//calcular el tiempo de frame
 		frameTime = SDL_GetTicks() - startTime;
-
+		
+		//prueba para ver cuanto tardan los frames
+		//std::cout << frameTime << std::endl;
+		
 		//si queda tiempo de frame, suspender el programa el tiempo que queda
 		if (frameTime < FRAME_RATE) {
+			
 			SDL_Delay(FRAME_RATE - frameTime);
 		}
 	}
