@@ -77,7 +77,7 @@ Game::Game(const std::vector<TextureInfo>& textInfo)
 
 
 	//inicializar los objetos
-	ReadMap("mapas/original.txt");
+	ReadMap(MAP_PATH);
 
 	infoB = new InfoBar(arrayTexturas[SPACESHIP],arrayTexturas[FONT], this, PLAYER_LIFES);
 
@@ -172,7 +172,11 @@ void Game::Update() {
 	i = 0;
 	while (i < aliens.size()) {
 		if (!aliens[i]->Update()) {
-			score += aliens[i]->getType() == 0 ? 30 : aliens[i]->getType() == 1 ? 20 : 10;//actualizar la puntuacion
+			//incrementar la puntuacion segun el tipo de alien
+			score += aliens[i]->getType() == 0 ? SCR_ALIEN_TYPE_0 :
+					 aliens[i]->getType() == 1 ? SCR_ALIEN_TYPE_1 :
+												 SCR_ALIEN_TYPE_2;
+
 			delete aliens[i];
 			aliens.erase(aliens.begin() + i);
 		}
@@ -313,12 +317,10 @@ void Game::ReadMap(const std::string mapPath) {
 	int v1, v2, v3;//valores auxiliares
 	
 
+	map >> objectType;
+
 	while (!map.eof()) {
-
-		map >> objectType;
-
-		if (map.eof()) return;//para detectar el final del archivo
-
+		
 		map >> v1 >> v2;
 
 		if (objectType == 0) { //cannon		
@@ -331,6 +333,8 @@ void Game::ReadMap(const std::string mapPath) {
 		else if (objectType == 2) { // bunker		
 			bunkers.push_back(new Bunker(arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
 		}	
+
+		map >> objectType;
 	}
 
 }
@@ -441,7 +445,7 @@ void Game::UpdateScoreUI() {
 void Game::SaveGame() {
 	std::ofstream out;
 
-	out.open("partidas_guardadas/save.txt");
+	out.open("partidas_guardadas/tmp.txt");
 
 	//puntuacion
 	out << score << std::endl;
@@ -495,11 +499,9 @@ void Game::LoadGame() {
 	lasers.resize(0);
 
 
+	in >> objectType;
+	
 	while (!in.eof() && !exit) {
-
-		in >> objectType;
-
-		if (in.eof()) exit = true;//para detectar el final del archivo
 
 		in >> v1 >> v2 >> v3;
 
@@ -518,6 +520,7 @@ void Game::LoadGame() {
 			bunkers[bunkers.size() - 1]->setLifes(v3);
 		}
 
+		in >> objectType;
 	}
 
 	//actualizar UI 

@@ -44,11 +44,20 @@ constexpr uint FRAME_RATE = 20;
 
 constexpr uint NUM_TEXTURAS = 5;
 
+
 const std::string TEXTURE_ROOT = "images/";
 
 //enumerado texturas
 enum TextureName{ALIENS,BUNKER,SPACESHIP,STARS,FONT};
 
+//ruta del mapa
+const std::string MAP_PATH = "mapas/original.txt";
+
+//puntuaciones de los aliens
+
+const int SCR_ALIEN_TYPE_0 = 10;
+const int SCR_ALIEN_TYPE_1 = 10;
+const int SCR_ALIEN_TYPE_2 = 10;
 
 //CONSTANTES DE JUEGO
 constexpr int PLAYER_LIFES = 3;
