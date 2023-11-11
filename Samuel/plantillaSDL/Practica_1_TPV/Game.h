@@ -6,6 +6,7 @@
 #include <vector>
 #include <random>
 #include <string> //para usar to string
+#include <filesystem>
 
 #include "SDL.h"
 
@@ -121,8 +122,8 @@ class Game {
 
 	//guardado de partidas
 	bool saving = false;
-	int currentRenameFrames = 0;
-	int savingRenameFrames = 100;
+	int currentInputFrames = 0;//buscar un mejor nombre
+	int maxInputFrames = 100;
 
 	int slotNumber;
 
@@ -153,7 +154,7 @@ class Game {
 	void SaveGame();
 
 	//cargar partida
-	void LoadGame();
+	void LoadGame(std::string savePath);
 
 public:
 	void Run();
@@ -189,7 +190,9 @@ public:
 	void UpdateScoreUI();
 
 	//esto a lo mejor hay que cambiarlo a una clase,para la carga de partidas con slots
-	void TryRename(SDL_Event ev);
+	void ChoseSlot(SDL_Event ev);
+
+	void TryLoad(SDL_Event ev);
 
 	//constructor
 	Game(const std::vector<TextureInfo>& texturesInfo);
