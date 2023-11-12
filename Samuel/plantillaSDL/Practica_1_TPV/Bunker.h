@@ -27,7 +27,7 @@ public:
 	void Update() override;
 
 
-	void Hit(SDL_Rect rect, char tLaser) override;
+	bool Hit(SDL_Rect rect, char tLaser) override;
 
 	SDL_Rect getRect()const;
 

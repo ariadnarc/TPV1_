@@ -23,11 +23,11 @@ protected:
 
 	int lifesLeft;
 
-	std::list<SceneObject>::iterator iterator;
+	std::list<SceneObject*>::iterator iterator;
 
 public:
 
-	virtual	void Hit(SDL_Rect rect, char tLaser) = 0;
+	virtual	bool Hit(SDL_Rect rect, char tLaser) = 0;
 
 
 	//constructor, hace falta?
@@ -37,7 +37,7 @@ public:
 	//hace falta volver a poner el destructor?
 	virtual ~SceneObject() {};
 
-	void setListIterator(std::list<SceneObject>::iterator it) { iterator = it; }
+	void setListIterator(std::list<SceneObject*>::iterator it) { iterator = it; }
 
 };
 

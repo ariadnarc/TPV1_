@@ -45,6 +45,4 @@ void Mothership::Update() {
 		_cannotMove = false;
 	}
 
-
-
 }

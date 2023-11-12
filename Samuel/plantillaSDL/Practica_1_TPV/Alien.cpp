@@ -45,8 +45,22 @@ void Alien::Update() {
 	//return alive;
 }
 
-void Alien::Hit(SDL_Rect rect, char tLaser) {
-	//alive = false;
+bool Alien::Hit(SDL_Rect rect, char tLaser) {
+	bool colision = false;
+
+	SDL_Rect aux = getRect();
+
+	if (tLaser == 'b') {
+		if (SDL_HasIntersection(&rect, &aux)) {
+			colision = true;
+			lifesLeft--;
+			if (lifesLeft <= 0) game->HasDied(iterator);
+		}
+	}
+
+
+	return colision;
+
 }
 
 

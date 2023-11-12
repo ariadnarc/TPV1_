@@ -52,8 +52,19 @@ void Bunker::Update() {
 	//return lifesLeft > 0;
 }
 
-void Bunker::Hit(SDL_Rect rect, char tLaser) {
-	//lifesLeft--;
+bool Bunker::Hit(SDL_Rect rect, char tLaser) {
+	bool colision = false;
+	
+	SDL_Rect aux = getRect();
+
+
+	if (SDL_HasIntersection(&rect, &aux)) {
+		colision = true;
+		lifesLeft--;
+		if (lifesLeft <= 0) game->HasDied(iterator);
+	}
+
+	return colision;
 }
 
 SDL_Rect Bunker::getRect()const {

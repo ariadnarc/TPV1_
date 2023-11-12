@@ -28,8 +28,6 @@ private:
 	static const int playerLaserVel = 12;
 	int velocity;
 
-	bool hited = false;
-
 	//gestion de diferentes frame rates
 	int _currentFrame = 0;
 	const static int _frameRate = 2;
@@ -47,11 +45,11 @@ public:
 
 	void Update() override;
 
-	void Hit(SDL_Rect rect, char tLaser) override;
+	bool Hit(SDL_Rect rect, char tLaser) override;
 
 	SDL_Rect getRect()const;
 
-	bool getOriginA()const { return color == 'r'; }
+	char getColor()const { return color; }
 
 	void Save(std::ostream& out) const override;
 

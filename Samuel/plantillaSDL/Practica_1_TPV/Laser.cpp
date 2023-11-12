@@ -29,7 +29,9 @@ void  Laser::Update() {
 		_currentFrame = 0;
 	}
 
-	//return !hited && !Colisions() && pos.getY() > 0;
+	if (Colisions() || pos.getY() < 0) {
+		game->HasDied(iterator);
+	}
 }
 
 SDL_Rect Laser::getRect()const {
@@ -43,8 +45,21 @@ SDL_Rect Laser::getRect()const {
 	return rect;
 }
 
-void Laser::Hit(SDL_Rect rect, char tLaser) {
-	hited = true;
+bool Laser::Hit(SDL_Rect rect, char tLaser) {
+	bool colision = false;
+
+	SDL_Rect aux = getRect();
+
+
+	if (tLaser != color) {
+		if (SDL_HasIntersection(&rect, &aux)) {
+			colision = true;
+			lifesLeft--;
+			if (lifesLeft <= 0) game->HasDied(iterator);
+		}
+	}
+
+	return colision;
 }
 
 

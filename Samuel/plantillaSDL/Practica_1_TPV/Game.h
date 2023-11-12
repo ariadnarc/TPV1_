@@ -81,19 +81,15 @@ class Game {
 
 	Cannon* player;
 
+	Mothership* mother;
+	
 	//CICLO DE JUEGO
 	bool exit = false;
 
 	uint frameTime = 0;
 	uint startTime;
-	
-	//MOVIMIENTO DE LOS ALIENS, esto pasa a mothership
-	//Vector2D<> aliensDirection;
-	//bool cannotM = false;
-	//bool _goDown = false;
-	//int nextDirX = 0;
 
-	Mothership* mother;
+
 
 	//GENERADOR ALEATORIO
 	std::mt19937_64 randomGenerator;
@@ -158,19 +154,11 @@ class Game {
 public:
 	void Run();
 
-	//obtener la direccion de movimiento de los alienigenas
-	//Vector2D<> getDirection() const { return aliensDirection; }// cambiar por Vector2D
-
 	//devuelve el renderer
 	SDL_Renderer* getRenderer() const { return renderer; }
 
 	//devuelve el ancho de ventana
 	int getWinWidht()const { return winWidth; }
-
-	//informar de que no es posible moverse otra iteración más en la dirección actual
-	//void cannotMove();
-
-	//void goDown();
 	
 	//disparar laser
 	void fireLaser(Vector2D<> pos,char color);
@@ -192,6 +180,9 @@ public:
 	void ChoseSlot(SDL_Event ev);
 
 	void TryLoad(SDL_Event ev);
+
+	//el iterador va por referencia?
+	void HasDied(std::list<SceneObject*>::iterator it);
 
 	//constructor
 	Game(const std::vector<TextureInfo>& texturesInfo);

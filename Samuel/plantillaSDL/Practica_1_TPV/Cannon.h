@@ -54,7 +54,7 @@ public:
 
 	void HandleEvents(SDL_Event ev); 
 
-	void Hit(SDL_Rect rect, char tLaser) override;
+	bool Hit(SDL_Rect rect, char tLaser) override;
 
 	int getLifes() const { return lifesLeft; }
 

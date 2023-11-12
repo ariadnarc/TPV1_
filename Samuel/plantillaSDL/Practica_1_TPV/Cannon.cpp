@@ -20,7 +20,6 @@ void Cannon::Update() {
 		_currentFrame = 0;
 	}
 
-	//return lifesLeft > 0;
 }
 
 
@@ -45,9 +44,24 @@ void Cannon::HandleEvents(SDL_Event ev) {
 	}
 }
 
-void Cannon::Hit(SDL_Rect rect, char tLaser) {
-	//lifesLeft--;
-	//game->UpdateLifesUI();
+bool Cannon::Hit(SDL_Rect rect, char tLaser) {
+	
+	bool colision = false;
+
+	SDL_Rect aux = getRect();
+
+	if (tLaser == 'r') {
+		if (SDL_HasIntersection(&rect, &aux)){
+			colision = true;
+			lifesLeft--;
+			game->UpdateLifesUI();
+
+			//if (lifesLeft <= 0) game->PlayerDied();
+		}
+	}
+	
+
+	return colision;
 }
 
 void Cannon::Move() {

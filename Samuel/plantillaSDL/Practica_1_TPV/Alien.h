@@ -58,7 +58,7 @@ public:
 
 	void Update() override;
 	
-	void Hit(SDL_Rect rect, char tLaser) override;
+	bool Hit(SDL_Rect rect, char tLaser) override;
 
 	void Save(std::ostream& out) const override;
 
