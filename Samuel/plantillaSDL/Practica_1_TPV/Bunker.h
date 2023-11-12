@@ -6,15 +6,12 @@
 
 #include "texture.h"
 #include "Vector2D.h"
+#include "SceneObject.h"
 
 #include "checkML.h"
 
 
-class Bunker {
-
-	Point2D<> pos;
-
-	int lifesLeft;
+class Bunker : public SceneObject{
 
 	Texture* texture;
 
@@ -22,15 +19,15 @@ public:
 
 	//constructor
 	Bunker(Texture* text,Point2D<> _pos,int lifes) 
-		:texture(text), pos(_pos),lifesLeft(lifes){};
+		:SceneObject(nullptr,_pos,0,0,lifes), texture(text) {};
 
 
-	void Render()const;
+	void Render()const override;
 
-	bool Update();
+	void Update() override;
 
 
-	void Hit();	
+	void Hit(SDL_Rect rect, char tLaser) override;
 
 	SDL_Rect getRect()const;
 
@@ -40,6 +37,8 @@ public:
 	void setPos(Point2D<> p) { pos = p; }
 
 	void setLifes(int n) { lifesLeft = n; }
+
+	void Save(std::ostream& out) const override;
 };
 
 

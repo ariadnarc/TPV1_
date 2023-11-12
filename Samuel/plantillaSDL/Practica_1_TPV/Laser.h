@@ -6,23 +6,19 @@
 
 #include "texture.h"//solo si se va a usar una textura para renderizar
 #include "Vector2D.h"
+#include "SceneObject.h"
 
 #include "checkML.h"
 
 class Game;
 
 
-class Laser {
-private:
-	
-	Point2D<> pos;
+class Laser : public SceneObject {
+private:	
 		
-	bool originAlien;
+	char color;
 
 	Vector2D<> velocityVector;
-
-	
-	Game* game;
 
 	const static int WIDTH = 4;
 	const static int HEIGHT = 18;
@@ -43,19 +39,19 @@ private:
 
 public:
 
-	Laser(Point2D<> _pos, bool originA, Game* _game)
- 		:pos(_pos), originAlien(originA), game(_game),velocityVector(0, originAlien ? 1 :-1),
-		velocity(originAlien ? alienLaserVel : playerLaserVel) {};
+	Laser(Point2D<> _pos, char color, Game* _game)
+ 		: SceneObject(game,_pos,WIDTH,HEIGHT,1), color(color), velocityVector(0, color == 'r' ? 1 : -1),
+		velocity(color == 'r' ? alienLaserVel : playerLaserVel) {};
 
-	void Render();
+	void Render() const override;
 
-	bool Update();
+	void Update() override;
 
-	void Hit();
+	void Hit(SDL_Rect rect, char tLaser) override;
 
 	SDL_Rect getRect()const;
 
-	bool getOriginA()const { return originAlien; }
+	bool getOriginA()const { return color == 'r'; }
 };
 
 

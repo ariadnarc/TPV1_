@@ -41,6 +41,7 @@ void Game::LoadTextures(const std::vector<TextureInfo>& textInfo) {
 void Game::RandomMode() {
 	int porcentajeOtros = shootersPercent + ((100 - shootersPercent) / 2);
 
+	/*
 	for (int i = 0; i < aliens.size(); i++) {
 		int r = getRandomRange(0, 100);
 
@@ -49,6 +50,7 @@ void Game::RandomMode() {
 		else							aliens[i]->setType(2);
 
 	}
+	*/
 }
 
 void Game::LoadMusic() {
@@ -79,10 +81,11 @@ Game::Game(const std::vector<TextureInfo>& textInfo)
 	//inicializar los objetos
 	ReadMap(MAP_PATH);
 
+
 	infoB = new InfoBar(arrayTexturas[SPACESHIP],arrayTexturas[FONT], this, PLAYER_LIFES);
 
 	//inicializar direcion de los aliens
-	aliensDirection = Vector2D<>(1, 0);// se mueven hacia la derecha
+	//aliensDirection = Vector2D<>(1, 0);// se mueven hacia la derecha
 
 	//inicializar el generador aleatorio con una semilla 
 	randomGenerator = std::mt19937_64(time(nullptr));
@@ -96,25 +99,21 @@ Game::Game(const std::vector<TextureInfo>& textInfo)
 
 //destructor
 Game::~Game() {
-	//delete de las texturas(dentro se hace el SDL_DestroyTexture)
-	for (int i = 0; i < NUM_TEXTURAS; i++) {
-		delete arrayTexturas[i];
-	}
-
+	
 	//delete de los objetos(eran punteros)
 
 	delete player;
 
 	delete infoB;
 
-	for (int i = 0; i < aliens.size(); i++) {
-		delete aliens[i];
+	while (objects.size() > 0) {
+		delete objects.front();
+		objects.pop_front();
 	}
-	for (int i = 0; i < bunkers.size(); i++) {
-		delete bunkers[i];
-	}
-	for (int i = 0; i < lasers.size(); i++) {
- 		delete lasers[i];
+
+	//delete de las texturas(dentro se hace el SDL_DestroyTexture)
+	for (int i = 0; i < NUM_TEXTURAS; i++) {
+		delete arrayTexturas[i];
 	}
 
 
@@ -141,15 +140,13 @@ void Game::Render()const {
 
 	player->Render();
 	
-	for (int i = 0; i < lasers.size(); i++) {//los lasers van por detras
-		lasers[i]->Render();
+	/*
+	for (std::list<SceneObject*>::const_iterator it = objects.begin(); it != objects.end(); ++it) {
+		(*it)->Render();
 	}
-	for (int i = 0; i < aliens.size(); i++) {
-		aliens[i]->Render();
-	}
-	for (int i = 0; i < bunkers.size(); i++) {
-		bunkers[i]->Render();
-	}
+	*/
+
+	for (SceneObject* ob : objects) ob->Render();
 
 	infoB->Render();
 
@@ -163,12 +160,14 @@ void Game::Update() {
 
 
 	//update del player
-	if (!player->Update()) exit = true;
+	//if (!player->Update()) exit = true;
 
 	//cambiar por whiles 
 	int i;
 
 	//update de los aliens
+
+	/*
 	i = 0;
 	while (i < aliens.size()) {
 		if (!aliens[i]->Update()) {
@@ -182,8 +181,10 @@ void Game::Update() {
 		}
 		else i++;
 	}
+	*/
 
 	//update de los bunkers
+	/*
 	i = 0;
 	while (i < bunkers.size()) {
 		if (!bunkers[i]->Update()) {
@@ -192,8 +193,10 @@ void Game::Update() {
 		}
 		else i++;
 	}
+	*/
 
 	//update de los lasers
+	/*
 	i = 0;
 	while (i < lasers.size()) {
 		if (!lasers[i]->Update()) {
@@ -202,9 +205,11 @@ void Game::Update() {
 		}
 		else i++;
 	}
+	*/
 
 
 	//cambio de direccion de los aliens
+	/*
 	if(_goDown){
 		aliensDirection = Vector2D<>(nextDirX, 0);//no seria mejor con un set?
 		_goDown = false;
@@ -215,6 +220,7 @@ void Game::Update() {
 		cannotM = false;
 		aliensDirection = Vector2D<>(0, 1);
 	}
+	*/
 
 	//aumento de velocidad de los aliens, en relacion a la puntuacion
 	if (score >= scoreToIncreaseVelocity) {
@@ -224,9 +230,11 @@ void Game::Update() {
 
 	UpdateScoreUI();
 	//condicion de victoria
+	/*
 	if (aliens.size() == 0){
 		exit = true;//añadir comentario de victoria
 	} 
+	*/
 
 
 	//guardado de slots
@@ -349,10 +357,10 @@ void Game::ReadMap(const std::string mapPath) {
 		}
 		else if (objectType == 1) { //alien 		
 			map >> v3;
-			aliens.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this));
+			objects.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this));
 		}
 		else if (objectType == 2) { // bunker		
-			bunkers.push_back(new Bunker(arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
+			objects.push_back(new Bunker(arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
 		}	
 
 		map >> objectType;
@@ -364,15 +372,15 @@ void Game::ReadMap(const std::string mapPath) {
 
 
 void Game::cannotMove() {
-	cannotM = true;
+	//cannotM = true;
 }
 
 void Game::goDown() {
-	_goDown = true;
+	//_goDown = true;
 }
 
 void Game::fireLaser(Vector2D<> pos,bool originA) {
-	lasers.push_back(new Laser(pos, originA, this));
+	//lasers.push_back(new Laser(pos, originA, this));
 }
 
 
@@ -386,6 +394,7 @@ bool Game::collisions(const Laser* laser) {
 	
 	//colision con el player,solo cuando el laser es de los aliens
 
+	/*
 	if (laser->getOriginA()) {
 		other = player->getRect();
 		if (SDL_HasIntersection(&(laserRect), &(other))) {
@@ -393,25 +402,29 @@ bool Game::collisions(const Laser* laser) {
 			player->Hit();
 		}
 	}
+	*/
 
 	//colisiones con los demas objetos, si usaramos herencia esto se podria agrupar en una unica funcion
 	//pasar a 3 funciones separadas
 
 	//colisiones con los aliens, solo cuando el laser es del jugador
 
+	/*
 	if (!laser->getOriginA()) {
 		i = 0;
 		while (i < aliens.size() && !colision) {
 			other = aliens[i]->getRect();
 			if (SDL_HasIntersection(&(laserRect), &(other))) {
 				colision = true;
-				aliens[i]->Hit();
+				//aliens[i]->Hit();
 			}
 			i++;
 		}
 	}
+	*/
 
 	//colisiones con los bunkers,siempre
+	/*
 	i = 0;
 	while (i < bunkers.size() && !colision) {
 		other = bunkers[i]->getRect();
@@ -421,9 +434,11 @@ bool Game::collisions(const Laser* laser) {
 		}
 		i++;
 	}
+	*/
 
 
 	//colisiones con los lasers, no comparar lasers del mismo origen
+	/*
 	i = 0;
 	while (i < lasers.size() && !colision) {
 
@@ -438,6 +453,7 @@ bool Game::collisions(const Laser* laser) {
 
 		i++;
 	}	
+	*/
 
 	return colision;
 }
@@ -476,6 +492,7 @@ void Game::SaveGame() {
 	out << std::endl;
 
 	//info aliens
+	/*
 	for (int i = 0; i < aliens.size(); i++) {
 		out << 1 << " " << aliens[i]->getRect().x << " " <<
 			aliens[i]->getRect().y << " " << aliens[i]->getType() << std::endl;
@@ -486,6 +503,7 @@ void Game::SaveGame() {
 		out << 2 << " " << bunkers[i]->getRect().x << " " <<
 			bunkers[i]->getRect().y << " " << bunkers[i]->getLifes() << std::endl;
 	}
+	*/
 
 
 }
@@ -510,6 +528,7 @@ void Game::LoadGame(std::string savePath) {
 	bool exit = false;
 	
 	//borrar las entidades que hay actualmente,hay que sacar esto a un metodo
+	/*
 	for (int i = 0; i < aliens.size(); i++) {
 		delete aliens[i];
 	}
@@ -519,10 +538,13 @@ void Game::LoadGame(std::string savePath) {
 	for (int i = 0; i < lasers.size(); i++) {
 		delete lasers[i];
 	}
+	*/
 
+	/*
 	aliens.resize(0);
 	bunkers.resize(0);
 	lasers.resize(0);
+	*/
 
 
 	in >> objectType;
@@ -538,12 +560,12 @@ void Game::LoadGame(std::string savePath) {
 		}
 		else if (objectType == 1) { //alien 
 		
-			aliens.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this));
+			//aliens.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this));
 		}
 		else if (objectType == 2) { // bunker	
 			
-			bunkers.push_back(new Bunker(arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
-			bunkers[bunkers.size() - 1]->setLifes(v3);
+			//bunkers.push_back(new Bunker(arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
+			//bunkers[bunkers.size() - 1]->setLifes(v3);
 		}
 
 		in >> objectType;

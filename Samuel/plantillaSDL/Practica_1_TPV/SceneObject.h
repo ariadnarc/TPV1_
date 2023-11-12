@@ -31,12 +31,13 @@ public:
 
 
 	//constructor, hace falta?
-	SceneObject(Game* game, Point2D<> pos, int width, int height, int lifesLeft)
-		: GameObject(game), pos(pos), width(width), height(height), lifesLeft(lifesLeft){};
+	SceneObject(Game* game, Point2D<> _pos, int width, int height, int lifesLeft)
+		: GameObject(game), pos(_pos), width(width), height(height), lifesLeft(lifesLeft){};
 
 	//hace falta volver a poner el destructor?
-	virtual ~SceneObject() = 0;
+	virtual ~SceneObject() {};
 
+	void setListIterator(std::list<SceneObject>::iterator it) { iterator = it; }
 
 };
 

@@ -138,6 +138,7 @@
     <ClCompile Include="InfoBar.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="Practica_1_TPV.cpp" />
+    <ClCompile Include="ShooterAlien.cpp" />
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Mothership.h" />
     <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="ShooterAlien.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="Ufo.h" />
     <ClInclude Include="Vector2D.h" />

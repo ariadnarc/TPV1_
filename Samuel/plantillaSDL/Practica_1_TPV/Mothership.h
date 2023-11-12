@@ -11,7 +11,7 @@
 #include "checkML.h"
 
 
-class MotherShip : public GameObject {
+class Mothership : public GameObject {
 
 	Vector2D<> aliensDir;
 
@@ -32,7 +32,7 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
 	bool shouldMove();
 
-	void cannotMove();
+	//void cannotMove();
 
 	void alienDied();
 

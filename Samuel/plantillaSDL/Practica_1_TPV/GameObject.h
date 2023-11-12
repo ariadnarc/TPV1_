@@ -32,7 +32,7 @@ public:
 	//constructor
 	GameObject(Game* game) : game(game) {};//hace falta???
 	//destructor (siempre virtual)
-	virtual ~GameObject() = 0;
+	virtual ~GameObject() {};
 
 
 

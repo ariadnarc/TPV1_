@@ -77,9 +77,7 @@ class Game {
 	
 
 	//OBJETOS DEL JUEGO	 
-	std::vector<Bunker*> bunkers;
-	std::vector<Alien*> aliens;
-	std::vector<Laser*> lasers;
+	std::list<SceneObject*> objects;
 
 	Cannon* player;
 
@@ -89,12 +87,13 @@ class Game {
 	uint frameTime = 0;
 	uint startTime;
 	
-	//MOVIMIENTO DE LOS ALIENS
-	Vector2D<> aliensDirection;
-	bool cannotM = false;
-	bool _goDown = false;
-	int nextDirX = 0;
+	//MOVIMIENTO DE LOS ALIENS, esto pasa a mothership
+	//Vector2D<> aliensDirection;
+	//bool cannotM = false;
+	//bool _goDown = false;
+	//int nextDirX = 0;
 
+	Mothership* mother;
 
 	//GENERADOR ALEATORIO
 	std::mt19937_64 randomGenerator;
@@ -160,7 +159,7 @@ public:
 	void Run();
 
 	//obtener la direccion de movimiento de los alienigenas
-	Vector2D<> getDirection() const { return aliensDirection; }// cambiar por Vector2D
+	//Vector2D<> getDirection() const { return aliensDirection; }// cambiar por Vector2D
 
 	//devuelve el renderer
 	SDL_Renderer* getRenderer() const { return renderer; }

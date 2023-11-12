@@ -3,14 +3,15 @@
 #include "Alien.h"
 #include "Game.h"
 
+
 #include "checkML.h"
 
 int Alien::_moveFrameRate = 13;
 
 Alien::Alien(Texture* text, Point2D<> _pos, int _type, Game* _game)
-	:texture(text), pos(_pos), type(_type), game(_game), alive(true), frame(0) {
+	:SceneObject(game,_pos,0,0,1), texture(text), type(_type), frame(0) {
 
-	shootRate = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
+	//shootRate = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
 };
 
 
@@ -22,7 +23,7 @@ void Alien::UpdateAnim() {
 	frame = (frame + 1) % texture->getNumColumns();
 }
 
-bool Alien::Update() {
+void Alien::Update() {
 
 	_currentMoveFrame++;
 	if (_currentMoveFrame >= _moveFrameRate) {
@@ -32,26 +33,29 @@ bool Alien::Update() {
 		_currentMoveFrame = 0;
 	}
 
+	/*pasar al shooterAlien
 	_currentShootFrame++;
 	if(_currentShootFrame >= _shootFrameRate){
 		Shoot();
 	
 		_currentShootFrame = 0;
 	}
+	*/
 
-	return alive;
+	//return alive;
 }
 
-void Alien::Hit() {
-	alive = false;
+void Alien::Hit(SDL_Rect rect, char tLaser) {
+	//alive = false;
 }
 
 
 void Alien::Move() {
-	Vector2D<> dir = game->getDirection();
+	//Vector2D<> dir = game->getDirection();
 	
-	pos = Vector2D<>(pos.getX() + dir.getX()*velocityX,pos.getY()+dir.getY()*velocityY);
+	//pos = Vector2D<>(pos.getX() + dir.getX()*velocityX,pos.getY()+dir.getY()*velocityY);
 
+	/*
 	if (
 		( dir.getX() == -1 && pos.getX() <= (0+velocityX) ) ||
 		( dir.getX() ==  1 && pos.getX() >= (game->getWinWidht() - (texture->getFrameWidth() ) - velocityX) )
@@ -66,20 +70,11 @@ void Alien::Move() {
 	if (pos.getY() >= ALIENS_LIMIT_Y) {
 		game->aliensLimitBotton();
 	}
+	*/
 
 }
 
-void Alien::Shoot() {
-	if (type == 0) {
-		shootReload++;
 
-		if (shootReload >= shootRate) {
-			game->fireLaser(Vector2D<>(pos.getX() + texture->getFrameWidth() / 2, pos.getY() + texture->getFrameHeight() / 2), true);
-			shootReload = 0;
-			shootRate = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
-		}
-	}
-}
 
 SDL_Rect Alien::getRect()const {
 	SDL_Rect rect;
@@ -94,4 +89,9 @@ SDL_Rect Alien::getRect()const {
 
 void Alien::IncreaseVelocity() {
 	_moveFrameRate--;
+}
+
+
+void Alien::Save(std::ostream& out) const {
+
 }

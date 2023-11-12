@@ -10,7 +10,7 @@ void Cannon::Render()const {
 	texture->render(getRect());
 }
 
-bool Cannon::Update() {
+void Cannon::Update() {
 	
 	_currentFrame++;
 	if (_currentFrame >= _frameRate) {
@@ -20,7 +20,7 @@ bool Cannon::Update() {
 		_currentFrame = 0;
 	}
 
-	return lifesLeft > 0;
+	//return lifesLeft > 0;
 }
 
 
@@ -45,9 +45,9 @@ void Cannon::HandleEvents(SDL_Event ev) {
 	}
 }
 
-void Cannon::Hit() {
-	lifesLeft--;
-	game->UpdateLifesUI();
+void Cannon::Hit(SDL_Rect rect, char tLaser) {
+	//lifesLeft--;
+	//game->UpdateLifesUI();
 }
 
 void Cannon::Move() {
@@ -111,4 +111,9 @@ SDL_Rect Cannon::getRect() const {
 	rect.h = texture->getFrameHeight();
 
 	return rect;
+}
+
+
+void Cannon::Save(std::ostream& out) const {
+
 }

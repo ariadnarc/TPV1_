@@ -6,26 +6,20 @@
 
 #include "texture.h"
 #include "Vector2D.h"
+#include "SceneObject.h"
 
 #include "checkML.h"
 
 
 class Game;
 
-class Cannon {
-
-	Point2D<> pos;
+class Cannon : public SceneObject{
 
 	Texture* texture;
 
-	Game* game;
-
 	Vector2D<> direction;
 
-	int lifesLeft;
-
 	const int velocity = 2;
-
 
 	//booleanos para control del input
 	bool rightWASD = false;
@@ -51,16 +45,16 @@ public:
 
 	//constructor
 	Cannon(Texture* text, Point2D<> _pos, Game* _game,int lifes)
-		:texture(text), pos(_pos),  game(_game),lifesLeft(lifes), direction(0,0) {};
+		: SceneObject(game,_pos,0,0,lifes), texture(text), direction(0, 0) {};
 
 
-	void Render()const;
+	void Render()const override;
 
-	bool Update();
+	void Update() override;
 
 	void HandleEvents(SDL_Event ev); 
 
-	void Hit();
+	void Hit(SDL_Rect rect, char tLaser) override;
 
 	int getLifes() const { return lifesLeft; }
 
@@ -72,6 +66,8 @@ public:
 
 	void setLifes(int n) { lifesLeft = n; }
 
+
+	void Save(std::ostream& out) const override;
 };
 
 

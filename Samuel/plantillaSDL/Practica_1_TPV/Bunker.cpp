@@ -48,12 +48,12 @@ void Bunker::Render() const{
 	texture->renderFrame(getRect(), 0,std::clamp(indiceFrame,0,cols));
 }
 
-bool Bunker::Update() {
-	return lifesLeft > 0;
+void Bunker::Update() {
+	//return lifesLeft > 0;
 }
 
-void Bunker::Hit() {
-	lifesLeft--;
+void Bunker::Hit(SDL_Rect rect, char tLaser) {
+	//lifesLeft--;
 }
 
 SDL_Rect Bunker::getRect()const {
@@ -67,3 +67,7 @@ SDL_Rect Bunker::getRect()const {
 	return rect;
 }
 
+
+void Bunker::Save(std::ostream& out) const {
+
+}

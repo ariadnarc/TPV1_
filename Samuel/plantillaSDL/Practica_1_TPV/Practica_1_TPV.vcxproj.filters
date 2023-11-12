@@ -39,6 +39,9 @@
     <ClCompile Include="InfoBar.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="ShooterAlien.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Hoja3SDL_ejercicio3\checkML.h">
@@ -78,6 +81,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Ufo.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ShooterAlien.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
