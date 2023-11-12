@@ -9,7 +9,7 @@
 int Alien::_moveFrameRate = 13;
 
 Alien::Alien(Texture* text, Point2D<> _pos, int _type, Game* _game,Mothership* mother)
-	:SceneObject(game,_pos,0,0,1), texture(text), type(_type), frame(0),mother(mother) {
+	:SceneObject(_game,_pos,0,0,1), texture(text), type(_type), frame(0),mother(mother) {
 
 	//shootRate = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
 };

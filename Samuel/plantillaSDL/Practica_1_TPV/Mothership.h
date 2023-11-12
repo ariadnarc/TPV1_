@@ -15,10 +15,12 @@ class Mothership : public GameObject {
 
 	Vector2D<> aliensDir;
 
+	int nextDirX = 0;
+
 	bool _cannotMove = false;
 
 	//a lo mejor no hace falta
-	//bool goDown = false;
+	bool _goDown = false;
 
 	//enumerado state ...
 
@@ -46,11 +48,11 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 	int getAlienCount();
 
 	void Render() const override {};
-	void Update() override {};
+	void Update() override;
 	void Save(std::ostream& out)const override {};
 
 
-	void goDown(){};// no se si hace falta
+	void goDown();// no se si hace falta
 };
 
 

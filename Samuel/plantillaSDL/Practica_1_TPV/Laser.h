@@ -40,7 +40,7 @@ private:
 public:
 
 	Laser(Point2D<> _pos, char color, Game* _game)
- 		: SceneObject(game,_pos,WIDTH,HEIGHT,1), color(color), velocityVector(0, color == 'r' ? 1 : -1),
+ 		: SceneObject(_game,_pos,WIDTH,HEIGHT,1), color(color), velocityVector(0, color == 'r' ? 1 : -1),
 		velocity(color == 'r' ? alienLaserVel : playerLaserVel) {};
 
 	void Render() const override;

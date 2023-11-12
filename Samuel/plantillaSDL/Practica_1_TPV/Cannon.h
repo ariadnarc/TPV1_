@@ -45,7 +45,7 @@ public:
 
 	//constructor
 	Cannon(Texture* text, Point2D<> _pos, Game* _game,int lifes)
-		: SceneObject(game,_pos,0,0,lifes), texture(text), direction(0, 0) {};
+		: SceneObject(_game,_pos,0,0,lifes), texture(text), direction(0, 0) {};
 
 
 	void Render()const override;

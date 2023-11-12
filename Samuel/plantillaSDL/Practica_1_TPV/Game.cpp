@@ -72,18 +72,13 @@ Game::Game(const std::vector<TextureInfo>& textInfo)
 	LoadTextures(textInfo);
 
 	//inicializar el mothership antes que los aliens
-	mother = new Mothership(this, Vector2D<>(1, 0));
+	mother = new Mothership(this, Vector2D<>(1, 0));// se mueven hacia la derecha
 	
 	//inicializar los objetos
 	ReadMap(MAP_PATH);
 
-
 	infoB = new InfoBar(arrayTexturas[SPACESHIP],arrayTexturas[FONT], this, PLAYER_LIFES);
-
-	//inicializar direcion de los aliens
-	//aliensDirection = Vector2D<>(1, 0);// se mueven hacia la derecha
-
-
+	
 	//inicializar el generador aleatorio con una semilla 
 	randomGenerator = std::mt19937_64(time(nullptr));
 
@@ -155,11 +150,8 @@ void Game::Render()const {
 
 void Game::Update() {
 	//update de los objetos
-	//refactorizar, cuando se implemente herencia 
-
 
 	//update del player
-	//if (!player->Update()) exit = true;
 
 	player->Update();
 
@@ -208,8 +200,12 @@ void Game::Update() {
 	}
 	*/
 
-
+	//update de los objetos de escena
 	for (SceneObject*& sc : objects) sc->Update();
+
+
+	//update del mothership
+	mother->Update();
 
 
 	//cambio de direccion de los aliens
@@ -243,7 +239,8 @@ void Game::Update() {
 	} 
 	*/
 
-
+	
+	
 	//guardado de slots
 	if (saving) {
 		currentInputFrames++;
@@ -393,8 +390,7 @@ void Game::goDown() {
 */
 
 void Game::fireLaser(Vector2D<> pos,char color) {
-	objects.push_back(new Laser(pos, color, this));
-	
+	objects.push_back(new Laser(pos, color, this));	
 }
 
 
