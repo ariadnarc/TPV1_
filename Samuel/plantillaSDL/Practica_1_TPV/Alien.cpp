@@ -8,8 +8,8 @@
 
 int Alien::_moveFrameRate = 13;
 
-Alien::Alien(Texture* text, Point2D<> _pos, int _type, Game* _game)
-	:SceneObject(game,_pos,0,0,1), texture(text), type(_type), frame(0) {
+Alien::Alien(Texture* text, Point2D<> _pos, int _type, Game* _game,Mothership* mother)
+	:SceneObject(game,_pos,0,0,1), texture(text), type(_type), frame(0),mother(mother) {
 
 	//shootRate = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
 };
@@ -51,26 +51,27 @@ void Alien::Hit(SDL_Rect rect, char tLaser) {
 
 
 void Alien::Move() {
-	//Vector2D<> dir = game->getDirection();
+	Vector2D<> dir = mother->getDirection();
 	
-	//pos = Vector2D<>(pos.getX() + dir.getX()*velocityX,pos.getY()+dir.getY()*velocityY);
+	pos = Vector2D<>(pos.getX() + dir.getX()*velocityX,pos.getY()+dir.getY()*velocityY);
 
-	/*
+	
 	if (
 		( dir.getX() == -1 && pos.getX() <= (0+velocityX) ) ||
 		( dir.getX() ==  1 && pos.getX() >= (game->getWinWidht() - (texture->getFrameWidth() ) - velocityX) )
 		) 
 	{
-		game->cannotMove();
+		mother->cannotMove();
 	}
 	if (dir.getY() == 1) {
-		game->goDown();
+		mother->goDown();
 	}
 
 	if (pos.getY() >= ALIENS_LIMIT_Y) {
-		game->aliensLimitBotton();
+		//game->aliensLimitBotton();
+		mother->alienLanded();
 	}
-	*/
+	
 
 }
 

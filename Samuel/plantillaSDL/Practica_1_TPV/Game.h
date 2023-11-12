@@ -168,12 +168,12 @@ public:
 	int getWinWidht()const { return winWidth; }
 
 	//informar de que no es posible moverse otra iteración más en la dirección actual
-	void cannotMove();
+	//void cannotMove();
 
-	void goDown();
+	//void goDown();
 	
 	//disparar laser
-	void fireLaser(Vector2D<> pos,bool originA);
+	void fireLaser(Vector2D<> pos,char color);
 
 	//hace el calculo de colisiones
 	bool collisions(const Laser* laser);

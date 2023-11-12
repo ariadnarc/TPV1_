@@ -29,13 +29,7 @@ void Game::LoadTextures(const std::vector<TextureInfo>& textInfo) {
 	for (int i = 0; i < NUM_TEXTURAS; i++) {
 		arrayTexturas[i] = new Texture(renderer, (TEXTURE_ROOT + textInfo[i].fileName).c_str(),
 			textInfo[i].horizontalFrames, textInfo[i].verticalFrames);
-
-		/* ya hay un throw en la carga de superficies, no haria falta
-		if (arrayTexturas[i] == nullptr)
-			throw std::string("error al cargar la textura con ruta "+ (TEXTURE_ROOT + textInfo[i].fileName));
-		*/
 	}
-
 }
 
 void Game::RandomMode() {
@@ -77,7 +71,9 @@ Game::Game(const std::vector<TextureInfo>& textInfo)
 	
 	LoadTextures(textInfo);
 
-
+	//inicializar el mothership antes que los aliens
+	mother = new Mothership(this, Vector2D<>(1, 0));
+	
 	//inicializar los objetos
 	ReadMap(MAP_PATH);
 
@@ -86,6 +82,7 @@ Game::Game(const std::vector<TextureInfo>& textInfo)
 
 	//inicializar direcion de los aliens
 	//aliensDirection = Vector2D<>(1, 0);// se mueven hacia la derecha
+
 
 	//inicializar el generador aleatorio con una semilla 
 	randomGenerator = std::mt19937_64(time(nullptr));
@@ -105,6 +102,8 @@ Game::~Game() {
 	delete player;
 
 	delete infoB;
+
+	delete mother;
 
 	while (objects.size() > 0) {
 		delete objects.front();
@@ -162,8 +161,10 @@ void Game::Update() {
 	//update del player
 	//if (!player->Update()) exit = true;
 
+	player->Update();
+
 	//cambiar por whiles 
-	int i;
+	//int i;
 
 	//update de los aliens
 
@@ -208,6 +209,9 @@ void Game::Update() {
 	*/
 
 
+	for (SceneObject*& sc : objects) sc->Update();
+
+
 	//cambio de direccion de los aliens
 	/*
 	if(_goDown){
@@ -223,12 +227,15 @@ void Game::Update() {
 	*/
 
 	//aumento de velocidad de los aliens, en relacion a la puntuacion
+	/*
 	if (score >= scoreToIncreaseVelocity) {
 		Alien::IncreaseVelocity();
 		scoreToIncreaseVelocity += 100;
 	}
+	*/
 
-	UpdateScoreUI();
+	//UpdateScoreUI();
+	
 	//condicion de victoria
 	/*
 	if (aliens.size() == 0){
@@ -281,6 +288,9 @@ void Game::HandleEvents() {
 			if (loading) {
 				TryLoad(evento);
 			}
+
+
+
 			//handleEvents de los objetos
 			player->HandleEvents(evento);		
 		}
@@ -357,7 +367,7 @@ void Game::ReadMap(const std::string mapPath) {
 		}
 		else if (objectType == 1) { //alien 		
 			map >> v3;
-			objects.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this));
+			objects.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this,mother));
 		}
 		else if (objectType == 2) { // bunker		
 			objects.push_back(new Bunker(arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
@@ -370,17 +380,21 @@ void Game::ReadMap(const std::string mapPath) {
 
 
 
-
+/*
 void Game::cannotMove() {
 	//cannotM = true;
 }
+*/
 
+/*
 void Game::goDown() {
 	//_goDown = true;
 }
+*/
 
-void Game::fireLaser(Vector2D<> pos,bool originA) {
-	//lasers.push_back(new Laser(pos, originA, this));
+void Game::fireLaser(Vector2D<> pos,char color) {
+	objects.push_back(new Laser(pos, color, this));
+	
 }
 
 

@@ -46,3 +46,9 @@ SDL_Rect Laser::getRect()const {
 void Laser::Hit(SDL_Rect rect, char tLaser) {
 	hited = true;
 }
+
+
+
+void Laser::Save(std::ostream& out) const {
+
+}

@@ -52,6 +52,9 @@ public:
 	SDL_Rect getRect()const;
 
 	bool getOriginA()const { return color == 'r'; }
+
+	void Save(std::ostream& out) const override;
+
 };
 
 

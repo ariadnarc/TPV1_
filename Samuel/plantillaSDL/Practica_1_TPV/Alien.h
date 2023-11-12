@@ -51,7 +51,7 @@ protected:
 public:
 
 	//constructor
-	Alien(Texture* text, Point2D<> _pos, int _type, Game* _game);
+	Alien(Texture* text, Point2D<> _pos, int _type, Game* _game,Mothership* mother);
 
 	//metodos heredados
 	void Render() const override;

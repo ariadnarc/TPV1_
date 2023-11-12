@@ -97,7 +97,7 @@ void Cannon::Shoot() {
 
 		game->fireLaser(Vector2D<>(	pos.getX()+texture->getFrameWidth()/2,
 									pos.getY()- texture->getFrameHeight()/2), 
-									false);
+									'b');
 	}
 }
 
