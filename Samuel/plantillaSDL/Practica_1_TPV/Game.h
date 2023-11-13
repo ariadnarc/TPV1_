@@ -80,6 +80,8 @@ class Game {
 	//OBJETOS DEL JUEGO	 
 	std::list<SceneObject*> objects;
 
+	std::vector<std::list<SceneObject*>::iterator> iteratorsDied;
+
 	Cannon* player;
 
 	Mothership* mother;

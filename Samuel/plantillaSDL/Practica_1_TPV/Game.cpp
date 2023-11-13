@@ -155,74 +155,25 @@ void Game::Update() {
 
 	player->Update();
 
-	//cambiar por whiles 
-	//int i;
-
-	//update de los aliens
-
-	/*
-	i = 0;
-	while (i < aliens.size()) {
-		if (!aliens[i]->Update()) {
-			//incrementar la puntuacion segun el tipo de alien
-			score += aliens[i]->getType() == 0 ? SCR_ALIEN_TYPE_0 :
-					 aliens[i]->getType() == 1 ? SCR_ALIEN_TYPE_1 :
-												 SCR_ALIEN_TYPE_2;
-
-			delete aliens[i];
-			aliens.erase(aliens.begin() + i);
-		}
-		else i++;
-	}
-	*/
-
-	//update de los bunkers
-	/*
-	i = 0;
-	while (i < bunkers.size()) {
-		if (!bunkers[i]->Update()) {
-			delete bunkers[i];
-			bunkers.erase(bunkers.begin() + i);
-		}
-		else i++;
-	}
-	*/
-
-	//update de los lasers
-	/*
-	i = 0;
-	while (i < lasers.size()) {
-		if (!lasers[i]->Update()) {
-			delete lasers[i];
-			lasers.erase(lasers.begin() + i);
-		}
-		else i++;
-	}
-	*/
-
 	//update de los objetos de escena
-
 	
-	std::list<SceneObject*>::iterator it = objects.begin();
-	std::list<SceneObject*>::iterator aux = objects.begin();
 
-	while (it != objects.end()) {
-		aux = it++;
+	for (SceneObject* sn : objects) sn->Update();
 
-		
-		if (*aux != nullptr) {
-			(*aux)->Update();
-		}
-
-		
-	}
-	
-	
-	//for (SceneObject* sn : objects) sn->Update();
+	std::cout << iteratorsDied.size() << std::endl;
 
 	//update del mothership
 	mother->Update();
 	
+	
+	//delete de los died
+	for (auto& it : iteratorsDied) {
+		delete (* it);
+        objects.erase(it);	
+	}
+	
+	iteratorsDied.resize(0);
+
 
 	//aumento de velocidad de los aliens, en relacion a la puntuacion
 	/*
@@ -589,7 +540,6 @@ void Game::TryLoad(SDL_Event ev) {
 
 
 void Game::HasDied(std::list<SceneObject*>::iterator it) {
-	delete* it;
-	*it = nullptr;
- 	objects.erase(it);
+
+	iteratorsDied.push_back(it);
 }

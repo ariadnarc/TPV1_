@@ -22,6 +22,9 @@ bool Laser::Colisions() {
 
 void  Laser::Update() {
 
+	if (lifesLeft <= 0) return;
+
+
 	_currentFrame++;
 	if (_currentFrame >= _frameRate) {
 		Move();
@@ -29,7 +32,7 @@ void  Laser::Update() {
 		_currentFrame = 0;
 	}
 
-	if (Colisions() || pos.getY() < 0) {
+	if (Colisions() || pos.getY() < 0 || pos.getY() > winHeight) {
 		game->HasDied(iterator);
 	}
 }
