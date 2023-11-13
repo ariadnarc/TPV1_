@@ -13,6 +13,7 @@
 #include "texture.h"
 #include "Vector2D.h"
 #include "Alien.h"
+#include "ShooterAlien.h"
 #include "Bunker.h"
 #include "Cannon.h"
 #include "Laser.h"

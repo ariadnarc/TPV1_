@@ -61,7 +61,9 @@ bool Bunker::Hit(SDL_Rect rect, char tLaser) {
 	if (SDL_HasIntersection(&rect, &aux)) {
 		colision = true;
 		lifesLeft--;
-		if (lifesLeft <= 0) game->HasDied(iterator);
+		if (lifesLeft <= 0) {
+			game->HasDied(iterator);
+		}
 	}
 
 	return colision;

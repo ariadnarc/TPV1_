@@ -8,11 +8,6 @@
 
 int Alien::_moveFrameRate = 13;
 
-Alien::Alien(Texture* text, Point2D<> _pos, int _type, Game* _game,Mothership* mother)
-	:SceneObject(_game,_pos,0,0,1), texture(text), type(_type), frame(0),mother(mother) {
-
-	//shootRate = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
-};
 
 
 void Alien::Render() const {
@@ -32,17 +27,6 @@ void Alien::Update() {
 		
 		_currentMoveFrame = 0;
 	}
-
-	/*pasar al shooterAlien
-	_currentShootFrame++;
-	if(_currentShootFrame >= _shootFrameRate){
-		Shoot();
-	
-		_currentShootFrame = 0;
-	}
-	*/
-
-	//return alive;
 }
 
 bool Alien::Hit(SDL_Rect rect, char tLaser) {
@@ -82,7 +66,6 @@ void Alien::Move() {
 	}
 
 	if (pos.getY() >= ALIENS_LIMIT_Y) {
-		//game->aliensLimitBotton();
 		mother->alienLanded();
 	}
 	

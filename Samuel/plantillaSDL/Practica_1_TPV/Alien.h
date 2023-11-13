@@ -19,6 +19,7 @@ class Game;
 class Alien : public SceneObject {
 
 protected: 
+
 	int type;
 
 	Texture* texture;
@@ -28,30 +29,25 @@ protected:
 	//para la animacion
 	int frame;
 
+	//velocidades de movimiento
 	const static int velocityX = 26;//movimiento horizontal
 	const static int velocityY = 10;//movimiento vertical
 
-	const static int MIN_SHOOT_RATE = 15;
-	const static int MAX_SHOOT_RATE = 40;
 
-	//gestion de diferentes frame rates
+	//gestion de diferentes frame rates, movimiento
 	int _currentMoveFrame = 0;
-
 	static int _moveFrameRate;
 
-	//diferente frame rate para el shoot
-	int _currentShootFrame = 0;
-	const static int _shootFrameRate = 5;
 
 	void UpdateAnim();
 
 	void Move();
 
-
 public:
 
 	//constructor
-	Alien(Texture* text, Point2D<> _pos, int _type, Game* _game,Mothership* mother);
+	Alien(Texture* text, Point2D<> _pos, int _type, Game* _game, Mothership* mother)
+		: SceneObject(_game, _pos, 0, 0, 1), texture(text), type(_type), frame(0), mother(mother){};
 
 	//metodos heredados
 	void Render() const override;

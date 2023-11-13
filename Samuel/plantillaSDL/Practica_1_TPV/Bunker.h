@@ -18,8 +18,8 @@ class Bunker : public SceneObject{
 public:
 
 	//constructor
-	Bunker(Texture* text,Point2D<> _pos,int lifes) 
-		:SceneObject(nullptr,_pos,0,0,lifes), texture(text) {};
+	Bunker(Game* game, Texture* text,Point2D<> _pos,int lifes) 
+		:SceneObject(game,_pos,0,0,lifes), texture(text) {};
 
 
 	void Render()const override;

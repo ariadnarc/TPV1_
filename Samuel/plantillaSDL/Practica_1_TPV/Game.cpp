@@ -202,26 +202,23 @@ void Game::Update() {
 
 	//update de los objetos de escena
 
-	/*
+	
 	std::list<SceneObject*>::iterator it = objects.begin();
-	std::list<SceneObject*>::iterator ant = objects.begin();
-	std::list<SceneObject*>::iterator sig;
-
-	std::list<SceneObject*>::iterator aux;
+	std::list<SceneObject*>::iterator aux = objects.begin();
 
 	while (it != objects.end()) {
-		aux = it;
-
-		sig = ++aux;
-
-		(*it)->Update();
+		aux = it++;
 
 		
-		++it;
+		if (*aux != nullptr) {
+			(*aux)->Update();
+		}
+
+		
 	}
-	*/
 	
-	for (SceneObject* sn : objects) sn->Update();
+	
+	//for (SceneObject* sn : objects) sn->Update();
 
 	//update del mothership
 	mother->Update();
@@ -369,12 +366,19 @@ void Game::ReadMap(const std::string mapPath) {
 		}
 		else if (objectType == 1) { //alien 		
 			map >> v3;
-			objects.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this,mother));
+			if (v3 != 0) {
+				objects.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this,mother));
+
+			}
+			else {
+				objects.push_back(new ShooterAlien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this, mother));
+
+			}
 			//setear el iterador
 			objects.back()->setListIterator(--objects.end());
 		}
 		else if (objectType == 2) { // bunker		
-			objects.push_back(new Bunker(arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
+			objects.push_back(new Bunker(this,arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
 			//setear el iterador
 			objects.back()->setListIterator(--objects.end());
 		}	
@@ -392,7 +396,6 @@ void Game::fireLaser(Vector2D<> pos,char color) {
 }
 
 
-//refactorizar, cuando se implemente herencia 
 bool Game::collisions(const Laser* laser) {
 	bool colision = false;
 	
@@ -400,20 +403,8 @@ bool Game::collisions(const Laser* laser) {
 	char c = laser->getColor();
 
 	std::list<SceneObject*>::iterator it = objects.begin();
-
 	
 	//colision con el player,solo cuando el laser es de los aliens
-
-	/*
-	if (laser->getOriginA()) {
-		other = player->getRect();
-		if (SDL_HasIntersection(&(laserRect), &(other))) {
-			colision = true;
-			player->Hit();
-		}
-	}
-	*/
-
 	colision = player->Hit(lRect, c);
 
 	//colision con el resto de SceneObjects
@@ -424,59 +415,7 @@ bool Game::collisions(const Laser* laser) {
 		if(!colision) ++it;
 	}
 
-
-	//colisiones con los demas objetos, si usaramos herencia esto se podria agrupar en una unica funcion
-	//pasar a 3 funciones separadas
-
-	//colisiones con los aliens, solo cuando el laser es del jugador
-
-	/*
-	if (!laser->getOriginA()) {
-		i = 0;
-		while (i < aliens.size() && !colision) {
-			other = aliens[i]->getRect();
-			if (SDL_HasIntersection(&(laserRect), &(other))) {
-				colision = true;
-				//aliens[i]->Hit();
-			}
-			i++;
-		}
-	}
-	*/
-
-	//colisiones con los bunkers,siempre
-	/*
-	i = 0;
-	while (i < bunkers.size() && !colision) {
-		other = bunkers[i]->getRect();
-		if (SDL_HasIntersection(&(laserRect), &(other))) {
-			colision = true;
-			bunkers[i]->Hit();
-		}
-		i++;
-	}
-	*/
-
-
-	//colisiones con los lasers, no comparar lasers del mismo origen
-	/*
-	i = 0;
-	while (i < lasers.size() && !colision) {
-
-		if (laser->getOriginA() != lasers[i]->getOriginA()) {
-
-			other = lasers[i]->getRect();
-			if (SDL_HasIntersection(&(laserRect), &(other))) {
-				colision = true;
-				lasers[i]->Hit();
-			}
-		}
-
-		i++;
-	}	
-	*/
-
-
+	
 	return colision;
 }
 
@@ -650,5 +589,7 @@ void Game::TryLoad(SDL_Event ev) {
 
 
 void Game::HasDied(std::list<SceneObject*>::iterator it) {
-	objects.erase(it);
+	delete* it;
+	*it = nullptr;
+ 	objects.erase(it);
 }
