@@ -1,13 +1,13 @@
 #ifndef GameObject_H_
 #define GameObject_H_
 
+#include "checkML.h"
 
 #include <iostream>
 #include <SDL.h>
 
 
 
-#include "checkML.h"
 
 
 

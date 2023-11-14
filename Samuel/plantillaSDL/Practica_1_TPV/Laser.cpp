@@ -1,9 +1,11 @@
+#include "checkML.h"
+
+
 #include <iostream>
 #include "SDL.h"
 #include "Laser.h"
 #include "Game.h"//para poder usar el game
 
-#include "checkML.h"
 
 void Laser::Render() const  {	
 	SDL_Rect rect = getRect();
@@ -22,7 +24,7 @@ bool Laser::Colisions() {
 
 void  Laser::Update() {
 
-	if (lifesLeft <= 0) return;
+	if (lifesLeft <= 0) return;//para no hacer llamadas en un objeto muerto
 
 
 	_currentFrame++;

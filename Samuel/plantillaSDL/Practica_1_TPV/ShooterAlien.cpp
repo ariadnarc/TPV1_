@@ -1,10 +1,12 @@
+#include "checkML.h"
+
+
 #include <iostream>
 #include "SDL.h"
 #include "ShooterAlien.h"
 #include "Game.h"
 
 
-#include "checkML.h"
 
 
 ShooterAlien::ShooterAlien(Texture* text, Point2D<> _pos, int _type, Game* _game, Mothership* mother)

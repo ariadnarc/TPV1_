@@ -1,3 +1,6 @@
+#include "checkML.h"
+
+
 #include <iostream>
 #include<fstream>//para flujo de archivos entrada salida
 #include<random>
@@ -5,7 +8,6 @@
 #include "Game.h"
 #include "Alien.h"
 
-#include "checkML.h"
 
 
 void Game::InitializeSDL() {
@@ -94,8 +96,6 @@ Game::~Game() {
 	
 	//delete de los objetos(eran punteros)
 
-	delete player;
-
 	delete infoB;
 
 	delete mother;
@@ -131,15 +131,6 @@ void Game::Render()const {
 	
 
 	//render de los objetos
-
-	player->Render();
-	
-	/*
-	for (std::list<SceneObject*>::const_iterator it = objects.begin(); it != objects.end(); ++it) {
-		(*it)->Render();
-	}
-	*/
-
 	for (SceneObject* ob : objects) ob->Render();
 
 	infoB->Render();
@@ -149,31 +140,23 @@ void Game::Render()const {
 }
 
 void Game::Update() {
+
 	//update de los objetos
-
-	//update del player
-
-	player->Update();
-
-	//update de los objetos de escena
 	
-
 	for (SceneObject* sn : objects) sn->Update();
-
-	std::cout << iteratorsDied.size() << std::endl;
-
-	//update del mothership
-	mother->Update();
-	
 	
 	//delete de los died
 	for (auto& it : iteratorsDied) {
 		delete (* it);
         objects.erase(it);	
 	}
-	
+
+	//ponemos a 0 el vector de muertos
 	iteratorsDied.resize(0);
 
+
+	//update del mothership
+	mother->Update();
 
 	//aumento de velocidad de los aliens, en relacion a la puntuacion
 	/*
@@ -314,6 +297,7 @@ void Game::ReadMap(const std::string mapPath) {
 
 		if (objectType == 0) { //cannon		
 			player = new Cannon(arrayTexturas[SPACESHIP], Point2D<>(v1, v2), this, PLAYER_LIFES);
+			objects.push_back(player);
 		}
 		else if (objectType == 1) { //alien 		
 			map >> v3;

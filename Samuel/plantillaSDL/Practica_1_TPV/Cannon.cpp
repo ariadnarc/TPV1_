@@ -1,9 +1,11 @@
+#include "checkML.h"
+
+
 #include <iostream>
 #include "SDL.h"
 #include "Cannon.h"
 #include "Game.h"
 
-#include "checkML.h"
 
 
 void Cannon::Render()const {	

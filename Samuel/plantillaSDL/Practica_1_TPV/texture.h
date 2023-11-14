@@ -1,10 +1,12 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+#include "checkML.h"
+
+
 #include <SDL.h>
 #include <iostream>
 
-#include "checkML.h"
 
 
 /**

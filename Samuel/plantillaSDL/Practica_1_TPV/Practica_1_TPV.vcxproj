@@ -139,6 +139,7 @@
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="Mothership.cpp" />
     <ClCompile Include="Practica_1_TPV.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="ShooterAlien.cpp" />
     <ClCompile Include="texture.cpp" />
   </ItemGroup>

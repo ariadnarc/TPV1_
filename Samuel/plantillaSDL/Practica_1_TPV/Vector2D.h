@@ -1,10 +1,12 @@
 #ifndef VECTOR2D_H_
 #define VECTOR2D_H_
 
+#include "checkML.h"
+
+
 #include <iostream>
 #include "SDL.h"
 
-#include "checkML.h"
 
 
 template<class T = double>

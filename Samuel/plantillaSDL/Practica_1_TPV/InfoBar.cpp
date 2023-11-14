@@ -1,9 +1,11 @@
+#include "checkML.h"
+
+
 #include <iostream>
 #include <SDL.h>
 
 #include "InfoBar.h"
 
-#include "checkML.h"
 
 
 void InfoBar::RenderLifes() {

@@ -1,6 +1,9 @@
 #ifndef LASER_H_
 #define LASER_H_
 
+#include "checkML.h"
+
+
 #include <iostream>
 #include "SDL.h"
 
@@ -8,7 +11,6 @@
 #include "Vector2D.h"
 #include "SceneObject.h"
 
-#include "checkML.h"
 
 class Game;
 

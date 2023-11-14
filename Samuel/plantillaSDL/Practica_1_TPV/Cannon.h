@@ -1,6 +1,9 @@
 #ifndef CANON_H_
 #define CANON_H_
 
+#include "checkML.h"
+
+
 #include <iostream>
 #include "SDL.h"
 
@@ -8,7 +11,6 @@
 #include "Vector2D.h"
 #include "SceneObject.h"
 
-#include "checkML.h"
 
 
 class Game;

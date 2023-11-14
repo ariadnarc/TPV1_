@@ -1,9 +1,11 @@
+#include "checkML.h"
+
+
 #include <iostream>
 #include <SDL.h>
 #include "Bunker.h"
 #include "Game.h"
 
-#include "checkML.h"
 
 /*
 renderiza el bunker
@@ -49,7 +51,7 @@ void Bunker::Render() const{
 }
 
 void Bunker::Update() {
-	//return lifesLeft > 0;
+
 }
 
 bool Bunker::Hit(SDL_Rect rect, char tLaser) {

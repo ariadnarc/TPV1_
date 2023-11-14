@@ -1,3 +1,6 @@
+#include "checkML.h"
+
+
 #include <iostream>
 
 #include "SDL.h"
@@ -6,7 +9,6 @@
 
 #include "Game.h"
 
-#include "checkML.h"
 
 using namespace std;
 	

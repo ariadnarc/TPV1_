@@ -1,10 +1,12 @@
+#include "checkML.h"
+
+
 #include <iostream>
 #include "SDL.h"
 #include "Alien.h"
 #include "Game.h"
 
 
-#include "checkML.h"
 
 int Alien::_moveFrameRate = 13;
 

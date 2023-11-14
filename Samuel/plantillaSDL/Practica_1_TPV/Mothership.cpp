@@ -1,10 +1,12 @@
+#include "checkML.h"
+
+
 #include <iostream>
 #include "SDL.h"
 
 #include "Game.h"
 #include "Mothership.h"
 
-#include "checkML.h"
 
 
 bool Mothership::shouldMove() {

@@ -1,6 +1,8 @@
 #ifndef Mothership_H_
 #define Mothership_H_
 
+#include "checkML.h"
+
 
 #include <iostream>
 #include <SDL.h>
@@ -8,7 +10,6 @@
 #include "GameObject.h"
 #include "Vector2D.h"
 
-#include "checkML.h"
 
 
 class Mothership : public GameObject {

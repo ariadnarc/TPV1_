@@ -1,6 +1,9 @@
 #ifndef InfoBar_H_
 #define InfoBar_H_
 
+#include"checkML.h"
+
+
 #include<iostream>
 #include<SDL.h>
 #include<vector>
@@ -8,7 +11,6 @@
 #include"texture.h"
 
 
-#include"checkML.h"
 
 class Game;
 

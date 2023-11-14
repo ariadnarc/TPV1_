@@ -1,6 +1,8 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+#include "checkML.h"
+
 
 #include <iostream>
 #include <vector>
@@ -20,7 +22,6 @@
 
 #include "InfoBar.h"
 
-#include "checkML.h"
 
 
 //a lo mejor no va aquí

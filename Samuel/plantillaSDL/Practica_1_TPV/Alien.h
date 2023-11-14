@@ -1,6 +1,9 @@
 #ifndef ALIEN_H_
 #define ALIEN_H_
 
+#include "checkML.h"
+
+
 #include <iostream>
 #include "SDL.h"
 
@@ -9,7 +12,6 @@
 #include "Mothership.h"
 
 
-#include "checkML.h"
 
 constexpr int ALIENS_LIMIT_Y = 380;//500 posicion cañon
 

@@ -1,6 +1,9 @@
 #ifndef SceneObject_H_
 #define SceneObject_H_
 
+#include "checkML.h"
+
+
 #include <iostream>
 #include <SDL.h>
 #include <list>
@@ -8,7 +11,6 @@
 #include "GameObject.h"
 #include "Vector2D.h"
 
-#include "checkML.h"
 
 
 
@@ -38,6 +40,9 @@ public:
 	virtual ~SceneObject() {};
 
 	void setListIterator(std::list<SceneObject*>::iterator it) { iterator = it; }
+
+	virtual void Save(std::ostream& out);
+
 
 };
 

@@ -1,8 +1,10 @@
+#include "checkML.h"
+
+
 #include "texture.h"
 
 #include <SDL_image.h>
 
-#include "checkML.h"
 
 
 using namespace std;
