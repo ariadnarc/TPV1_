@@ -286,37 +286,56 @@ void Game::ReadMap(const std::string mapPath) {
 
 	int objectType;
 
-	int v1, v2, v3;//valores auxiliares
+	int v1, v2, v3,v4,v5;//valores auxiliares
 	
+
+	//destruir los objetos actuales, menos las balas para la pool
 
 	map >> objectType;
 
 	while (!map.eof()) {
 		
+		//posX/posY
 		map >> v1 >> v2;
 
-		if (objectType == 0) { //cannon		
+		if (objectType == 0) { //cannon	
+
+			
 			player = new Cannon(arrayTexturas[SPACESHIP], Point2D<>(v1, v2), this, PLAYER_LIFES);
 			objects.push_back(player);
 		}
-		else if (objectType == 1) { //alien 		
+		else if (objectType == 1) { //alien 
+			//tipo
 			map >> v3;
-			if (v3 != 0) {
-				objects.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this,mother));
+			objects.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this,mother));
 
-			}
-			else {
-				objects.push_back(new ShooterAlien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this, mother));
-
-			}
-			//setear el iterador
-			objects.back()->setListIterator(--objects.end());
 		}
-		else if (objectType == 2) { // bunker		
+		else if (objectType == 2) { // alien disparador
+			//tipo
+			map >> v3;
+			objects.push_back(new ShooterAlien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this, mother));
+
+		}
+		else if (objectType == 3) { //mothership
+			//estado/nivel/espera
+			map >> v3 >> v4 >> v5;
+		}
+		else if (objectType == 4) { // bunker		
 			objects.push_back(new Bunker(this,arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
-			//setear el iterador
-			objects.back()->setListIterator(--objects.end());
+
 		}	
+		else if (objectType == 5) { //ovni
+
+		}
+		else if (objectType == 6) { //laser
+
+		}
+		else if (objectType == 7) { //infoBar(score)
+
+		}
+
+		objects.back()->setListIterator(--objects.end());
+
 
 		map >> objectType;
 	}
@@ -332,26 +351,16 @@ void Game::fireLaser(Vector2D<> pos,char color) {
 
 
 bool Game::collisions(const Laser* laser) {
-	bool colision = false;
 	
 	SDL_Rect lRect = laser->getRect();
 	char c = laser->getColor();
 
 	std::list<SceneObject*>::iterator it = objects.begin();
+
+	//colision con la lista de SceneObjects
+	while (it != objects.end() && !((*it)->Hit(lRect, c))) ++it;
 	
-	//colision con el player,solo cuando el laser es de los aliens
-	colision = player->Hit(lRect, c);
-
-	//colision con el resto de SceneObjects
-	while (!colision && it != objects.end()) {
-
-		colision = (*it)->Hit(lRect, c);
-
-		if(!colision) ++it;
-	}
-
-	
-	return colision;
+	return it != objects.end();
 }
 
 

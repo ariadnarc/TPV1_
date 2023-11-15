@@ -7,13 +7,14 @@
 #include "Game.h"
 
 
-
 void Cannon::Render()const {	
 	texture->render(getRect());
 }
 
 void Cannon::Update() {
 	
+	if (lifesLeft <= 0) return;
+
 	_currentFrame++;
 	if (_currentFrame >= _frameRate) {
 		Move();
@@ -48,6 +49,9 @@ void Cannon::HandleEvents(SDL_Event ev) {
 
 bool Cannon::Hit(SDL_Rect rect, char tLaser) {
 	
+	if (lifesLeft <= 0) return false;
+
+
 	bool colision = false;
 
 	SDL_Rect aux = getRect();
@@ -58,7 +62,7 @@ bool Cannon::Hit(SDL_Rect rect, char tLaser) {
 			lifesLeft--;
 			game->UpdateLifesUI();
 
-			//if (lifesLeft <= 0) game->PlayerDied();
+			if (lifesLeft <= 0) game->HasDied(iterator);
 		}
 	}
 	
@@ -130,6 +134,13 @@ SDL_Rect Cannon::getRect() const {
 }
 
 
-void Cannon::Save(std::ostream& out) const {
 
+void Cannon::Save(std::ostream& out) const {
+	out << 0 << " ";
+	//save del SceneObject
+	SceneObject::Save(out);
+
+	out << lifesLeft << " " << _currentFrame << " ";
+
+	out << '\n';
 }

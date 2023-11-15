@@ -142,6 +142,7 @@
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="ShooterAlien.cpp" />
     <ClCompile Include="texture.cpp" />
+    <ClCompile Include="Ufo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Hoja3SDL_ejercicio3\checkML.h" />

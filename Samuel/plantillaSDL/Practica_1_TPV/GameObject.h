@@ -30,7 +30,7 @@ public:
 
 
 	//constructor
-	GameObject(Game* game) : game(game) {};//hace falta???
+	GameObject(Game* game) : game(game) {};
 	//destructor (siempre virtual)
 	virtual ~GameObject() {};
 

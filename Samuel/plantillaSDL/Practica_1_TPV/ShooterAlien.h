@@ -29,6 +29,7 @@ public:
 	//constructor
 	ShooterAlien(Texture* text, Point2D<> _pos, int _type, Game* _game, Mothership* mother);
 
+	void Save(std::ostream& out) const override;
 
 
 	void Update() override;

@@ -27,6 +27,10 @@ class Mothership : public GameObject {
 
 	//level de descenso ...
 
+	int state;
+	int level;
+
+	int _currentFrame;
 
 
 public://metodos, puede que esten mal los tipos o que haya que añadir parametros
@@ -50,7 +54,7 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
 	void Render() const override {};
 	void Update() override;
-	void Save(std::ostream& out)const override {};
+	void Save(std::ostream& out)const override;
 
 
 	void goDown();// no se si hace falta

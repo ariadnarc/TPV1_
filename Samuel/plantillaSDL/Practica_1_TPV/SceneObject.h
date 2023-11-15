@@ -32,16 +32,18 @@ public:
 	virtual	bool Hit(SDL_Rect rect, char tLaser) = 0;
 
 
-	//constructor, hace falta?
+	//constructor
 	SceneObject(Game* game, Point2D<> _pos, int width, int height, int lifesLeft)
 		: GameObject(game), pos(_pos), width(width), height(height), lifesLeft(lifesLeft){};
+
+	//constructor por flujo
 
 	//hace falta volver a poner el destructor?
 	virtual ~SceneObject() {};
 
 	void setListIterator(std::list<SceneObject*>::iterator it) { iterator = it; }
 
-	virtual void Save(std::ostream& out);
+	virtual void Save(std::ostream& out) const;
 
 
 };

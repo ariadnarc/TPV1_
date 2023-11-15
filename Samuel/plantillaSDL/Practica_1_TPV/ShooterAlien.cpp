@@ -30,8 +30,24 @@ void ShooterAlien::Shoot() {
 
 void ShooterAlien::Update() {
 
+	if (lifesLeft <= 0) return;
+
+
 	Alien::Update();
 
 	Shoot();
 	
+}
+
+void ShooterAlien::Save(std::ostream& out) const {
+
+	out << 2 << " ";
+
+
+	Alien::Save(out);
+
+	out << _currentShootFrame << " ";
+
+	out << '\n';
+
 }

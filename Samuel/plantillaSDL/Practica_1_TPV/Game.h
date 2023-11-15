@@ -24,7 +24,6 @@
 
 
 
-//a lo mejor no va aquí
 struct TextureInfo {
 	std::string fileName;
 	int horizontalFrames, verticalFrames;
@@ -82,6 +81,8 @@ class Game {
 	std::list<SceneObject*> objects;
 
 	std::vector<std::list<SceneObject*>::iterator> iteratorsDied;
+
+	
 
 	Cannon* player;
 

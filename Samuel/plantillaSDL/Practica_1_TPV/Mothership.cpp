@@ -48,3 +48,14 @@ void Mothership::Update() {
 	}
 
 }
+
+
+void Mothership::Save(std::ostream& out)const {
+
+	out << 3 << " ";
+
+	out << state << " " << level << " " << _currentFrame << " ";
+
+	out << '\n';
+
+}

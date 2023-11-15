@@ -22,6 +22,8 @@ void Alien::UpdateAnim() {
 
 void Alien::Update() {
 
+	if (lifesLeft <= 0) return;
+
 	_currentMoveFrame++;
 	if (_currentMoveFrame >= _moveFrameRate) {
 		UpdateAnim();
@@ -32,6 +34,10 @@ void Alien::Update() {
 }
 
 bool Alien::Hit(SDL_Rect rect, char tLaser) {
+
+	if (lifesLeft <= 0) return false;
+
+
 	bool colision = false;
 
 	SDL_Rect aux = getRect();
@@ -93,5 +99,14 @@ void Alien::IncreaseVelocity() {
 
 
 void Alien::Save(std::ostream& out) const {
+
+	out << 1 << " ";
+
+
+	SceneObject::Save(out);
+
+	out << type << " ";
+
+	out << '\n';
 
 }

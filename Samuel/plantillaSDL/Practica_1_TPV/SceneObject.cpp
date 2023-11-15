@@ -9,7 +9,7 @@
 
 
 
-void SceneObject::Save(std::ostream& out) {
+void SceneObject::Save(std::ostream& out) const{
 
-	out << pos.getX() << " " << pos.getY() << " " << lifesLeft;
+	out << pos.getX() << " " << pos.getY() << " ";
 }

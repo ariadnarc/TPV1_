@@ -55,6 +55,9 @@ void Bunker::Update() {
 }
 
 bool Bunker::Hit(SDL_Rect rect, char tLaser) {
+
+	if (lifesLeft <= 0) return false;
+
 	bool colision = false;
 	
 	SDL_Rect aux = getRect();
@@ -84,5 +87,13 @@ SDL_Rect Bunker::getRect()const {
 
 
 void Bunker::Save(std::ostream& out) const {
+	out << 4 << " ";
+
+	SceneObject::Save(out);
+
+	out << lifesLeft;
+
+	out << '\n';
+
 
 }

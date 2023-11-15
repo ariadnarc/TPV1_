@@ -22,7 +22,7 @@ bool Laser::Colisions() {
 	return game->collisions(this);;
 }
 
-void  Laser::Update() {
+void Laser::Update() {
 
 	if (lifesLeft <= 0) return;//para no hacer llamadas en un objeto muerto
 
@@ -51,6 +51,10 @@ SDL_Rect Laser::getRect()const {
 }
 
 bool Laser::Hit(SDL_Rect rect, char tLaser) {
+
+	if (lifesLeft <= 0) return false;
+
+
 	bool colision = false;
 
 	SDL_Rect aux = getRect();
@@ -70,5 +74,13 @@ bool Laser::Hit(SDL_Rect rect, char tLaser) {
 
 
 void Laser::Save(std::ostream& out) const {
+
+	out << 6 << " ";
+
+	SceneObject::Save(out);
+
+	out << color << " ";
+
+	out << '\n';
 
 }
