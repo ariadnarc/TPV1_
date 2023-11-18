@@ -5,7 +5,18 @@
 #include "SDL.h"
 
 #include "SceneObject.h"
+#include "GameObject.h"
 
+
+
+SceneObject::SceneObject(Game* game, std::istream& in) : GameObject(game) {
+
+	int x, y;
+
+	in >> x >> y;
+
+	pos = Point2D<>(x, y);
+}
 
 
 

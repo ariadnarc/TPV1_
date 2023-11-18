@@ -284,51 +284,34 @@ void Game::ReadMap(const std::string mapPath) {
 		throw std::string("Error al cargar el mapa");//lanzar error
 	}
 
-	int objectType;
-
-	int v1, v2, v3,v4,v5;//valores auxiliares
-	
+	int objectType;	
 
 	//destruir los objetos actuales, menos las balas para la pool
 
 	map >> objectType;
 
-	while (!map.eof()) {
-		
-		//posX/posY
-		map >> v1 >> v2;
-
-		if (objectType == 0) { //cannon	
-
-			
-			player = new Cannon(arrayTexturas[SPACESHIP], Point2D<>(v1, v2), this, PLAYER_LIFES);
+	while (!map.eof()) {		
+		if (objectType == 0) { //cannon			
+			player = new Cannon(this,arrayTexturas[SPACESHIP],map);
 			objects.push_back(player);
 		}
 		else if (objectType == 1) { //alien 
-			//tipo
-			map >> v3;
-			objects.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this,mother));
-
+			objects.push_back(new Alien(this,arrayTexturas[ALIENS],mother,map));
 		}
 		else if (objectType == 2) { // alien disparador
-			//tipo
-			map >> v3;
-			objects.push_back(new ShooterAlien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this, mother));
-
+			objects.push_back(new ShooterAlien(this, arrayTexturas[ALIENS], mother,map));
 		}
 		else if (objectType == 3) { //mothership
-			//estado/nivel/espera
-			map >> v3 >> v4 >> v5;
+
 		}
 		else if (objectType == 4) { // bunker		
-			objects.push_back(new Bunker(this,arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
-
+			objects.push_back(new Bunker(this,arrayTexturas[BUNKER],map));
 		}	
 		else if (objectType == 5) { //ovni
 
 		}
 		else if (objectType == 6) { //laser
-
+			objects.push_back(new Laser(this, map));
 		}
 		else if (objectType == 7) { //infoBar(score)
 

@@ -32,9 +32,13 @@ public:
 	virtual	bool Hit(SDL_Rect rect, char tLaser) = 0;
 
 
-	//constructor
+	//constructor por parametros
 	SceneObject(Game* game, Point2D<> _pos, int width, int height, int lifesLeft)
 		: GameObject(game), pos(_pos), width(width), height(height), lifesLeft(lifesLeft){};
+
+
+	//constructor por lectura de archivo
+	SceneObject(Game* game,std::istream& in);
 
 	//constructor por flujo
 

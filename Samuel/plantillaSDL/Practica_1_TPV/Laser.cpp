@@ -7,6 +7,39 @@
 #include "Game.h"//para poder usar el game
 
 
+//constructor por parametros
+Laser::Laser(Game* game, Point2D<> pos, char color)
+	: SceneObject(game, pos, WIDTH, HEIGHT, 1), color(color){
+
+	if (color == 'r') {
+		velocityVector = Vector2D<>(0, 1);
+		velocity = alienLaserVel;
+	}
+	else {
+		velocityVector = Vector2D<>(0, -1);
+		velocity = playerLaserVel;
+	}
+
+}
+	
+Laser::Laser(Game* game, std::istream& in) 
+	: SceneObject(game,in) {
+	in >> color;
+}
+
+
+void Laser::Save(std::ostream& out) const {
+
+	out << 6 << " ";
+
+	SceneObject::Save(out);
+
+	out << color << " ";
+
+	out << '\n';
+
+}
+
 void Laser::Render() const  {	
 	SDL_Rect rect = getRect();
 
@@ -73,14 +106,4 @@ bool Laser::Hit(SDL_Rect rect, char tLaser) {
 
 
 
-void Laser::Save(std::ostream& out) const {
 
-	out << 6 << " ";
-
-	SceneObject::Save(out);
-
-	out << color << " ";
-
-	out << '\n';
-
-}

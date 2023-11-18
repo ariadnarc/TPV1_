@@ -10,6 +10,28 @@
 
 int Alien::_moveFrameRate = 13;
 
+//constructor por parametros
+Alien::Alien(Game* game, Texture* text, Mothership* mother, Point2D<> _pos, int _type)
+	: SceneObject(game, _pos, 0, 0, 1), texture(text), type(_type), frame(0), mother(mother) {};
+
+//constructor por lectura de archivo
+Alien::Alien(Game* game, Texture* text,Mothership* mother, std::istream& in) 
+	: SceneObject(game,in),texture(text),mother(mother) {
+	in >> type;
+}
+
+void Alien::Save(std::ostream& out) const {
+	//pasar el magic number a un enumerado
+	out << 1 << " ";
+
+	SceneObject::Save(out);
+
+	out << type << " ";
+
+	out << '\n';
+
+}
+
 
 
 void Alien::Render() const {
@@ -98,15 +120,3 @@ void Alien::IncreaseVelocity() {
 }
 
 
-void Alien::Save(std::ostream& out) const {
-
-	out << 1 << " ";
-
-
-	SceneObject::Save(out);
-
-	out << type << " ";
-
-	out << '\n';
-
-}

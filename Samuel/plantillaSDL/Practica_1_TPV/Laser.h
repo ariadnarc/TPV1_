@@ -39,9 +39,11 @@ private:
 
 public:
 
-	Laser(Point2D<> _pos, char color, Game* _game)
- 		: SceneObject(_game,_pos,WIDTH,HEIGHT,1), color(color), velocityVector(0, color == 'r' ? 1 : -1),
-		velocity(color == 'r' ? alienLaserVel : playerLaserVel) {};
+	//constructor por parametros
+	Laser(Game* game, Point2D<> pos, char color);
+
+	//constructor por lectura de archivos
+	Laser(Game* game, std::istream& in);
 
 	void Render() const override;
 

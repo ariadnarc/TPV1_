@@ -8,10 +8,30 @@
 
 
 
-
-ShooterAlien::ShooterAlien(Texture* text, Point2D<> _pos, int _type, Game* _game, Mothership* mother)
-	: Alien(text, _pos, _type, _game, mother) {
+//constructor por parametros
+ShooterAlien::ShooterAlien(Game* game, Texture* text, Mothership* mother, Point2D<> pos, int type)
+	: Alien(game,text,mother,pos,type) {
 	_shootFrameRate = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
+}
+
+//constructor por lectura de archivo
+ShooterAlien::ShooterAlien(Game* game, Texture* text, Mothership* mother, std::istream& in) 
+	: Alien(game,text,mother,in) {
+	in >> _shootFrameRate;
+}
+
+
+void ShooterAlien::Save(std::ostream& out) const {
+
+	out << 2 << " ";
+
+
+	Alien::Save(out);
+
+	out << _currentShootFrame << " ";
+
+	out << '\n';
+
 }
 
 void ShooterAlien::Shoot() {
@@ -39,15 +59,3 @@ void ShooterAlien::Update() {
 	
 }
 
-void ShooterAlien::Save(std::ostream& out) const {
-
-	out << 2 << " ";
-
-
-	Alien::Save(out);
-
-	out << _currentShootFrame << " ";
-
-	out << '\n';
-
-}

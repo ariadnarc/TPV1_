@@ -26,8 +26,11 @@ class ShooterAlien : public Alien {
 
 public:
 
-	//constructor
-	ShooterAlien(Texture* text, Point2D<> _pos, int _type, Game* _game, Mothership* mother);
+	//constructor por parametros
+	ShooterAlien(Game* game, Texture* text, Mothership* mother, Point2D<> pos, int type);
+
+	//constructor por lectura de archivo
+	ShooterAlien(Game* game, Texture* text, Mothership* mother, std::istream& in);
 
 	void Save(std::ostream& out) const override;
 

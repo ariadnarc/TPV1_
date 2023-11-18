@@ -45,10 +45,11 @@ class Cannon : public SceneObject{
 
 public:
 
-	//constructor
-	Cannon(Texture* text, Point2D<> _pos, Game* _game,int lifes)
-		: SceneObject(_game,_pos,0,0,lifes), texture(text), direction(0, 0) {};
+	//constructor por parametros
+	Cannon(Game* game, Texture* text, Point2D<> pos, int lifes);
 
+	//constructor por lectura de archivo
+	Cannon(Game* game, Texture* text, std::istream& in);
 
 	void Render()const override;
 

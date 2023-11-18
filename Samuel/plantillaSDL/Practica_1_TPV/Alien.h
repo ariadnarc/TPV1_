@@ -47,9 +47,11 @@ protected:
 
 public:
 
-	//constructor
-	Alien(Texture* text, Point2D<> _pos, int _type, Game* _game, Mothership* mother)
-		: SceneObject(_game, _pos, 0, 0, 1), texture(text), type(_type), frame(0), mother(mother){};
+	//constructor por parametros
+	Alien(Game* game, Texture* text, Mothership* mother, Point2D<> _pos, int _type);
+
+	//constructor por lectura de archivo
+	Alien(Game* game, Texture* text,Mothership* mother, std::istream& in);
 
 	//metodos heredados
 	void Render() const override;

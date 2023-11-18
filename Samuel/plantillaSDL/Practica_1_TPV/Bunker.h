@@ -19,11 +19,12 @@ class Bunker : public SceneObject{
 
 public:
 
-	//constructor
-	Bunker(Game* game, Texture* text,Point2D<> _pos,int lifes) 
-		:SceneObject(game,_pos,0,0,lifes), texture(text) {};
+	//constructor por parametros
+	Bunker(Game* game, Texture* text, Point2D<> _pos, int lifes);
 
-
+	//constructor por lectura de archivo
+	Bunker(Game* game, Texture* text, std::istream& in);
+	
 	void Render()const override;
 
 	void Update() override;
