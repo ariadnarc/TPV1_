@@ -286,31 +286,32 @@ void Game::ReadMap(const std::string mapPath) {
 
 	int objectType;	
 
-	//destruir los objetos actuales, menos las balas para la pool
+	//destruir los objetos actuales, player, mother..., menos las balas para la pool
 
 	map >> objectType;
 
 	while (!map.eof()) {		
-		if (objectType == 0) { //cannon			
+
+		if (objectType == CANNON) { //cannon			
 			player = new Cannon(this,arrayTexturas[SPACESHIP],map);
 			objects.push_back(player);
 		}
-		else if (objectType == 1) { //alien 
+		else if (objectType == ALIEN) { //alien 
 			objects.push_back(new Alien(this,arrayTexturas[ALIENS],mother,map));
 		}
-		else if (objectType == 2) { // alien disparador
+		else if (objectType == SHOOTER_ALIEN) { // alien disparador
 			objects.push_back(new ShooterAlien(this, arrayTexturas[ALIENS], mother,map));
 		}
-		else if (objectType == 3) { //mothership
-
+		else if (objectType == MOTHERSHIP) { //mothership
+			mother = new Mothership(this, map);
 		}
-		else if (objectType == 4) { // bunker		
+		else if (objectType == BUNKER) { // bunker		
 			objects.push_back(new Bunker(this,arrayTexturas[BUNKER],map));
 		}	
-		else if (objectType == 5) { //ovni
+		else if (objectType == UFO) { //ovni
 
 		}
-		else if (objectType == 6) { //laser
+		else if (objectType == LASER) { //laser
 			objects.push_back(new Laser(this, map));
 		}
 		else if (objectType == 7) { //infoBar(score)
@@ -327,7 +328,7 @@ void Game::ReadMap(const std::string mapPath) {
 
 
 void Game::fireLaser(Vector2D<> pos,char color) {
-	objects.push_back(new Laser(pos, color, this));	
+	objects.push_back(new Laser(this, pos, color));	
 	//setear el iterador
 	objects.back()->setListIterator(--objects.end());
 }

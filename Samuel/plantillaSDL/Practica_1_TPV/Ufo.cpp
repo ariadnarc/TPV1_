@@ -5,12 +5,14 @@
 #include "SDL.h"
 
 #include "Ufo.h"
+#include "Game.h"
+
 
 
 
 void Ufo::Save(std::ostream& out) const{
 
-	out << 5 << " ";
+	out << UFO << " ";
 
 	SceneObject::Save(out);
 

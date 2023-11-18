@@ -22,9 +22,20 @@ Laser::Laser(Game* game, Point2D<> pos, char color)
 
 }
 	
+//constructor por lectura de archivos
 Laser::Laser(Game* game, std::istream& in) 
 	: SceneObject(game,in) {
 	in >> color;
+
+	//sacar a un metodo privado
+	if (color == 'r') {
+		velocityVector = Vector2D<>(0, 1);
+		velocity = alienLaserVel;
+	}
+	else {
+		velocityVector = Vector2D<>(0, -1);
+		velocity = playerLaserVel;
+	}
 }
 
 
@@ -98,6 +109,7 @@ bool Laser::Hit(SDL_Rect rect, char tLaser) {
 			colision = true;
 			lifesLeft--;
 			if (lifesLeft <= 0) game->HasDied(iterator);
+			//falta logica pool de balas, llamar a otro metodo del game
 		}
 	}
 

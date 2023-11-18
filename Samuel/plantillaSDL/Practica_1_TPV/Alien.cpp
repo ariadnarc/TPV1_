@@ -22,7 +22,7 @@ Alien::Alien(Game* game, Texture* text,Mothership* mother, std::istream& in)
 
 void Alien::Save(std::ostream& out) const {
 	//pasar el magic number a un enumerado
-	out << 1 << " ";
+	out << ALIEN << " ";
 
 	SceneObject::Save(out);
 
@@ -46,12 +46,9 @@ void Alien::Update() {
 
 	if (lifesLeft <= 0) return;
 
-	_currentMoveFrame++;
-	if (_currentMoveFrame >= _moveFrameRate) {
+	if (mother->shouldMove()) {
 		UpdateAnim();
 		Move();
-		
-		_currentMoveFrame = 0;
 	}
 }
 
@@ -69,6 +66,7 @@ bool Alien::Hit(SDL_Rect rect, char tLaser) {
 			colision = true;
 			lifesLeft--;
 			if (lifesLeft <= 0) game->HasDied(iterator);
+			//falta llamar al motherShip para disminuir el numero de aliens
 		}
 	}
 
@@ -81,7 +79,8 @@ bool Alien::Hit(SDL_Rect rect, char tLaser) {
 void Alien::Move() {
 	Vector2D<> dir = mother->getDirection();
 	
-	pos = Vector2D<>(pos.getX() + dir.getX()*velocityX,pos.getY()+dir.getY()*velocityY);
+	pos = Vector2D<>(pos.getX() +  (dir.getX() * velocityX),
+					 pos.getY() +  (dir.getY() * velocityY) );
 
 	
 	if (
@@ -91,6 +90,7 @@ void Alien::Move() {
 	{
 		mother->cannotMove();
 	}
+
 	if (dir.getY() == 1) {
 		mother->goDown();
 	}

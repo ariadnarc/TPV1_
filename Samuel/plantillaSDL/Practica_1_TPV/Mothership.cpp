@@ -8,6 +8,30 @@
 #include "Mothership.h"
 
 
+//constructor por paso de parametros
+Mothership::Mothership(Game* game, Vector2D<> dir) 
+	: GameObject(game), aliensDir(dir) {};
+
+//constructor por lectura de archivo
+Mothership::Mothership(Game* game, std::istream& in) 
+	: GameObject(game){
+
+	in >> state >> level >> _currentFrame;
+
+	//asignar valores...
+
+}
+
+void Mothership::Save(std::ostream& out)const {
+
+	out << 3 << " ";
+
+	out << state << " " << level << " " << _currentFrame << " ";
+
+	out << '\n';
+
+}
+
 
 bool Mothership::shouldMove() {
 
@@ -36,6 +60,16 @@ void Mothership::haveLanded() {
 
 void Mothership::Update() {
 
+	/*
+	_currentMoveFrame++;
+	if (_currentMoveFrame >= _moveFrameRate) {
+		
+		//should move...
+		_currentMoveFrame = 0;
+	}
+	*/
+
+
 	if (_goDown) {
 		aliensDir = Vector2D<>(nextDirX, 0);//no seria mejor con un set?
 		_goDown = false;
@@ -50,12 +84,3 @@ void Mothership::Update() {
 }
 
 
-void Mothership::Save(std::ostream& out)const {
-
-	out << 3 << " ";
-
-	out << state << " " << level << " " << _currentFrame << " ";
-
-	out << '\n';
-
-}

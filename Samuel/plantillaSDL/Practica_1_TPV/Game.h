@@ -53,6 +53,10 @@ const std::string TEXTURE_ROOT = "images/";
 //enumerado texturas
 enum TextureName{ALIENS,BUNKER,SPACESHIP,STARS,FONT};
 
+//enumerado tipos de objetos
+
+enum ObjectTypes{CANNON,ALIEN,SHOOTER_ALIEN,MOTHERSHIP,BUNKER,UFO,LASER};
+
 //ruta del mapa
 const std::string MAP_PATH = "mapas/original.txt";
 
