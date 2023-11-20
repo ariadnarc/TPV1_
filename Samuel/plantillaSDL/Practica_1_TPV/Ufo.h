@@ -11,7 +11,6 @@
 
 
 
-
 class Ufo : public SceneObject {
 
 	//enumerado state ...

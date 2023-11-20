@@ -41,7 +41,7 @@ Laser::Laser(Game* game, std::istream& in)
 
 void Laser::Save(std::ostream& out) const {
 
-	out << 6 << " ";
+	out << LASER << " ";
 
 	SceneObject::Save(out);
 

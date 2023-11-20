@@ -24,7 +24,7 @@ Mothership::Mothership(Game* game, std::istream& in)
 
 void Mothership::Save(std::ostream& out)const {
 
-	out << 3 << " ";
+	out << MOTHERSHIP << " ";
 
 	out << state << " " << level << " " << _currentFrame << " ";
 

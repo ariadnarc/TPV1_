@@ -23,7 +23,7 @@ ShooterAlien::ShooterAlien(Game* game, Texture* text, Mothership* mother, std::i
 
 void ShooterAlien::Save(std::ostream& out) const {
 
-	out << 2 << " ";
+	out << SHOOTER_ALIEN << " ";
 
 
 	Alien::Save(out);

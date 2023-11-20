@@ -98,7 +98,7 @@ Bunker::Bunker(Game* game, Texture* text, std::istream& in)
 
 
 void Bunker::Save(std::ostream& out) const {
-	out << 4 << " ";
+	out << BUNKER << " ";
 
 	SceneObject::Save(out);
 

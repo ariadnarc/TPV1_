@@ -19,7 +19,7 @@ Cannon::Cannon(Game* game, Texture* text, std::istream& in)
 }
 
 void Cannon::Save(std::ostream& out) const {
-	out << 0 << " ";
+	out << CANNON << " ";
 	//save del SceneObject
 	SceneObject::Save(out);
 
