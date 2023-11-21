@@ -22,13 +22,13 @@ Alien::Alien(Game* game, Texture* text,Mothership* mother, std::istream& in)
 
 void Alien::Save(std::ostream& out) const {
 	//pasar el magic number a un enumerado
-	out << ALIEN << " ";
+	if(getType() != 0) out << ALIEN << " ";
 
 	SceneObject::Save(out);
 
 	out << type << " ";
 
-	out << '\n';
+	if (getType() != 0) out << '\n';
 
 }
 

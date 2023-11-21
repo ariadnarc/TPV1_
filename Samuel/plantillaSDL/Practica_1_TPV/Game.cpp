@@ -286,8 +286,6 @@ void Game::ReadMap(const std::string mapPath) {
 
 	int objectType;	
 
-	//destruir los objetos actuales, player, mother..., menos las balas para la pool
-
 	map >> objectType;
 
 	while (!map.eof()) {		
@@ -304,8 +302,7 @@ void Game::ReadMap(const std::string mapPath) {
 			objects.push_back(new ShooterAlien(this, arrayTexturas[ALIENS], mother,map));
 		}
 		else if (objectType == MOTHERSHIP) { //mothership
-			//mother = new Mothership(this, map);
-			mother->InitializeMother(map);
+			mother->Initialize(map);					
 		}
 		else if (objectType == BUNKER_TYPE) { // bunker		
 			objects.push_back(new Bunker(this,arrayTexturas[BUNKER],map));
@@ -353,7 +350,6 @@ bool Game::collisions(const Laser* laser) {
 }
 
 
-
 int Game::getRandomRange(int min, int max) {
 	return std::uniform_int_distribution<int>(min, max)(randomGenerator);
 }
@@ -378,92 +374,29 @@ void Game::SaveGame() {
 
 	out.open("partidas_guardadas/tmp.txt");
 
-	//puntuacion
-	out << score << std::endl;
-	//info player
-	out << 0 << " " << player->getRect().x << " " << player->getRect().y << " " << player->getLifes();
+	//guardado de todos los objetos de escena
+	for (SceneObject* ob : objects) ob->Save(out);
 
-	out << std::endl;
+	//guardado del mothership
+	mother->Save(out);
 
-	//info aliens
-	/*
-	for (int i = 0; i < aliens.size(); i++) {
-		out << 1 << " " << aliens[i]->getRect().x << " " <<
-			aliens[i]->getRect().y << " " << aliens[i]->getType() << std::endl;
-	}
-
-	//info bunkers
-	for (int i = 0; i < bunkers.size(); i++) {
-		out << 2 << " " << bunkers[i]->getRect().x << " " <<
-			bunkers[i]->getRect().y << " " << bunkers[i]->getLifes() << std::endl;
-	}
-	*/
-
+	//guardado de la puntuaciones
+	out << 7 << " " << score << " ";
 
 }
 
 void Game::LoadGame(std::string savePath) {
-	std::ifstream in;
 
-	in.open(savePath);
-
-	if (in.fail()) {
-		//no hacer nada
-		//return; 
-		throw std::string("Error al cargar la partida");//lanzar error
+	//borrar las entidades que hay actualmente
+	while (objects.size() > 0) {
+		delete objects.front();
+		objects.pop_front();
 	}
-	//puntuacion
-	in >> score;
 
-	int objectType;
-
-	int v1, v2, v3;//valores auxiliares
-
-	bool exit = false;
+	player = nullptr;
 	
-	//borrar las entidades que hay actualmente,hay que sacar esto a un metodo
-	/*
-	for (int i = 0; i < aliens.size(); i++) {
-		delete aliens[i];
-	}
-	for (int i = 0; i < bunkers.size(); i++) {
-		delete bunkers[i];
-	}
-	for (int i = 0; i < lasers.size(); i++) {
-		delete lasers[i];
-	}
-	*/
-
-	/*
-	aliens.resize(0);
-	bunkers.resize(0);
-	lasers.resize(0);
-	*/
-
-
-	in >> objectType;
-	
-	while (!in.eof() && !exit) {
-
-		in >> v1 >> v2 >> v3;
-
-
-		if (objectType == 0) { //cannon		
-			player->setPos(Point2D<>(v1, v2));
-			player->setLifes(v3);
-		}
-		else if (objectType == 1) { //alien 
-		
-			//aliens.push_back(new Alien(arrayTexturas[ALIENS], Point2D<>(v1, v2), v3, this));
-		}
-		else if (objectType == 2) { // bunker	
-			
-			//bunkers.push_back(new Bunker(arrayTexturas[BUNKER], Point2D<>(v1, v2), BUNKER_LIFES));
-			//bunkers[bunkers.size() - 1]->setLifes(v3);
-		}
-
-		in >> objectType;
-	}
+	//leer la partida guardada
+	ReadMap(savePath);
 
 	//actualizar UI 
 	UpdateLifesUI();
@@ -526,6 +459,5 @@ void Game::AlienDied(int type) {
 }
 
 void Game::HasDied(std::list<SceneObject*>::iterator it) {
-
 	iteratorsDied.push_back(it);
 }

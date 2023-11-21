@@ -10,37 +10,18 @@
 
 //constructor por paso de parametros
 Mothership::Mothership(Game* game) 
-	: GameObject(game) {};
+	: GameObject(game) {
+
+	Initialize();
+};
 
 //constructor por lectura de archivo, no se usa
 Mothership::Mothership(Game* game, std::istream& in) 
 	: GameObject(game){
 	
-	int aux;
-
-	//solo para que funcione
-	int x, y;
-	in >> x >> y;
-	in >> aux >> level >> waitingFrames;
-
-	currentState = (state)aux;
-
+	Initialize(in);
 }
 
-void Mothership::InitializeMother(std::istream& in) {
-	int aux;
-
-	//solo para que funcione
-	int x, y;
-	in >> x >> y;
-	in >> aux >> level >> waitingFrames;
-
-	currentState = (state)aux;
-
-	if (currentState == right) aliensDir = Vector2D<>(1, 0);
-	else if(currentState == left)aliensDir = Vector2D<>(-1, 0);
-	else aliensDir = Vector2D<>(0, -1);
-}
 
 void Mothership::Save(std::ostream& out)const {
 
@@ -90,4 +71,31 @@ void Mothership::Update() {
 	
 }
 
+void Mothership::Initialize(std::istream& in) {
+	int aux;
 
+	in >> aux >> level >> waitingFrames;
+
+	currentState = (state)aux;
+
+	nAliens = 0;
+
+	UpdateDirection();
+}
+
+
+void Mothership::Initialize() {
+	currentState = right;
+
+	UpdateDirection();
+
+	waitingFrames = 0;
+	level = 0;
+	nAliens = 0;
+}
+
+void Mothership::UpdateDirection() {
+	if (currentState == right) aliensDir = Vector2D<>(1, 0);
+	else if (currentState == left)aliensDir = Vector2D<>(-1, 0);
+	else aliensDir = Vector2D<>(0, -1);
+}

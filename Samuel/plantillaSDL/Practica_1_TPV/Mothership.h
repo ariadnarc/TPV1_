@@ -45,7 +45,7 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 	//constructor por lectura de archivo
 	Mothership(Game* game, std::istream& in);
 
-	void InitializeMother(std::istream& in);
+	void Initialize(std::istream& in);
 
 	//getter de la direccion de movimiento de los aliens
 	Vector2D<> getDirection() const { return aliensDir; };
@@ -64,6 +64,8 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
 	int getAlienCount() const { return nAliens; };
 
+	void increaseAlienCount() { nAliens++; }
+
 	//override de metodos heredados
 	void Render() const override {};
 	void Update() override;
@@ -72,6 +74,10 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 	//getters de la velocidad
 	int getVelocityX() const{ return velocityX; }
 	int getVelocityY() const{ return velocityY; }
+
+	void Initialize();
+
+	void UpdateDirection();
 };
 
 

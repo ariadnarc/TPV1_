@@ -11,20 +11,19 @@
 //constructor por parametros
 ShooterAlien::ShooterAlien(Game* game, Texture* text, Mothership* mother, Point2D<> pos, int type)
 	: Alien(game,text,mother,pos,type) {
-	_shootFrameRate = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
+	waitingShootFrames = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
 }
 
 //constructor por lectura de archivo
 ShooterAlien::ShooterAlien(Game* game, Texture* text, Mothership* mother, std::istream& in) 
 	: Alien(game,text,mother,in) {
-	in >> _shootFrameRate;
+	in >> waitingShootFrames;
 }
 
 
 void ShooterAlien::Save(std::ostream& out) const {
 
 	out << SHOOTER_ALIEN << " ";
-
 
 	Alien::Save(out);
 
