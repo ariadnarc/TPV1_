@@ -18,9 +18,14 @@ private:
 
 public:
 
+	// estos metodos son virtuales porque esta clase no define los renders de los gameobjects que hereden de ella
+	// (enlace dinámico) Los render se definirán en cada gameobject según qué hagan
 	virtual void Render() const = 0;
 	virtual void Update() = 0;
-	//virtual void Save(ostream&) const = 0;
+	virtual void Save(std::ostream&) const = 0;
 
+	// constructora
+	GameObject(Game* game) : game(game) {};
 	// hay que poner una destructora virtual (?)
+	virtual ~GameObject() {};
 };
