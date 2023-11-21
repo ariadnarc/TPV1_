@@ -166,7 +166,7 @@ void Game::Update() {
 	}
 	*/
 
-	//UpdateScoreUI();
+	UpdateScoreUI();
 	
 	//condicion de victoria
 	/*
@@ -520,6 +520,10 @@ void Game::TryLoad(SDL_Event ev) {
 
 }
 
+
+void Game::AlienDied(int type) {
+	score += SCORE_ALIENS[type];
+}
 
 void Game::HasDied(std::list<SceneObject*>::iterator it) {
 
