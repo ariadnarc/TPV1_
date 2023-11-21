@@ -71,11 +71,11 @@ void Laser::Update() {
 	if (lifesLeft <= 0) return;//para no hacer llamadas en un objeto muerto
 
 
-	_currentFrame++;
-	if (_currentFrame >= _frameRate) {
+	--waitingFrames;
+	if (waitingFrames <= 0) {
 		Move();
 
-		_currentFrame = 0;
+		waitingFrames = _frameRate;
 	}
 
 	if (Colisions() || pos.getY() < 0 || pos.getY() > winHeight) {

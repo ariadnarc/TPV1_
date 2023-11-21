@@ -23,7 +23,7 @@ void Cannon::Save(std::ostream& out) const {
 	//save del SceneObject
 	SceneObject::Save(out);
 
-	out << lifesLeft << " " << _currentFrame << " ";
+	out << lifesLeft << " " << waitingFrames << " ";
 
 	out << '\n';
 }
@@ -37,12 +37,12 @@ void Cannon::Update() {
 	
 	if (lifesLeft <= 0) return;
 
-	_currentFrame++;
-	if (_currentFrame >= _frameRate) {
+	--waitingFrames;
+	if (waitingFrames <= 0 ) {
 		Move();
 		Shoot();
 
-		_currentFrame = 0;
+		waitingFrames = _frameRate;
 	}
 
 }
@@ -137,8 +137,8 @@ void Cannon::Shoot() {
 	if (space && shootReload > SHOOT_RATE) {
 		shootReload = 0;
 
-		game->fireLaser(Vector2D<>(	pos.getX()+texture->getFrameWidth()/2,
-									pos.getY()- texture->getFrameHeight()/2), 
+		game->fireLaser(Vector2D<>(	pos.getX() + texture->getFrameWidth()/2,
+									pos.getY() - texture->getFrameHeight()/2), 
 									'b');
 	}
 }

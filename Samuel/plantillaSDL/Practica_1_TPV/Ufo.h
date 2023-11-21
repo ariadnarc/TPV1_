@@ -17,7 +17,7 @@ class Ufo : public SceneObject {
 
 	int state;
 
-	int _currentFrame;
+	int waitingFrames;
 	int _frameRate;
 
 public:

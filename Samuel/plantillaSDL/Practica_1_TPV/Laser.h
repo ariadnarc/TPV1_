@@ -31,7 +31,7 @@ private:
 	int velocity;
 
 	//gestion de diferentes frame rates
-	int _currentFrame = 0;
+	int waitingFrames = 0;
 	const static int _frameRate = 2;
 
 	void Move();

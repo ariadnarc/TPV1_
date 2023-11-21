@@ -28,7 +28,7 @@ void ShooterAlien::Save(std::ostream& out) const {
 
 	Alien::Save(out);
 
-	out << _currentShootFrame << " ";
+	out << waitingShootFrames << " ";
 
 	out << '\n';
 
@@ -36,14 +36,14 @@ void ShooterAlien::Save(std::ostream& out) const {
 
 void ShooterAlien::Shoot() {
 
-	_currentShootFrame++;
+	--waitingShootFrames;
 
-	if (_currentShootFrame >= _shootFrameRate) {
+	if (waitingShootFrames <= 0) {
 
 		game->fireLaser(Vector2D<>(pos.getX() + texture->getFrameWidth() / 2, pos.getY() + texture->getFrameHeight() / 2), 'r');
 
 		_shootFrameRate = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
-		_currentShootFrame = 0;
+		waitingShootFrames = _shootFrameRate;
 	}
 	
 }

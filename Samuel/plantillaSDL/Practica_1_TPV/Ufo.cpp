@@ -18,7 +18,7 @@ Ufo::Ufo(Game* game, std::istream& in)
 	:SceneObject(game, in) {
 
 	//leer estado y espera
-	in >> state >> _currentFrame;
+	in >> state >> waitingFrames;
 		
 }
 
@@ -30,7 +30,7 @@ void Ufo::Save(std::ostream& out) const{
 
 	SceneObject::Save(out);
 
-	out << state << " " << _currentFrame << " ";
+	out << state << " " << waitingFrames << " ";
 
 	out << '\n';
 

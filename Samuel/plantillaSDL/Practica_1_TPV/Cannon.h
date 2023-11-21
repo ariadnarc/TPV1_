@@ -23,7 +23,7 @@ class Cannon : public SceneObject{
 
 	const int velocity = 2;
 
-	//booleanos para control del input
+	//booleanos para control del input,cambiar por el otro metodo
 	bool rightWASD = false;
 	bool rightArrow = false;
 	bool leftWASD = false;
@@ -35,7 +35,7 @@ class Cannon : public SceneObject{
 	int shootReload = 0;
 
 	//gestion de diferentes frame rates
-	int _currentFrame = 0;
+	int waitingFrames = 0;
 	const static int _frameRate = 1;
 
 

@@ -19,7 +19,7 @@ class ShooterAlien : public Alien {
 	const static int MAX_SHOOT_RATE = 200;
 
 	//diferente frame rate para el shoot
-	int _currentShootFrame = 0;
+	int waitingShootFrames = 0;
 	int _shootFrameRate;
 
 	void Shoot();
