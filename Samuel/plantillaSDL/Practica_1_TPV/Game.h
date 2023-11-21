@@ -47,7 +47,7 @@ constexpr uint winHeight = 600;
 //frame rate
 constexpr uint FRAME_RATE = 20;
 
-constexpr uint NUM_TEXTURAS = 5;
+constexpr uint NUM_TEXTURAS = 6;
 
 
 const std::string TEXTURE_ROOT = "images/";

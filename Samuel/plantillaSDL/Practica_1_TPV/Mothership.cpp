@@ -9,18 +9,37 @@
 
 
 //constructor por paso de parametros
-Mothership::Mothership(Game* game, Vector2D<> dir) 
-	: GameObject(game), aliensDir(dir) {};
+Mothership::Mothership(Game* game) 
+	: GameObject(game) {};
 
-//constructor por lectura de archivo
+//constructor por lectura de archivo, no se usa
 Mothership::Mothership(Game* game, std::istream& in) 
 	: GameObject(game){
 	
 	int aux;
+
+	//solo para que funcione
+	int x, y;
+	in >> x >> y;
 	in >> aux >> level >> waitingFrames;
 
 	currentState = (state)aux;
 
+}
+
+void Mothership::InitializeMother(std::istream& in) {
+	int aux;
+
+	//solo para que funcione
+	int x, y;
+	in >> x >> y;
+	in >> aux >> level >> waitingFrames;
+
+	currentState = (state)aux;
+
+	if (currentState == right) aliensDir = Vector2D<>(1, 0);
+	else if(currentState == left)aliensDir = Vector2D<>(-1, 0);
+	else aliensDir = Vector2D<>(0, -1);
 }
 
 void Mothership::Save(std::ostream& out)const {
@@ -47,7 +66,7 @@ void Mothership::Update() {
 	
 	--waitingFrames;
 
-	_shouldMove = waitingFrames <= 0;
+	_shouldMove = (waitingFrames <= 0);
 
 	if (_shouldMove) {
 		

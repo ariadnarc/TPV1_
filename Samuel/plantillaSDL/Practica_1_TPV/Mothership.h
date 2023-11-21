@@ -39,11 +39,13 @@ class Mothership : public GameObject {
 
 public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
-	//constructor por paso de parametros
-	Mothership(Game* game,Vector2D<> dir);
+	//constructor por paso de parametros, basico
+	Mothership(Game* game);
 
 	//constructor por lectura de archivo
 	Mothership(Game* game, std::istream& in);
+
+	void InitializeMother(std::istream& in);
 
 	//getter de la direccion de movimiento de los aliens
 	Vector2D<> getDirection() const { return aliensDir; };

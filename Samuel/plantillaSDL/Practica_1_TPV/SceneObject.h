@@ -23,7 +23,7 @@ protected:
 	int width;
 	int height;
 
-	int lifesLeft;
+	int lifesLeft = 1;
 
 	std::list<SceneObject*>::iterator iterator;
 

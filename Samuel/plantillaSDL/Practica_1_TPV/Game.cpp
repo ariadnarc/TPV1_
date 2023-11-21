@@ -74,7 +74,7 @@ Game::Game(const std::vector<TextureInfo>& textInfo)
 	LoadTextures(textInfo);
 
 	//inicializar el mothership antes que los aliens
-	mother = new Mothership(this, Vector2D<>(1, 0));// se mueven hacia la derecha
+	mother = new Mothership(this);// se mueven hacia la derecha
 	
 	//inicializar los objetos
 	ReadMap(MAP_PATH);
@@ -304,7 +304,8 @@ void Game::ReadMap(const std::string mapPath) {
 			objects.push_back(new ShooterAlien(this, arrayTexturas[ALIENS], mother,map));
 		}
 		else if (objectType == MOTHERSHIP) { //mothership
-			mother = new Mothership(this, map);
+			//mother = new Mothership(this, map);
+			mother->InitializeMother(map);
 		}
 		else if (objectType == BUNKER_TYPE) { // bunker		
 			objects.push_back(new Bunker(this,arrayTexturas[BUNKER],map));

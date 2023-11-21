@@ -21,7 +21,8 @@ int main(int argc, char* argv[]) {
 	texturesInfo.push_back(TextureInfo("bunker.png", 1, 4));
 	texturesInfo.push_back(TextureInfo("spaceship.png", 1, 1));
 	texturesInfo.push_back(TextureInfo("stars.png", 1, 1));
-	texturesInfo.push_back(TextureInfo("font5.png", 3, 30));
+	texturesInfo.push_back(TextureInfo("font.png", 3, 30));
+	texturesInfo.push_back(TextureInfo("ufo.png", 1, 2));
 	
 	try {
 		Game* game;
