@@ -88,12 +88,12 @@ class Game {
 
 	std::vector<std::list<SceneObject*>::iterator> iteratorsDied;
 
-	
-
 	Cannon* player;
 
 	Mothership* mother;
 	
+
+
 	//CICLO DE JUEGO
 	bool exit = false;
 
@@ -115,7 +115,7 @@ class Game {
 	//puntuacion
 	int score = 0;
 
-	//audio
+	//audio,sacar a una clase
 	SDL_AudioSpec wavSpec;
 	Uint32 wavLength;
 	Uint8* wavBuffer;

@@ -8,15 +8,13 @@
 
 
 
-int Alien::_moveFrameRate = 13;
-
 //constructor por parametros
 Alien::Alien(Game* game, Texture* text, Mothership* mother, Point2D<> _pos, int _type)
-	: SceneObject(game, _pos, 0, 0, 1), texture(text), type(_type), frame(0), mother(mother) {};
+	: SceneObject(game, _pos, 0, 0, 1), texture(text), type(_type), animFrame(0), mother(mother) {};
 
 //constructor por lectura de archivo
 Alien::Alien(Game* game, Texture* text,Mothership* mother, std::istream& in) 
-	: SceneObject(game,in),texture(text),mother(mother) {
+	: SceneObject(game,in),texture(text),mother(mother),animFrame(0) {
 	in >> type;
 }
 
@@ -35,11 +33,11 @@ void Alien::Save(std::ostream& out) const {
 
 
 void Alien::Render() const {
-	texture->renderFrame(getRect(), type, frame);
+	texture->renderFrame(getRect(), type, animFrame);
 }
 
 void Alien::UpdateAnim() {
-	frame = (frame + 1) % texture->getNumColumns();
+	animFrame = (animFrame + 1) % texture->getNumColumns();
 }
 
 void Alien::Update() {
@@ -79,21 +77,21 @@ bool Alien::Hit(SDL_Rect rect, char tLaser) {
 void Alien::Move() {
 	Vector2D<> dir = mother->getDirection();
 	
-	pos = Vector2D<>(pos.getX() +  (dir.getX() * velocityX),
-					 pos.getY() +  (dir.getY() * velocityY) );
+	pos = Vector2D<>(pos.getX() +  (dir.getX() * mother->getVelocityX()),
+					 pos.getY() +  (dir.getY() * mother->getVelocityY()) );
 
 	
 	if (
-		( dir.getX() == -1 && pos.getX() <= (0+velocityX) ) ||
-		( dir.getX() ==  1 && pos.getX() >= (game->getWinWidht() - (texture->getFrameWidth() ) - velocityX) )
+		( dir.getX() == -1 && 
+			pos.getX() <= (0+mother->getVelocityX()) ) ||
+
+		( dir.getX() ==  1 && 
+			pos.getX() >= (game->getWinWidht() - (texture->getFrameWidth() ) - mother->getVelocityX()) )
 		) 
 	{
 		mother->cannotMove();
 	}
 
-	if (dir.getY() == 1) {
-		mother->goDown();
-	}
 
 	if (pos.getY() >= ALIENS_LIMIT_Y) {
 		mother->alienLanded();
@@ -115,8 +113,6 @@ SDL_Rect Alien::getRect()const {
 	return rect;
 }
 
-void Alien::IncreaseVelocity() {
-	_moveFrameRate--;
-}
+
 
 

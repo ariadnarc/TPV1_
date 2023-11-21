@@ -10,28 +10,32 @@
 #include "GameObject.h"
 #include "Vector2D.h"
 
-
+constexpr int ALIENS_LIMIT_Y = 380;//500 posicion cañon
 
 class Mothership : public GameObject {
 
 	Vector2D<> aliensDir;
 
-	int nextDirX = 0;
-
 	bool _cannotMove = false;
 
-	//a lo mejor no hace falta
-	bool _goDown = false;
+	bool _shouldMove = false;
 
-	//enumerado state ...
 
-	//level de descenso ...
+	enum state{right,right_down,left,left_down};
 
-	int state;
+	state currentState;
+
+	//para incremento de velocidad de los aliens
 	int level;
 
-	int _currentFrame;
+	int waitingFrames;
+	int moveFrameRate = 13;
 
+	//velocidades de movimiento de los aliens
+	const static int velocityX = 26;//movimiento horizontal
+	const static int velocityY = 10;//movimiento vertical
+
+	int nAliens;
 
 public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
@@ -41,26 +45,31 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 	//constructor por lectura de archivo
 	Mothership(Game* game, std::istream& in);
 
+	//getter de la direccion de movimiento de los aliens
 	Vector2D<> getDirection() const { return aliensDir; };
 
-	bool shouldMove();
 
-	void cannotMove();
+	bool shouldMove() const { return _shouldMove; };
 
-	void alienDied();
+	void cannotMove() { _cannotMove = true; };
 
+	void alienDied() { nAliens--; };
+
+	//diferencia entre estos 2 metodos?
 	void alienLanded();
 
 	void haveLanded();
 
-	int getAlienCount();
+	int getAlienCount() const { return nAliens; };
 
+	//override de metodos heredados
 	void Render() const override {};
 	void Update() override;
 	void Save(std::ostream& out)const override;
 
-
-	void goDown();// no se si hace falta
+	//getters de la velocidad
+	int getVelocityX() const{ return velocityX; }
+	int getVelocityY() const{ return velocityY; }
 };
 
 

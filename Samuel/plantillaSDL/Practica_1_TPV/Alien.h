@@ -12,10 +12,6 @@
 #include "Mothership.h"
 
 
-
-constexpr int ALIENS_LIMIT_Y = 380;//500 posicion cañon
-
-
 class Game;
 
 class Alien : public SceneObject {
@@ -29,17 +25,8 @@ protected:
 	Mothership* mother;
 
 	//para la animacion
-	int frame;
-
-	//velocidades de movimiento
-	const static int velocityX = 26;//movimiento horizontal
-	const static int velocityY = 10;//movimiento vertical
-
-
-	//gestion de diferentes frame rates, movimiento
-	int _currentMoveFrame = 0;
-	static int _moveFrameRate;
-
+	int animFrame;
+	
 
 	void UpdateAnim();
 
@@ -53,7 +40,7 @@ public:
 	//constructor por lectura de archivo
 	Alien(Game* game, Texture* text,Mothership* mother, std::istream& in);
 
-	//metodos heredados
+	//metodos heredados,override
 	void Render() const override;
 
 	void Update() override;
@@ -65,19 +52,15 @@ public:
 	//destructor vacio
 	~Alien() override {};
 
-	//para random Mode
+
+	SDL_Rect getRect() const;
+
+	int getType() const { return type; }
+
+
+
+	//para random Mode, esto habra que cambiarlo
 	void setType(int t) { type = t; };
-
-	SDL_Rect getRect()const;
-
-	int getType()const { return type; }
-
-	//disminuye el frame rate del movimiento
-	static void IncreaseVelocity();
-
-	//para la carga de partidas
-
-	void setPos(Point2D<> p) { pos = p; }
 };
 
 
