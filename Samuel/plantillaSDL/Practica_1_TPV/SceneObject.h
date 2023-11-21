@@ -33,14 +33,12 @@ public:
 
 
 	//constructor por parametros
-	SceneObject(Game* game, Point2D<> _pos, int width, int height, int lifesLeft)
-		: GameObject(game), pos(_pos), width(width), height(height), lifesLeft(lifesLeft){};
+	SceneObject(Game* game, Point2D<> _pos, int width, int height, int lifesLeft);
 
 
 	//constructor por lectura de archivo
 	SceneObject(Game* game,std::istream& in);
 
-	//constructor por flujo
 
 	//hace falta volver a poner el destructor?
 	virtual ~SceneObject() {};

@@ -7,6 +7,32 @@
 #include "Game.h"
 
 
+//constructor por parametros
+Bunker::Bunker(Game* game, Texture* text, Point2D<> _pos, int lifes)
+	:SceneObject(game, _pos, 0, 0, lifes), texture(text) {};
+
+//constructor por lectura de archivo
+Bunker::Bunker(Game* game, Texture* text, std::istream& in)
+	: SceneObject(game, in), texture(text) {
+
+	in >> lifesLeft;
+}
+
+
+void Bunker::Save(std::ostream& out) const {
+	out << BUNKER_TYPE << " ";
+
+	SceneObject::Save(out);
+
+	out << lifesLeft;
+
+	out << '\n';
+
+
+}
+
+
+
 /*
 renderiza el bunker
 si el bunker tiene un numero de vidas multiplo de 4, cada frame tiene las mismas vidas
@@ -85,26 +111,3 @@ SDL_Rect Bunker::getRect()const {
 	return rect;
 }
 
-//constructor por parametros
-Bunker::Bunker(Game* game, Texture* text, Point2D<> _pos, int lifes)
-	:SceneObject(game, _pos, 0, 0, lifes), texture(text) {};
-
-//constructor por lectura de archivo
-Bunker::Bunker(Game* game, Texture* text, std::istream& in) 
-	: SceneObject(game,in),texture(text) {
-
-	in >> lifesLeft;
-}
-
-
-void Bunker::Save(std::ostream& out) const {
-	out << BUNKER << " ";
-
-	SceneObject::Save(out);
-
-	out << lifesLeft;
-
-	out << '\n';
-
-
-}

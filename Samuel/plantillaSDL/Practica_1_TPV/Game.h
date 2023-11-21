@@ -14,11 +14,13 @@
 
 #include "texture.h"
 #include "Vector2D.h"
+
 #include "Alien.h"
 #include "ShooterAlien.h"
 #include "Bunker.h"
 #include "Cannon.h"
 #include "Laser.h"
+#include "Ufo.h"
 
 #include "InfoBar.h"
 
@@ -55,7 +57,7 @@ enum TextureName{ALIENS,BUNKER,SPACESHIP,STARS,FONT};
 
 //enumerado tipos de objetos
 
-enum ObjectTypes{CANNON,ALIEN,SHOOTER_ALIEN,MOTHERSHIP,BUNKER,UFO,LASER};
+enum ObjectTypes{CANNON,ALIEN,SHOOTER_ALIEN,MOTHERSHIP,BUNKER_TYPE,UFO,LASER};
 
 //ruta del mapa
 const std::string MAP_PATH = "mapas/original.txt";

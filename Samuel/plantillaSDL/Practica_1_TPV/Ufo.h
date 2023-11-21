@@ -22,8 +22,19 @@ class Ufo : public SceneObject {
 
 public:
 
+	//constructor por parametros, no esta completo
+	Ufo(Game* game, Point2D<> pos);
+
+	//constructor por lectura de archivo
+	Ufo(Game* game, std::istream& in);
+
 	void Save(std::ostream& out) const override;
 
+	bool Hit(SDL_Rect rect, char color) override { return false; };
+
+	void Render() const override {};
+
+	void Update() override {};
 
 };
 

@@ -292,6 +292,7 @@ void Game::ReadMap(const std::string mapPath) {
 
 	while (!map.eof()) {		
 
+		//sacar esto a una funcion?
 		if (objectType == CANNON) { //cannon			
 			player = new Cannon(this,arrayTexturas[SPACESHIP],map);
 			objects.push_back(player);
@@ -305,20 +306,23 @@ void Game::ReadMap(const std::string mapPath) {
 		else if (objectType == MOTHERSHIP) { //mothership
 			mother = new Mothership(this, map);
 		}
-		else if (objectType == BUNKER) { // bunker		
+		else if (objectType == BUNKER_TYPE) { // bunker		
 			objects.push_back(new Bunker(this,arrayTexturas[BUNKER],map));
 		}	
 		else if (objectType == UFO) { //ovni
-
+			objects.push_back(new Ufo(this, map));
 		}
 		else if (objectType == LASER) { //laser
 			objects.push_back(new Laser(this, map));
 		}
 		else if (objectType == 7) { //infoBar(score)
-
+			map >> score;
 		}
 
-		objects.back()->setListIterator(--objects.end());
+		//setear el iterador cuando toca
+		if (objectType != MOTHERSHIP && objectType != 7) {
+			objects.back()->setListIterator(--objects.end());
+		}
 
 
 		map >> objectType;
