@@ -61,7 +61,6 @@ public:
 
 	int getLifes() const { return lifesLeft; }
 
-	SDL_Rect getRect()const ;
 
 
 	//para la carga de partidas

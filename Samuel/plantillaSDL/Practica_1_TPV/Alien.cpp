@@ -16,6 +16,8 @@ Alien::Alien(Game* game, Texture* text, Mothership* mother, Point2D<> _pos, int 
 Alien::Alien(Game* game, Texture* text,Mothership* mother, std::istream& in) 
 	: SceneObject(game,in),texture(text),mother(mother),animFrame(0) {
 	in >> type;
+	width = texture->getFrameWidth();
+	height = texture->getFrameHeight();
 }
 
 void Alien::Save(std::ostream& out) const {
@@ -102,16 +104,6 @@ void Alien::Move() {
 
 
 
-SDL_Rect Alien::getRect()const {
-	SDL_Rect rect;
-
-	rect.x = pos.getX();
-	rect.y = pos.getY();
-	rect.w = texture->getFrameWidth();
-	rect.h = texture->getFrameHeight();
-
-	return rect;
-}
 
 
 

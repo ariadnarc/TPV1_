@@ -36,6 +36,9 @@ Laser::Laser(Game* game, std::istream& in)
 		velocityVector = Vector2D<>(0, -1);
 		velocity = playerLaserVel;
 	}
+
+	width = WIDTH;
+	height = HEIGHT;
 }
 
 
@@ -83,16 +86,6 @@ void Laser::Update() {
 	}
 }
 
-SDL_Rect Laser::getRect()const {
-	SDL_Rect rect;
-
-	rect.x = pos.getX();
-	rect.y = pos.getY();
-	rect.w = WIDTH;
-	rect.h = HEIGHT;
-
-	return rect;
-}
 
 bool Laser::Hit(SDL_Rect rect, char tLaser) {
 

@@ -8,11 +8,13 @@
 #include <SDL.h>
 
 #include "SceneObject.h"
+#include "texture.h"
 
 
 
 class Ufo : public SceneObject {
 
+	Texture* texture;
 	//enumerado state ...
 
 	int state;

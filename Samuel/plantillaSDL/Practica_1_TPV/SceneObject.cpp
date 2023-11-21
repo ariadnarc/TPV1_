@@ -26,3 +26,16 @@ void SceneObject::Save(std::ostream& out) const{
 
 	out << pos.getX() << " " << pos.getY() << " ";
 }
+
+
+SDL_Rect SceneObject::getRect() const {
+	SDL_Rect rect;
+
+	rect.x = pos.getX();
+	rect.y = pos.getY();
+	rect.w = width;
+	rect.h = height;
+
+	return rect;
+}
+

@@ -16,6 +16,8 @@ Cannon::Cannon(Game* game, Texture* text, std::istream& in)
 	: SceneObject(game,in), texture(text) {
 	
 	in >> lifesLeft >> shootReload;	
+	width = texture->getFrameWidth();
+	height = texture->getFrameHeight();
 }
 
 void Cannon::Save(std::ostream& out) const {
@@ -144,16 +146,6 @@ void Cannon::Shoot() {
 }
 
 
-SDL_Rect Cannon::getRect() const {
-	SDL_Rect rect;
-
-	rect.x = pos.getX();
-	rect.y = pos.getY();
-	rect.w = texture->getFrameWidth();
-	rect.h = texture->getFrameHeight();
-
-	return rect;
-}
 
 
 

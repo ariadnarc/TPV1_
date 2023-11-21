@@ -32,7 +32,6 @@ public:
 
 	bool Hit(SDL_Rect rect, char tLaser) override;
 
-	SDL_Rect getRect()const;
 
 	int getLifes()const { return lifesLeft; }
 

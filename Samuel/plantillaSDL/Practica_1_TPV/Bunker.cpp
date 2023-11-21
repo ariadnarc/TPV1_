@@ -16,6 +16,8 @@ Bunker::Bunker(Game* game, Texture* text, std::istream& in)
 	: SceneObject(game, in), texture(text) {
 
 	in >> lifesLeft;
+	width = texture->getFrameWidth();
+	height = texture->getFrameHeight();
 }
 
 
@@ -100,14 +102,5 @@ bool Bunker::Hit(SDL_Rect rect, char tLaser) {
 	return colision;
 }
 
-SDL_Rect Bunker::getRect()const {
-	SDL_Rect rect;
 
-	rect.x = pos.getX();
-	rect.y = pos.getY();
-	rect.w = texture->getFrameWidth();
-	rect.h = texture->getFrameHeight();
-
-	return rect;
-}
 

@@ -20,6 +20,8 @@ Ufo::Ufo(Game* game, std::istream& in)
 	//leer estado y espera
 	in >> state >> waitingFrames;
 		
+	width = texture->getFrameWidth();
+	height = texture->getFrameHeight();
 }
 
 

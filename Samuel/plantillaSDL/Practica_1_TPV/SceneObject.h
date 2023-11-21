@@ -47,6 +47,7 @@ public:
 
 	virtual void Save(std::ostream& out) const;
 
+	SDL_Rect getRect()const;
 
 };
 

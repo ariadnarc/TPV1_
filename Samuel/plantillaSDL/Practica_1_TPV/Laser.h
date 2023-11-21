@@ -51,7 +51,6 @@ public:
 
 	bool Hit(SDL_Rect rect, char tLaser) override;
 
-	SDL_Rect getRect()const;
 
 	char getColor()const { return color; }
 

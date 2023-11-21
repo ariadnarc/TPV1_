@@ -53,8 +53,6 @@ public:
 	~Alien() override {};
 
 
-	SDL_Rect getRect() const;
-
 	int getType() const { return type; }
 
 
