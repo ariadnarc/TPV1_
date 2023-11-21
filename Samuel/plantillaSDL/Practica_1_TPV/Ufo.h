@@ -28,7 +28,7 @@ public:
 	Ufo(Game* game, Point2D<> pos);
 
 	//constructor por lectura de archivo
-	Ufo(Game* game, std::istream& in);
+	Ufo(Game* game, Texture* texture, std::istream& in);
 
 	void Save(std::ostream& out) const override;
 

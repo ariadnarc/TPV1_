@@ -309,8 +309,8 @@ void Game::ReadMap(const std::string mapPath) {
 		else if (objectType == BUNKER_TYPE) { // bunker		
 			objects.push_back(new Bunker(this,arrayTexturas[BUNKER],map));
 		}	
-		else if (objectType == UFO) { //ovni
-			objects.push_back(new Ufo(this, map));
+		else if (objectType == UFO_TYPE) { //ovni
+			objects.push_back(new Ufo(this, arrayTexturas[UFO], map));
 		}
 		else if (objectType == LASER) { //laser
 			objects.push_back(new Laser(this, map));

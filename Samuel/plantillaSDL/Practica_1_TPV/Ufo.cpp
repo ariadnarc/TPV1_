@@ -14,8 +14,8 @@ Ufo::Ufo(Game* game, Point2D<> pos)
 
 
 //constructor por lectura de archivo
-Ufo::Ufo(Game* game, std::istream& in)
-	:SceneObject(game, in) {
+Ufo::Ufo(Game* game,Texture* texture, std::istream& in)
+	:SceneObject(game, in),texture(texture) {
 
 	//leer estado y espera
 	in >> state >> waitingFrames;
@@ -28,7 +28,7 @@ Ufo::Ufo(Game* game, std::istream& in)
 
 void Ufo::Save(std::ostream& out) const{
 
-	out << UFO << " ";
+	out << UFO_TYPE << " ";
 
 	SceneObject::Save(out);
 
