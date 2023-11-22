@@ -137,7 +137,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InfoBar.cpp" />
     <ClCompile Include="Laser.cpp" />
-    <ClCompile Include="Mothership.cpp" />
+    <ClCompile Include="MotherShip.cpp" />
     <ClCompile Include="Practica1TPV.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="texture.cpp" />

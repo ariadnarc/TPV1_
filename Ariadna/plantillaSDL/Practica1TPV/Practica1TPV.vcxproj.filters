@@ -42,7 +42,7 @@
     <ClCompile Include="SceneObject.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Mothership.cpp">
+    <ClCompile Include="MotherShip.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
