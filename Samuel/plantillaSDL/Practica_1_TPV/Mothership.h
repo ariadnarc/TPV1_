@@ -31,6 +31,9 @@ class Mothership : public GameObject {
 	int waitingFrames;
 	int moveFrameRate = 13;
 
+	const int initialMoveFrameRate = 14;
+	const double increaseRate = 2.25;//percentage
+
 	//velocidades de movimiento de los aliens
 	const static int velocityX = 26;//movimiento horizontal
 	const static int velocityY = 10;//movimiento vertical

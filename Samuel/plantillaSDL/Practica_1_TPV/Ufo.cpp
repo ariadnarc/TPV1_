@@ -18,8 +18,11 @@ Ufo::Ufo(Game* game,Texture* texture, std::istream& in)
 	:SceneObject(game, in),texture(texture) {
 
 	//leer estado y espera
-	in >> state >> waitingFrames;
+	int aux;
+	in >> aux >> waitingFrames;
 		
+	currentState = (state)aux;
+
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
 }
@@ -32,7 +35,7 @@ void Ufo::Save(std::ostream& out) const{
 
 	SceneObject::Save(out);
 
-	out << state << " " << waitingFrames << " ";
+	out << currentState << " " << waitingFrames << " ";
 
 	out << '\n';
 

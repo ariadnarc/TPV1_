@@ -156,15 +156,7 @@ void Game::Update() {
 
 
 	//update del mothership
-	mother->Update();
-
-	//aumento de velocidad de los aliens, en relacion a la puntuacion
-	/*
-	if (score >= scoreToIncreaseVelocity) {
-		Alien::IncreaseVelocity();
-		scoreToIncreaseVelocity += 100;
-	}
-	*/
+	mother->Update();	
 
 	UpdateScoreUI();
 	

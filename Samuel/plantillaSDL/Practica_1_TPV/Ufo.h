@@ -15,9 +15,10 @@
 class Ufo : public SceneObject {
 
 	Texture* texture;
-	//enumerado state ...
 
-	int state;
+	enum state{visible,hiden,destroyed};
+	
+	state currentState;
 
 	int waitingFrames;
 	int _frameRate;

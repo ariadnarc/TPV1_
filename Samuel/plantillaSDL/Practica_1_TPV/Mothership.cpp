@@ -58,6 +58,10 @@ void Mothership::Update() {
 			aliensDir = Vector2D <>(0, 1);
 			_cannotMove = false;
 			level++;
+
+			//actualizar el frame rate
+			moveFrameRate = initialMoveFrameRate * (1 - ((increaseRate * level) / 100));
+			std::cout << moveFrameRate << '\n';
 		}
 		else if (currentState == left_down) {
 			currentState = (state)(((int)currentState + 1) % 4);
@@ -68,6 +72,7 @@ void Mothership::Update() {
 			aliensDir = Vector2D<>(-1, 0);
 		}
 	}
+	
 	
 }
 

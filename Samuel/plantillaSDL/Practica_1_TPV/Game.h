@@ -124,19 +124,16 @@ class Game {
 
 	SDL_AudioDeviceID deviceId;
 
-	//para el incremento de velocidad de los aliens
-	int scoreToIncreaseVelocity = 100;
-
-
 	//guardado de partidas
 	bool saving = false;
+	bool loading = false;
+
 	int currentInputFrames = 0;//buscar un mejor nombre
 	int maxInputFrames = 100;
 
 	int slotNumber;
 
 
-	bool loading = false;
 
 	//bucle de juego
 	void Render()const;
