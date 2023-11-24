@@ -16,12 +16,21 @@ class Ufo : public SceneObject {
 
 	Texture* texture;
 
-	enum state{visible,hiden,destroyed};
+	enum state{hiddenLeft,right,hiddenRight,left,destroyed};
 	
 	state currentState;
 
+
+	int velocityX = 7;
+	Vector2D<> dir;
+
 	int waitingFrames;
-	int _frameRate;
+	
+	const static int moveWaitingTime = 2;
+	const static int destroyedWaitingTime = 50;
+
+	const static int minWaitingTime = 150;
+	const static int maxWaitingTime = 300;
 
 public:
 
@@ -33,11 +42,11 @@ public:
 
 	void Save(std::ostream& out) const override;
 
-	bool Hit(SDL_Rect rect, char color) override { return false; };
+	bool Hit(SDL_Rect rect, char color) override;
 
-	void Render() const override {};
+	void Render() const override;
 
-	void Update() override {};
+	void Update() override;
 
 };
 

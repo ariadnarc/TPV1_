@@ -450,6 +450,10 @@ void Game::AlienDied(int type) {
 	score += SCORE_ALIENS[type];
 }
 
+void Game::UfoDied() {
+	score += SCORE_UFO;
+}
+
 void Game::HasDied(std::list<SceneObject*>::iterator it) {
 	iteratorsDied.push_back(it);
 }

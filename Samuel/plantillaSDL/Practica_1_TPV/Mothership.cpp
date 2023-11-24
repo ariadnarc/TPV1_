@@ -54,14 +54,18 @@ void Mothership::Update() {
 		waitingFrames = moveFrameRate;
 
 		if (_cannotMove) {
+			//actualizar estado y direccion
 			currentState = (state)(((int)currentState + 1) % 4);
 			aliensDir = Vector2D <>(0, 1);
+			
 			_cannotMove = false;
+			//incrementar el contador de veces que se ha bajado
 			level++;
 
 			//actualizar el frame rate
 			moveFrameRate = initialMoveFrameRate * (1 - ((increaseRate * level) / 100));
-			std::cout << moveFrameRate << '\n';
+			//para debug
+			//std::cout << moveFrameRate << '\n';
 		}
 		else if (currentState == left_down) {
 			currentState = (state)(((int)currentState + 1) % 4);

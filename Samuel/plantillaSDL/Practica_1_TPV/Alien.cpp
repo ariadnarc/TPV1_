@@ -83,10 +83,13 @@ bool Alien::Hit(SDL_Rect rect, char tLaser) {
 void Alien::Move() {
 	Vector2D<> dir = mother->getDirection();
 	
-	pos = Vector2D<>(pos.getX() +  (dir.getX() * mother->getVelocityX()),
-					 pos.getY() +  (dir.getY() * mother->getVelocityY()) );
+	//pos = Vector2D<>(pos.getX() +  (dir.getX() * mother->getVelocityX()),
+	//				 pos.getY() +  (dir.getY() * mother->getVelocityY()) );
 
-	
+	//otra version del move
+	pos = pos + (Vector2D<>(mother->getVelocityX() * dir.getX(),
+							mother->getVelocityY() * dir.getY() ));
+
 	if (
 		( dir.getX() == -1 && 
 			pos.getX() <= (0+mother->getVelocityX()) ) ||

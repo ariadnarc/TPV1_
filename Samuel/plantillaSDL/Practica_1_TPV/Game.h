@@ -66,9 +66,7 @@ const std::string MAP_PATH = "mapas/original.txt";
 
 const int SCORE_ALIENS[] = { 30,20,10 };
 
-const int SCR_ALIEN_TYPE_0 = 30;
-const int SCR_ALIEN_TYPE_1 = 20;
-const int SCR_ALIEN_TYPE_2 = 10;
+const int SCORE_UFO = 100;
 
 //CONSTANTES DE JUEGO
 constexpr int PLAYER_LIFES = 3;
@@ -196,6 +194,8 @@ public:
 
 
 	void AlienDied(int type);
+
+	void UfoDied();
 	//constructor
 	Game(const std::vector<TextureInfo>& texturesInfo);
 	//destructor
