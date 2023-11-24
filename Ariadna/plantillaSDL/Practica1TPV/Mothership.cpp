@@ -20,7 +20,10 @@ void MotherShip::Initialize(std::istream& in) {
 
 }
 
-void MotherShip::Save(std::ostream& out) {
+void MotherShip::Save(std::ostream& out) const {
 
 }
 
+void MotherShip::UpdateDirection() {
+
+};

@@ -32,17 +32,16 @@ public:
 	// sobresscribe los metodos heredados de GameObject
 	void Render() const override {};
 
-	//
+	// control de tiempo con framerate y waitingframes. Actualizar estados y framerate
 	void Update() override;
 
 	//guardado de partida 
 	void Save(std::ostream& out)const override;
 
 
-
 	// el bool shouldmove se pone a true cuando el tiempo de espera sea igual a cero
 	bool ShouldMove() const { return shouldmove; } // por qué es const?
 
-
-
+	// cambia la direccion dependiendo del estado
+	void UpdateDirection();
 };
