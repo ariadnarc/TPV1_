@@ -106,12 +106,4 @@ void Alien::Move() {
 		mother->alienLanded();
 	}
 	
-
 }
-
-
-
-
-
-
-

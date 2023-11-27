@@ -11,10 +11,9 @@
 
 
 
-
 class ShooterAlien : public Alien {
 
-	//ajustar valores
+	//intervalos de disparos
 	const static int MIN_SHOOT_RATE = 75;
 	const static int MAX_SHOOT_RATE = 200;
 
@@ -32,13 +31,12 @@ public:
 	//constructor por lectura de archivo
 	ShooterAlien(Game* game, Texture* text, Mothership* mother, std::istream& in);
 
+	void Update() override;
+
 	void Save(std::ostream& out) const override;
 
-
-	void Update() override;
 };
 
 
 
 #endif // !ShooterAlien_H_
-

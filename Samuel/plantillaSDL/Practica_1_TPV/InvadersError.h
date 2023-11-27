@@ -40,7 +40,6 @@ public:
 	FileNotFoundError(const char* fileName) 
 		: InvadersError("FileNotFound, file with name: " + std::string(fileName) + " , cant be found") {};
 
-
 };
 
 
@@ -56,7 +55,5 @@ public:
 		: InvadersError("FileFormatError, file with name: " + std::string(fileName) + 
 			" , at line: " + std::to_string(line)) {};
 
-
 };
 #endif // !InvadersError_H_
-

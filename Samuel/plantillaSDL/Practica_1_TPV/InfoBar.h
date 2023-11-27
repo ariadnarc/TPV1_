@@ -13,7 +13,6 @@
 #include"texture.h"
 
 
-
 class Game;
 
 class InfoBar : public GameObject{
@@ -36,7 +35,6 @@ private:
 	int currentLifes;
 
 
-
 	//VARIABLES PARA MOSTRAR LA PUNTUACION
 	const int scoreStartX = 480;
 	const int scoreStartY = 15;
@@ -48,7 +46,6 @@ private:
 
 	void RenderLifes() const ;
 	void RenderScore() const ;
-
 
 public:
 	
@@ -70,6 +67,4 @@ public:
 };
 
 
-
 #endif // !InfoBar_H_
-

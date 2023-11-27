@@ -14,7 +14,6 @@
 
 class Game;
 
-
 class Laser : public SceneObject {
 private:	
 		
@@ -49,16 +48,12 @@ public:
 
 	void Update() override;
 
-	bool Hit(SDL_Rect rect, char tLaser) override;
-
+	void Save(std::ostream& out) const override;
 
 	char getColor()const { return color; }
 
-	void Save(std::ostream& out) const override;
+	bool Hit(SDL_Rect rect, char tLaser) override;
 
 };
 
-
-
 #endif // !LASER_H_  
-

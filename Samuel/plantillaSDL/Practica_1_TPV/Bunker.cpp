@@ -29,8 +29,6 @@ void Bunker::Save(std::ostream& out) const {
 	out << lifesLeft;
 
 	out << '\n';
-
-
 }
 
 
@@ -78,9 +76,8 @@ void Bunker::Render() const{
 	texture->renderFrame(getRect(), 0,std::clamp(indiceFrame,0,cols));
 }
 
-void Bunker::Update() {
-
-}
+//update vacio
+void Bunker::Update(){}
 
 bool Bunker::Hit(SDL_Rect rect, char tLaser) {
 

@@ -75,7 +75,6 @@ bool Cannon::Hit(SDL_Rect rect, char tLaser) {
 	
 	if (lifesLeft <= 0) return false;
 
-
 	bool colision = false;
 
 	SDL_Rect aux = getRect();
@@ -139,6 +138,7 @@ void Cannon::Shoot() {
 	if (space && shootReload > SHOOT_RATE) {
 		shootReload = 0;
 
+		//sacar la posicion a un metodo spawnPoint
 		game->fireLaser(Vector2D<>(	pos.getX() + texture->getFrameWidth()/2,
 									pos.getY() - texture->getFrameHeight()/2), 
 									'b');

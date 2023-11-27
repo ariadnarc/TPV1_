@@ -29,18 +29,9 @@ public:
 
 	void Update() override;
 
+	void Save(std::ostream& out) const override;
 
 	bool Hit(SDL_Rect rect, char tLaser) override;
-
-
-	int getLifes()const { return lifesLeft; }
-
-	//para la carga de partidas
-	void setPos(Point2D<> p) { pos = p; }
-
-	void setLifes(int n) { lifesLeft = n; }
-
-	void Save(std::ostream& out) const override;
 };
 
 

@@ -17,10 +17,9 @@ class Mothership : public GameObject {
 	Vector2D<> aliensDir;
 
 	bool _cannotMove = false;
-
 	bool _shouldMove = false;
 
-
+	//estados
 	enum state{right,right_down,left,left_down};
 
 	state currentState;
@@ -69,6 +68,7 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
 	void increaseAlienCount() { nAliens++; }
 
+
 	//override de metodos heredados
 	void Render() const override {};
 	void Update() override;
@@ -77,6 +77,7 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 	//getters de la velocidad
 	int getVelocityX() const{ return velocityX; }
 	int getVelocityY() const{ return velocityY; }
+
 
 	void Initialize();
 
@@ -87,4 +88,3 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
 
 #endif // !Mothership_H_
-

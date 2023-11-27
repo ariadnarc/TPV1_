@@ -109,6 +109,3 @@ bool Laser::Hit(SDL_Rect rect, char tLaser) {
 	return colision;
 }
 
-
-
-

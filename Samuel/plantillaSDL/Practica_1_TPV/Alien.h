@@ -55,8 +55,6 @@ public:
 
 	int getType() const { return type; }
 
-
-
 	//para random Mode, esto habra que cambiarlo
 	void setType(int t) { type = t; };
 };

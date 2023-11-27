@@ -55,21 +55,13 @@ public:
 
 	void Update() override;
 
-	void HandleEvents(SDL_Event ev); 
+	void Save(std::ostream& out) const override;
 
 	bool Hit(SDL_Rect rect, char tLaser) override;
 
+	void HandleEvents(SDL_Event ev); 
+
 	int getLifes() const { return lifesLeft; }
-
-
-
-	//para la carga de partidas
-	void setPos(Point2D<> p) { pos = p; }
-
-	void setLifes(int n) { lifesLeft = n; }
-
-
-	void Save(std::ostream& out) const override;
 };
 
 

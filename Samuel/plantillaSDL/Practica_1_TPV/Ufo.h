@@ -42,13 +42,12 @@ public:
 
 	void Save(std::ostream& out) const override;
 
-	bool Hit(SDL_Rect rect, char color) override;
-
 	void Render() const override;
 
 	void Update() override;
 
+	bool Hit(SDL_Rect rect, char color) override;
+
 };
 
 #endif // !Ufo_H_
-
