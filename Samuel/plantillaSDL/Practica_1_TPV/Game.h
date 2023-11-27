@@ -25,6 +25,8 @@
 #include "InfoBar.h"
 
 
+#include "InvadersError.h"
+
 
 struct TextureInfo {
 	std::string fileName;
@@ -196,8 +198,12 @@ public:
 	void AlienDied(int type);
 
 	void UfoDied();
+
+	SDL_Window* getWindow() { return window; };
+
 	//constructor
 	Game(const std::vector<TextureInfo>& texturesInfo);
+
 	//destructor
 	~Game();
 };

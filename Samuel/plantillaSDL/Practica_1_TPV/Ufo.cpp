@@ -108,7 +108,7 @@ bool Ufo::Hit(SDL_Rect rect, char color) {
 		game->UfoDied();
 		return true;
 	}
-	
+	else return false;
 }
 
 void Ufo::Save(std::ostream& out) const{

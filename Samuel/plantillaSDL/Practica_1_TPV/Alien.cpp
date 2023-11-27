@@ -92,7 +92,7 @@ void Alien::Move() {
 
 	if (
 		( dir.getX() == -1 && 
-			pos.getX() <= (0+mother->getVelocityX()) ) ||
+			pos.getX() <= (0 + mother->getVelocityX()) ) ||
 
 		( dir.getX() ==  1 && 
 			pos.getX() >= (game->getWinWidht() - (texture->getFrameWidth() ) - mother->getVelocityX()) )

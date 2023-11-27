@@ -23,7 +23,7 @@ void Game::InitializeSDL() {
 
 	//si ha fallado la carga salir, sino codigo del programa
 	if (window == nullptr || renderer == nullptr)
-		throw std::string("Error loading SDL window or renderer");
+		throw SDLError();
 }
 
 void Game::LoadTextures(const std::vector<TextureInfo>& textInfo) {
@@ -181,7 +181,7 @@ void Game::Update() {
 		}
 
 	}
-
+	//falta guardado
 }
 
 void Game::HandleEvents() {
