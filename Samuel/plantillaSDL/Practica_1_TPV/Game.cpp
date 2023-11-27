@@ -207,6 +207,22 @@ void Game::HandleEvents() {
 			}
 
 
+			//sacar a una funcion aparte
+			/*
+			if (saving || loading) {
+				SDL_Scancode code = evento.key.keysym.scancode;
+
+				//manejo del input
+				if (evento.type == SDL_KEYDOWN) {
+					if (code >= 30 && code <= 38) {
+
+						slotNumber = code - 29;
+
+					}
+				}
+			}
+			*/
+
 			if (saving) {
 				ChoseSlot(evento);
 			}
@@ -273,14 +289,21 @@ void Game::ReadMap(const std::string mapPath) {
 	map.open(mapPath);
 
 	if (map.fail()) {
-		throw std::string("Error al cargar el mapa");//lanzar error
+		throw FileNotFoundError(mapPath);
 	}
 
 	int objectType;	
+	int line = 0;
+
 
 	map >> objectType;
 
+
 	while (!map.eof()) {		
+
+		if (objectType < 0 || objectType>7) {
+			throw FileFormatError(mapPath,line);
+		}
 
 		//sacar esto a una funcion?
 		if (objectType == CANNON) { //cannon			
@@ -316,6 +339,7 @@ void Game::ReadMap(const std::string mapPath) {
 
 
 		map >> objectType;
+		line++;
 	}
 
 }

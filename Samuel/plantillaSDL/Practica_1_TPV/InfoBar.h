@@ -8,22 +8,22 @@
 #include<SDL.h>
 #include<vector>
 
+#include "GameObject.h"
+
 #include"texture.h"
 
 
 
 class Game;
 
-class InfoBar {
+class InfoBar : public GameObject{
 
 private:
 	//textura para las vidas
 	Texture* cannonTexture;
 	//textura para la fuente de texto
 	Texture* fontTexture;
-	//puntero al game
-	Game* game;
-
+	
 	//VARIABLES PARA MOSTRAR LAS VIDAS
 	const int lifesStartX = 20;
 	const int lifesStartY = 15;
@@ -46,18 +46,25 @@ private:
 	int currentScore = 0;
 
 
-	void RenderLifes();
-	void RenderScore();
+	void RenderLifes() const ;
+	void RenderScore() const ;
 
 
 public:
 	
 	//constructor
 	InfoBar(Texture* cannontext,Texture*fontText, Game* game,int playerLifes)
-		: cannonTexture(cannontext),fontTexture(fontText), game(game), currentLifes(playerLifes) {};
+		: GameObject(game), cannonTexture(cannontext),fontTexture(fontText), currentLifes(playerLifes) {};
 
-	void Render();
+	//metodos heredados de Gam
+	void Render() const override;
 
+	void Update() override {};
+
+	void Save(std::ostream& out)const override {};
+
+
+	//cambiar esto por acceso a las variables?
 	void UpdateCurrentLifes(int lifes);
 	void UpdateCurrentScore(int score);
 };

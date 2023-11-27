@@ -8,7 +8,7 @@
 
 
 
-void InfoBar::RenderLifes() {
+void InfoBar::RenderLifes() const {
 	SDL_Rect target;
 
 	target.w = cannonTexture->getFrameWidth();
@@ -23,7 +23,7 @@ void InfoBar::RenderLifes() {
 	}
 }
 
-void InfoBar::RenderScore() {
+void InfoBar::RenderScore()const {
 
 	std::vector<int> rows = {1,1,1,1,1};
 	std::vector<int> cols = {'S'-'A','C' - 'A' ,'O' - 'A' ,'R' - 'A' ,'E' - 'A' };//cambiar a una funcion
@@ -63,7 +63,7 @@ void InfoBar::RenderScore() {
 }
 
 
-void InfoBar::Render() {
+void InfoBar::Render()const {
 	RenderLifes();
 
 	RenderScore();

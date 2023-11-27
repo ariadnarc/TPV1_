@@ -27,7 +27,7 @@
 
 #include "InvadersError.h"
 
-
+//struct para informacion de las texturas
 struct TextureInfo {
 	std::string fileName;
 	int horizontalFrames, verticalFrames;
@@ -49,30 +49,29 @@ constexpr uint winHeight = 600;
 //frame rate
 constexpr uint FRAME_RATE = 20;
 
+//numero de texturas
 constexpr uint NUM_TEXTURAS = 6;
-
-
+//ruta comun  de  las texturas
 const std::string TEXTURE_ROOT = "images/";
 
 //enumerado texturas
 enum TextureName{ALIENS,BUNKER,SPACESHIP,STARS,FONT,UFO};
 
 //enumerado tipos de objetos
-
 enum ObjectTypes{CANNON,ALIEN,SHOOTER_ALIEN,MOTHERSHIP,BUNKER_TYPE,UFO_TYPE,LASER};
 
 //ruta del mapa
 const std::string MAP_PATH = "mapas/original.txt";
 
-//puntuaciones de los aliens
+//puntuaciones de los aliens y del  ufo
 
 const int SCORE_ALIENS[] = { 30,20,10 };
-
 const int SCORE_UFO = 100;
 
 //CONSTANTES DE JUEGO
 constexpr int PLAYER_LIFES = 3;
 constexpr int BUNKER_LIFES = 10;
+
 
 
 class Game {
@@ -107,7 +106,7 @@ class Game {
 	//GENERADOR ALEATORIO
 	std::mt19937_64 randomGenerator;
 
-	//numero aleatorio de disparadores y tipos aleatorios de aliens
+	//numero aleatorio de disparadores y tipos aleatorios de aliens, para randomMode
 	const bool randomMode = false;
 	const int shootersPercent = 60;
 
@@ -124,7 +123,7 @@ class Game {
 
 	SDL_AudioDeviceID deviceId;
 
-	//guardado de partidas
+	//guardado de partidas y cargado  de partidas
 	bool saving = false;
 	bool loading = false;
 
@@ -141,7 +140,7 @@ class Game {
 	void HandleEvents();
 
 
-	//carga de objetos
+	//carga de objetos de un archivo
 	void ReadMap(const std::string mapPath);
 
 	//metodos privados auxiliares
@@ -199,6 +198,7 @@ public:
 
 	void UfoDied();
 
+	//para mostrar las excepciones en una ventana de SDL
 	SDL_Window* getWindow() { return window; };
 
 	//constructor
