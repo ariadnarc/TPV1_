@@ -10,6 +10,7 @@
 
 #include "GameObject.h"
 #include "Vector2D.h"
+#include "InvadersError.h"
 
 
 class SceneObject : public GameObject {
@@ -45,6 +46,16 @@ public:
 	virtual void Save(std::ostream& out) const;
 
 	SDL_Rect getRect()const;
+
+protected:
+
+	template<typename T>
+	void readValue(T v, std::istream& in) {
+		in >> v;
+		if (in.fail()) {
+			throw FileFormatError("",0);
+		}
+	}
 
 };
 

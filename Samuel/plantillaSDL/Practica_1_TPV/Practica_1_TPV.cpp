@@ -25,29 +25,20 @@ int main(int argc, char* argv[]) {
 	texturesInfo.push_back(TextureInfo("font.png", 3, 30));
 	texturesInfo.push_back(TextureInfo("ufo.png", 1, 2));
 	
-	Game* game = nullptr;
 
 
-	//preguntar try caths, logica...
-
-	
 	try {
+
+		Game* game;
+
 		game = new Game(texturesInfo);
-	}
-	catch (SDLError error) {//cacheo  de errores de SDL
-		cout << error.what();
-	}
 
-	//si ha habido  un fallo  cortar la ejecucion
-	if (game == nullptr) return 1;
-
-	try {
 		game->Run();
 
 		delete game;
 	}
 	catch(InvadersError error) {
-		SDL_ShowSimpleMessageBox(0, "Untitled", error.what(), game->getWindow());
+		SDL_ShowSimpleMessageBox(0, "Untitled", error.what(), nullptr);
 	}
 	
 	return 0;
