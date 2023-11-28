@@ -10,7 +10,10 @@
 
 //constructor por parametros
 Alien::Alien(Game* game, Texture* text, Mothership* mother, Point2D<> _pos, int _type)
-	: SceneObject(game, _pos, 0, 0, 1), texture(text), type(_type), animFrame(0), mother(mother) {};
+	: SceneObject(game, _pos, 0, 0, 1), texture(text), type(_type), animFrame(0), mother(mother) {
+
+	mother->addAlien();
+};
 
 //constructor por lectura de archivo
 Alien::Alien(Game* game, Texture* text,Mothership* mother, std::istream& in) 
@@ -18,6 +21,8 @@ Alien::Alien(Game* game, Texture* text,Mothership* mother, std::istream& in)
 	in >> type;
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
+	mother->addAlien();
+
 }
 
 void Alien::Save(std::ostream& out) const {

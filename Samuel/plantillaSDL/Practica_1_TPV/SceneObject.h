@@ -50,7 +50,7 @@ public:
 protected:
 
 	template<typename T>
-	void readValue(T v, std::istream& in) {
+	void readValue(T& v, std::istream& in) {
 		in >> v;
 		if (in.fail()) {
 			throw FileFormatError("",0);

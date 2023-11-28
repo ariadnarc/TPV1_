@@ -201,6 +201,8 @@ public:
 	//para mostrar las excepciones en una ventana de SDL
 	SDL_Window* getWindow() { return window; };
 
+	void playerDied() { exit = true; }
+
 	//constructor
 	Game(const std::vector<TextureInfo>& texturesInfo);
 

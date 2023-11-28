@@ -167,7 +167,8 @@ void Game::Update() {
 	} 
 	*/
 
-	
+	if (mother->haveLanded()) exit = true;
+	if (mother->getAlienCount() <= 0) exit = true;
 	
 	//guardado de slots
 	if (saving) {

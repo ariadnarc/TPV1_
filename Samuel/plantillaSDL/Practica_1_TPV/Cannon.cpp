@@ -85,7 +85,11 @@ bool Cannon::Hit(SDL_Rect rect, char tLaser) {
 			lifesLeft--;
 			game->UpdateLifesUI();
 
-			if (lifesLeft <= 0) game->HasDied(iterator);
+			if (lifesLeft <= 0) {
+				game->HasDied(iterator);
+				game->playerDied();
+			}
+
 		}
 	}
 	

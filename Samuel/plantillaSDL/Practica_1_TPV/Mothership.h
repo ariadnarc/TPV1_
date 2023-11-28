@@ -18,6 +18,7 @@ class Mothership : public GameObject {
 
 	bool _cannotMove = false;
 	bool _shouldMove = false;
+	bool _landed = false;
 
 	//estados
 	enum state{right,right_down,left,left_down};
@@ -59,10 +60,12 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
 	void alienDied() { nAliens--; };
 
+	void addAlien() { nAliens++; };
+
 	//diferencia entre estos 2 metodos?
 	void alienLanded();
 
-	void haveLanded();
+	bool haveLanded();
 
 	int getAlienCount() const { return nAliens; };
 

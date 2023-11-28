@@ -36,11 +36,11 @@ void Mothership::Save(std::ostream& out)const {
 
 
 void Mothership::alienLanded() {
-	//llamar al game
+	_landed = true;
 }
 
-void Mothership::haveLanded() {
-
+bool Mothership::haveLanded() {
+	return _landed;
 }
 
 void Mothership::Update() {
