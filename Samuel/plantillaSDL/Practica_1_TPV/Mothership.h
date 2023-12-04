@@ -43,10 +43,10 @@ class Mothership : public GameObject {
 public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
 	//constructor por paso de parametros, basico
-	Mothership(Game* game);
+	Mothership(PlayState* game);
 
 	//constructor por lectura de archivo
-	Mothership(Game* game, std::istream& in);
+	Mothership(PlayState* game, std::istream& in);
 
 	void Initialize(std::istream& in);
 

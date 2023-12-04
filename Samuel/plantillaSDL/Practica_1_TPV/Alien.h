@@ -12,7 +12,7 @@
 #include "Mothership.h"
 
 
-class Game;
+class PlayState;
 
 class Alien : public SceneObject {
 
@@ -35,10 +35,10 @@ protected:
 public:
 
 	//constructor por parametros
-	Alien(Game* game, Texture* text, Mothership* mother, Point2D<> _pos, int _type);
+	Alien(PlayState* game, Texture* text, Mothership* mother, Point2D<> _pos, int _type);
 
 	//constructor por lectura de archivo
-	Alien(Game* game, Texture* text,Mothership* mother, std::istream& in);
+	Alien(PlayState* game, Texture* text,Mothership* mother, std::istream& in);
 
 	//metodos heredados,override
 	void Render() const override;

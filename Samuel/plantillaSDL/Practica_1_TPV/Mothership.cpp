@@ -9,14 +9,14 @@
 
 
 //constructor por paso de parametros
-Mothership::Mothership(Game* game) 
+Mothership::Mothership(PlayState* game) 
 	: GameObject(game) {
 
 	Initialize();
 };
 
 //constructor por lectura de archivo, no se usa
-Mothership::Mothership(Game* game, std::istream& in) 
+Mothership::Mothership(PlayState* game, std::istream& in) 
 	: GameObject(game){
 	
 	Initialize(in);

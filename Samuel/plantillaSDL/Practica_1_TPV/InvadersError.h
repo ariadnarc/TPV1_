@@ -1,6 +1,7 @@
 #ifndef InvadersError_H_
 #define InvadersError_H_
 
+#include "checkML.h"
 
 #include<iostream>
 #include <SDL.h>

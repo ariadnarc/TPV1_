@@ -9,7 +9,7 @@
 #include "Game.h"
 
 
-void Game::Render()const {
+void PlayState::Render()const {
 
 	//clear de la pantalla(si se va a repintar toda la pantalla opcional)
 	//SDL_RenderClear(renderer);
@@ -24,14 +24,14 @@ void Game::Render()const {
 	SDL_RenderPresent(renderer);
 }
 
-void Game::Update() {
+void PlayState::Update() {
 
 	dog->Update();
 	helicopter->Update();
 
 }
 
-void Game::HandleEvents(){
+void PlayState::HandleEvents(){
 	SDL_Event evento;
 
 	//carga los eventos 
@@ -47,7 +47,7 @@ void Game::HandleEvents(){
 
 }
 
-void Game::Run() {
+void PlayState::Run() {
 
 	/* 
 	version control total pero consume mas recursos
@@ -90,7 +90,7 @@ void Game::Run() {
 
 
 //constructor
-Game::Game(std::vector<std::string> texturesPath)
+PlayState::PlayState(std::vector<std::string> texturesPath)
 {
 	//inicializar sdl
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -138,7 +138,7 @@ Game::Game(std::vector<std::string> texturesPath)
 };
 
 //destructor
-Game::~Game() {
+PlayState::~PlayState() {
 	//delete de las texturas(dentro se hace el SDL_DestroyTexture)
 	for (int i = 0; i < 3; i++) {
 		delete arrayTexturas[i];

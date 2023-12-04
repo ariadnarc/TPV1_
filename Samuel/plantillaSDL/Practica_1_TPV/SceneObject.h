@@ -32,10 +32,10 @@ public:
 
 
 	//constructor por parametros
-	SceneObject(Game* game, Point2D<> _pos, int width, int height, int lifesLeft);
+	SceneObject(PlayState* game, Point2D<> _pos, int width, int height, int lifesLeft);
 
 	//constructor por lectura de archivo
-	SceneObject(Game* game,std::istream& in);
+	SceneObject(PlayState* game,std::istream& in);
 
 
 	//hace falta volver a poner el destructor?

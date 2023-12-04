@@ -13,7 +13,7 @@
 
 
 
-class Game;
+class PlayState;
 
 class Cannon : public SceneObject{
 
@@ -46,10 +46,10 @@ class Cannon : public SceneObject{
 public:
 
 	//constructor por parametros
-	Cannon(Game* game, Texture* text, Point2D<> pos, int lifes);
+	Cannon(PlayState* game, Texture* text, Point2D<> pos, int lifes);
 
 	//constructor por lectura de archivo
-	Cannon(Game* game, Texture* text, std::istream& in);
+	Cannon(PlayState* game, Texture* text, std::istream& in);
 
 	void Render()const override;
 

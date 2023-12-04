@@ -7,13 +7,13 @@
 #include <SDL.h>
 
 
-class Game;//declaracion anticipada
+class PlayState;//declaracion anticipada
 
 class GameObject {//preguntar por privacidad de los metodos, estan bien publicos?
 
 protected:
 	//atributos
-	Game* game;
+	PlayState* game;
 	
 public:
 	//metodos virtuales
@@ -24,7 +24,7 @@ public:
 	virtual void Save(std::ostream& out) const = 0;
 
 	//constructor
-	GameObject(Game* game) : game(game) {};
+	GameObject(PlayState* game) : game(game) {};
 	//destructor (siempre virtual)
 	virtual ~GameObject() {};
 

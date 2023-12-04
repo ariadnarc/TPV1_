@@ -7,12 +7,12 @@
 #include "Game.h"
 
 //constructor por parametros
-Cannon::Cannon(Game* game, Texture* text, Point2D<> pos, int lifes)
+Cannon::Cannon(PlayState* game, Texture* text, Point2D<> pos, int lifes)
 	: SceneObject(game, pos, 0, 0, lifes), texture(text), direction(0, 0) {};
 
 
 //constructor por lectura de archivo
-Cannon::Cannon(Game* game, Texture* text, std::istream& in) 
+Cannon::Cannon(PlayState* game, Texture* text, std::istream& in) 
 	: SceneObject(game,in), texture(text) {
 	
 	in >> lifesLeft >> shootReload;	

@@ -8,11 +8,11 @@
 
 
 //constructor por parametros
-Bunker::Bunker(Game* game, Texture* text, Point2D<> _pos, int lifes)
+Bunker::Bunker(PlayState* game, Texture* text, Point2D<> _pos, int lifes)
 	:SceneObject(game, _pos, 0, 0, lifes), texture(text) {};
 
 //constructor por lectura de archivo
-Bunker::Bunker(Game* game, Texture* text, std::istream& in)
+Bunker::Bunker(PlayState* game, Texture* text, std::istream& in)
 	: SceneObject(game, in), texture(text) {
 
 	in >> lifesLeft;

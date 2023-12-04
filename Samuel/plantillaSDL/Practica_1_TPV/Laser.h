@@ -12,7 +12,7 @@
 #include "SceneObject.h"
 
 
-class Game;
+class PlayState;
 
 class Laser : public SceneObject {
 private:	
@@ -39,10 +39,10 @@ private:
 public:
 
 	//constructor por parametros
-	Laser(Game* game, Point2D<> pos, char color);
+	Laser(PlayState* game, Point2D<> pos, char color);
 
 	//constructor por lectura de archivos
-	Laser(Game* game, std::istream& in);
+	Laser(PlayState* game, std::istream& in);
 
 	void Render() const override;
 

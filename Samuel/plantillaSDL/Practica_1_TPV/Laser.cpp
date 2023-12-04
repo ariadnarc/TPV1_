@@ -8,7 +8,7 @@
 
 
 //constructor por parametros
-Laser::Laser(Game* game, Point2D<> pos, char color)
+Laser::Laser(PlayState* game, Point2D<> pos, char color)
 	: SceneObject(game, pos, WIDTH, HEIGHT, 1), color(color){
 
 	if (color == 'r') {
@@ -23,7 +23,7 @@ Laser::Laser(Game* game, Point2D<> pos, char color)
 }
 	
 //constructor por lectura de archivos
-Laser::Laser(Game* game, std::istream& in) 
+Laser::Laser(PlayState* game, std::istream& in) 
 	: SceneObject(game,in) {
 	in >> color;
 

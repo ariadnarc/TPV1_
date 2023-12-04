@@ -8,11 +8,11 @@
 #include "Texture.h"
 
 
-class Game;
+class PlayState;
 
 class Dog {
 
-	Game* game;
+	PlayState* game;
 
 	int winWidth;
 
