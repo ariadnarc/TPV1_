@@ -38,7 +38,7 @@ class Mothership : public GameObject {
 	const static int velocityX = 26;//movimiento horizontal
 	const static int velocityY = 10;//movimiento vertical
 
-	int nAliens;
+	int nAliens = 0;
 
 public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
@@ -57,6 +57,8 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 	bool shouldMove() const { return _shouldMove; };
 
 	void cannotMove() { _cannotMove = true; };
+
+	void resetAlienCount() { nAliens = 0; }
 
 	void alienDied() { nAliens--; };
 

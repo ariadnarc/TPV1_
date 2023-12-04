@@ -87,7 +87,9 @@ Game::Game(const std::vector<TextureInfo>& textInfo)
 	//modo aliens aleatorios
 	if (randomMode) RandomMode();
 	
-	LoadMusic();
+	if (musicOn) {
+		LoadMusic();
+	}
 	
 };
 
@@ -112,8 +114,10 @@ Game::~Game() {
 
 
 	// clean up de la musicas
-	SDL_CloseAudioDevice(deviceId);
-	SDL_FreeWAV(wavBuffer);
+	if (musicOn) {
+		SDL_CloseAudioDevice(deviceId);
+		SDL_FreeWAV(wavBuffer);
+	}
 
 	//destructores(renderer window, y sdl quit)
 	SDL_DestroyRenderer(renderer);
@@ -160,12 +164,6 @@ void Game::Update() {
 
 	UpdateScoreUI();
 	
-	//condicion de victoria
-	/*
-	if (aliens.size() == 0){
-		exit = true;//añadir comentario de victoria
-	} 
-	*/
 
 	if (mother->haveLanded()) exit = true;
 	if (mother->getAlienCount() <= 0) exit = true;
@@ -411,6 +409,8 @@ void Game::LoadGame(std::string savePath) {
 	}
 
 	player = nullptr;
+
+	mother->resetAlienCount();
 	
 	//leer la partida guardada
 	ReadMap(savePath);

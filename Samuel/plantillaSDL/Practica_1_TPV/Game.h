@@ -117,6 +117,9 @@ class Game {
 	int score = 0;
 
 	//audio,sacar a una clase
+
+	bool musicOn = false;
+
 	SDL_AudioSpec wavSpec;
 	Uint32 wavLength;
 	Uint8* wavBuffer;
