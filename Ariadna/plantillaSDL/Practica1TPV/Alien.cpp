@@ -5,13 +5,17 @@
 #include "Alien.h"
 
 
-Alien::Alien(Texture* text, Point2D<> _pos, int _type, Game* _game)
-: texture(text), pos(_pos), type(_type), game(_game), alive(true), frame(0) 
+Alien::Alien(Texture* text, Point2D<> _pos, int _type, Game* _game, MotherShip* _mother)
+	: SceneObject(game, pos, 0, 0, 1), texture(text), type(_type), mother(_mother)
 {
-	shootingtime = game->getRandomRange(MIN_TIME, MAX_TIME);
-
-
+	mother->addAlien();
 };
+
+//constructora por lectura de archivos
+
+
+
+
 
 void Alien::Render()const {
 
@@ -22,22 +26,20 @@ void Alien::updateAnim() {
 	frame = (frame + 1) % texture->getNumColumns();
 }
 
-bool Alien::Update() {
+void Alien::Update() {
 
-	updateAnim();
+	if (lifesleft <= 0) return;
 
-	Move();
-
-	Shoot();
-
-	currenttime++;
-
-	return alive;
+	if (mother->shouldMove()) {
+		updateAnim();
+		Move();
+	}
 }
 
-void Alien::Hit() {
+bool Alien::Hit() {
 
-	alive = false;
+
+	return false;
 }
 
 void Alien::Move() {

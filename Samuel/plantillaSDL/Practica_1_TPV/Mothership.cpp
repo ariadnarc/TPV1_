@@ -87,7 +87,7 @@ void Mothership::Initialize(std::istream& in) {
 
 	currentState = (state)aux;
 
-	nAliens = 0;
+	//nAliens = 0;
 
 	UpdateDirection();
 }
@@ -100,7 +100,7 @@ void Mothership::Initialize() {
 
 	waitingFrames = 0;
 	level = 0;
-	nAliens = 0;
+	//nAliens = 0;
 }
 
 void Mothership::UpdateDirection() {

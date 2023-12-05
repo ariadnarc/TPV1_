@@ -1,20 +1,22 @@
 #pragma once
 #include "checkML.h"
 #include "texture.h"
+#include "SceneObject.h"
 #include "Vector2D.h"
+#include "Mothership.h"
 #include "SDL.h"
 #include <iostream>
 
 class Game;
 
-class Alien {
+class Alien : public SceneObject {
 private:
 	Point2D<> pos;
 
 	int type;
 
 	Texture* texture;
-
+	MotherShip* mother;
 	Game* game;
 
 	const int velocityX = 5;
@@ -35,14 +37,14 @@ private:
 
 	void Shoot();//harán falta variables para el shoot
 public:
-
-	Alien(Texture* text, Point2D<> _pos, int _type, Game* _game);
+	//constructora sin paso de archivos
+	Alien(Texture* text, Point2D<> _pos, int _type, Game* _game, MotherShip* mother);
 
 	void Render()const;
 
 	SDL_Rect GetRect() const;
 
-	bool Update();
+	void Update();
 
-	void Hit();
+	bool Hit();
 };

@@ -57,6 +57,9 @@ private:
 
 	Vector2D<> aliensDirection;
 
+	//enumerado tipos de objetos
+	enum ObjectTypes { CANNON, ALIEN, SHOOTER_ALIEN, MOTHERSHIP, BUNKER_TYPE, UFO_TYPE, LASER };
+
 	int dirX;
 	bool cannotM = false;
 	bool goDown = false;
