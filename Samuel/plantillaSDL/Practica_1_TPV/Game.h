@@ -79,7 +79,11 @@ public:
 	//destructor
 	~Game();
 
-	Texture* getTexture(TextureName name)const { return arrayTexturas[name]; }
+	Texture* getTexture(TextureName name) const { return arrayTexturas[name]; }
+
+	void RenderClear() const { SDL_RenderClear(renderer); }
+
+	SDL_Renderer* getRenderer() { return renderer; }
 
 	void Run();
 

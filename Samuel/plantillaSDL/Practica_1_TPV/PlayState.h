@@ -29,6 +29,7 @@
 
 
 #include "GameState.h"
+#include "Game.h"
 	
 using uint = unsigned int;
 
@@ -53,15 +54,13 @@ constexpr int BUNKER_LIFES = 10;
 class PlayState : public GameState{
 
 	//OBJETOS DEL JUEGO	 
-	std::list<SceneObject*> objects;
 
-	std::vector<std::list<SceneObject*>::iterator> iteratorsDied;
+	GameList<SceneObject> sceneObjects;	
 
 	Cannon* player;
 
 	Mothership* mother;
 	
-
 	//GENERADOR ALEATORIO
 	std::mt19937_64 randomGenerator;
 
@@ -85,21 +84,15 @@ class PlayState : public GameState{
 
 	SDL_AudioDeviceID deviceId;
 
-	//guardado de partidas y cargado  de partidas
-	bool saving = false;
-	bool loading = false;
 
-	int currentInputFrames = 0;//buscar un mejor nombre
-	int maxInputFrames = 100;
+	bool exit;
 
-	int slotNumber;
-
-
+	void Inicializa();
 
 	//bucle de juego
-	void Render()const;
-	void Update();
-	void HandleEvents();
+	void Render() const override;
+	void Update() override;
+	void HandleEvent(const SDL_Event& ev) override ;
 
 
 	//carga de objetos de un archivo
@@ -120,14 +113,8 @@ class PlayState : public GameState{
 	void LoadGame(std::string savePath);
 
 public:
-	void Run();
-
-	//devuelve el renderer
-	SDL_Renderer* getRenderer() const { return renderer; }
-
-	//devuelve el ancho de ventana
-	int getWinWidht()const { return winWidth; }
 	
+		
 	//disparar laser
 	void fireLaser(Vector2D<> pos,char color);
 
@@ -149,16 +136,11 @@ public:
 
 	void TryLoad(SDL_Event ev);
 
-	//el iterador va por referencia?
-	void HasDied(std::list<SceneObject*>::iterator it);
-
+	void HasDied(GameList<SceneObject>::anchor an);
 
 	void AlienDied(int type);
 
 	void UfoDied();
-
-	//para mostrar las excepciones en una ventana de SDL
-	SDL_Window* getWindow() { return window; };
 
 	void playerDied() { exit = true; }
 

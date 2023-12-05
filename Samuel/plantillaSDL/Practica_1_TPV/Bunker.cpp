@@ -4,7 +4,7 @@
 #include <iostream>
 #include <SDL.h>
 #include "Bunker.h"
-#include "Game.h"
+#include "PlayState.h"
 
 
 //constructor por parametros
@@ -92,7 +92,7 @@ bool Bunker::Hit(SDL_Rect rect, char tLaser) {
 		colision = true;
 		lifesLeft--;
 		if (lifesLeft <= 0) {
-			game->HasDied(iterator);
+			playState->HasDied(sceneAnchor);
 		}
 	}
 

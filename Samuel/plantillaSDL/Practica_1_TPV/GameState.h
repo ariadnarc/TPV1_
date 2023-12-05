@@ -13,13 +13,13 @@
 
 #include "EventHandler.h"
 
-class PlayState;
+class Game;
 
 class GameState {
 
 protected:
 
-	PlayState* game;
+	Game* game;
 
 	GameList<GameObject, true> gameObjects;
 
@@ -28,18 +28,18 @@ protected:
 public:
 
 	
-	void Render() const ;
+	virtual void Render() const ;
 
-	void Update();
+	virtual void Update();
 
-	void HandleEvent(const SDL_Event& ev);
-
-
-	void addEventListener();
-
-	void addObject();
+	virtual void HandleEvent(const SDL_Event& ev);
 
 
+	void addEventListener(EventHandler* handler);
+
+	void addObject(GameObject* gameObject);
+
+	SDL_Renderer* getRenderer();
 
 };
 

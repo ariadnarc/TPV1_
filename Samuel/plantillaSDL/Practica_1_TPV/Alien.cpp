@@ -4,7 +4,7 @@
 #include <iostream>
 #include "SDL.h"
 #include "Alien.h"
-#include "Game.h"
+#include "PlayState.h"
 
 
 
@@ -71,9 +71,9 @@ bool Alien::Hit(SDL_Rect rect, char tLaser) {
 			colision = true;
 			lifesLeft--;
 			if (lifesLeft <= 0) {
-				game->HasDied(iterator);
+				playState->HasDied(sceneAnchor);
 				mother->alienDied();
-				game->AlienDied(type);
+				playState->AlienDied(type);
 			}
 			//falta llamar al motherShip para disminuir el numero de aliens
 		}
@@ -100,7 +100,7 @@ void Alien::Move() {
 			pos.getX() <= (0 + mother->getVelocityX()) ) ||
 
 		( dir.getX() ==  1 && 
-			pos.getX() >= (game->getWinWidht() - (texture->getFrameWidth() ) - mother->getVelocityX()) )
+			pos.getX() >= (winWidth - (texture->getFrameWidth() ) - mother->getVelocityX()) )
 		) 
 	{
 		mother->cannotMove();

@@ -4,7 +4,7 @@
 #include <iostream>
 #include "SDL.h"
 #include "Cannon.h"
-#include "Game.h"
+#include "PlayState.h"
 
 //constructor por parametros
 Cannon::Cannon(PlayState* game, Texture* text, Point2D<> pos, int lifes)
@@ -83,11 +83,11 @@ bool Cannon::Hit(SDL_Rect rect, char tLaser) {
 		if (SDL_HasIntersection(&rect, &aux)){
 			colision = true;
 			lifesLeft--;
-			game->UpdateLifesUI();
+			playState->UpdateLifesUI();
 
 			if (lifesLeft <= 0) {
-				game->HasDied(iterator);
-				game->playerDied();
+				playState->HasDied(sceneAnchor);
+				playState->playerDied();
 			}
 
 		}
@@ -130,7 +130,7 @@ void Cannon::Move() {
 
 	//movimiento limitado con los bordes de la pantalla
 	if ((direction.getX() == -1 && pos.getX() >= 0 + velocity) ||
-		 (direction.getX() == 1  && pos.getX() < (game->getWinWidht() - texture->getFrameWidth()) - velocity )){
+		 (direction.getX() == 1  && pos.getX() < (winWidth - texture->getFrameWidth()) - velocity )){
 		pos = pos + direction*velocity;
 	}
 }
@@ -143,7 +143,7 @@ void Cannon::Shoot() {
 		shootReload = 0;
 
 		//sacar la posicion a un metodo spawnPoint
-		game->fireLaser(Vector2D<>(	pos.getX() + texture->getFrameWidth()/2,
+		playState->fireLaser(Vector2D<>(	pos.getX() + texture->getFrameWidth()/2,
 									pos.getY() - texture->getFrameHeight()/2), 
 									'b');
 	}

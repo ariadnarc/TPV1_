@@ -50,7 +50,7 @@ private:
 public:
 	
 	//constructor
-	InfoBar(Texture* cannontext,Texture*fontText, PlayState* game,int playerLifes)
+	InfoBar(Texture* cannontext,Texture*fontText, GameState* game,int playerLifes)
 		: GameObject(game), cannonTexture(cannontext),fontTexture(fontText), currentLifes(playerLifes) {};
 
 	//metodos heredados de Gam

@@ -4,7 +4,7 @@
 #include <iostream>
 #include "SDL.h"
 #include "Laser.h"
-#include "Game.h"//para poder usar el game
+#include "PlayState.h"
 
 
 //constructor por parametros
@@ -66,7 +66,7 @@ void Laser::Move() {
 }
 
 bool Laser::Colisions() {
-	return game->collisions(this);;
+	return playState->collisions(this);;
 }
 
 void Laser::Update() {
@@ -82,7 +82,7 @@ void Laser::Update() {
 	}
 
 	if (Colisions() || pos.getY() < 0 || pos.getY() > winHeight) {
-		game->HasDied(iterator);
+		playState->HasDied(sceneAnchor);
 	}
 }
 
@@ -101,7 +101,7 @@ bool Laser::Hit(SDL_Rect rect, char tLaser) {
 		if (SDL_HasIntersection(&rect, &aux)) {
 			colision = true;
 			lifesLeft--;
-			if (lifesLeft <= 0) game->HasDied(iterator);
+			if (lifesLeft <= 0) playState->HasDied(sceneAnchor);
 			//falta logica pool de balas, llamar a otro metodo del game
 		}
 	}

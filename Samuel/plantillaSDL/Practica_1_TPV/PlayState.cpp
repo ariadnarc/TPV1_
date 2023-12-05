@@ -5,11 +5,11 @@
 #include<fstream>//para flujo de archivos entrada salida
 #include<random>
 #include "SDL.h"
+
+#include "Game.h"
 #include "PlayState.h"
+
 #include "Alien.h"
-
-
-
 
 
 void PlayState::RandomMode() {
@@ -53,8 +53,11 @@ PlayState::PlayState()
 	//inicializar los objetos
 	ReadMap(MAP_PATH);
 
-	infoB = new InfoBar(arrayTexturas[SPACESHIP],arrayTexturas[FONT], this, PLAYER_LIFES);
+	infoB = new InfoBar(game->getTexture(SPACESHIP), game->getTexture(FONT), this, PLAYER_LIFES);
 	
+	gameObjects.push_back(mother);
+	gameObjects.push_back(infoB);
+
 	//inicializar el generador aleatorio con una semilla 
 	randomGenerator = std::mt19937_64(time(nullptr));
 
@@ -70,16 +73,7 @@ PlayState::PlayState()
 //destructor
 PlayState::~PlayState() {
 	
-	//delete de los objetos(eran punteros)
-
-	delete infoB;
-
-	delete mother;
-
-	while (objects.size() > 0) {
-		delete objects.front();
-		objects.pop_front();
-	}
+	//el delete de los objetos se hara automaticamente al llamar al delete de la lista de objetos
 
 	// clean up de la musicas
 	if (musicOn) {
@@ -92,118 +86,37 @@ PlayState::~PlayState() {
 void PlayState::Render()const {
 
 	//clear de la pantalla(si se va a repintar toda la pantalla opcional)
-	SDL_RenderClear(renderer);
+	game->RenderClear();
 
 	//render del background
-	arrayTexturas[STARS]->render();
+	game->getTexture(STARS)->render();
 	
-
-	//render de los objetos
-	for (SceneObject* ob : objects) ob->Render();
-
-	infoB->Render();
-
-	//renderizar todo la cola
-	SDL_RenderPresent(renderer);
+	//render de los gameObjects
+	GameState::Render();
 }
 
 void PlayState::Update() {
 
-	//update de los objetos
-	
-	for (SceneObject* sn : objects) sn->Update();
-	
-	//delete de los died
-	for (auto& it : iteratorsDied) {
-		delete (* it);
-        objects.erase(it);	
-	}
+	//update de los gameObjects
+	GameState::Update();
 
-	//ponemos a 0 el vector de muertos
-	iteratorsDied.resize(0);
-
-
-	//update del mothership
-	mother->Update();	
-
-	UpdateScoreUI();
-	
+	UpdateScoreUI();	
 
 	if (mother->haveLanded()) exit = true;
 	if (mother->getAlienCount() <= 0) exit = true;
-	
-	//guardado de slots
-	if (saving) {
-		currentInputFrames++;
-		if (currentInputFrames >= maxInputFrames) {
-			saving = false;
-			currentInputFrames = 0;
-
-			//de momento no hacer nada
-			//hay que buscar el primer archivo libre, si lo hay guardar ahí, sino sobreescribir
-		}
-
-	}
-	//falta guardado
+		
 }
 
-void PlayState::HandleEvents() {
-	SDL_Event evento;
+void PlayState::HandleEvent(const SDL_Event& ev) {
 
-	//carga los eventos 
-	while (SDL_PollEvent(&evento) && !exit) {
-		//trata los eventos en funcion de su tipo()
-		if (evento.type == SDL_QUIT) {
-			exit = true;
-		}
-		else {
-			if (evento.type == SDL_KEYDOWN && evento.key.keysym.scancode == SDL_SCANCODE_G &&
-				!loading) {
-				SaveGame();
-				saving = true;
-				currentInputFrames = 0;
-			}
-			else if (evento.type == SDL_KEYDOWN && evento.key.keysym.scancode == SDL_SCANCODE_C &&
-				!saving) {
-				loading = true;
-				currentInputFrames = 0;
-			}
+	GameState::HandleEvent(ev);
 
+	if (ev.type == SDL_KEYDOWN &&
+		ev.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
 
-			//sacar a una funcion aparte
-			/*
-			if (saving || loading) {
-				SDL_Scancode code = evento.key.keysym.scancode;
-
-				//manejo del input
-				if (evento.type == SDL_KEYDOWN) {
-					if (code >= 30 && code <= 38) {
-
-						slotNumber = code - 29;
-
-					}
-				}
-			}
-			*/
-
-			if (saving) {
-				ChoseSlot(evento);
-			}
-			if (loading) {
-				TryLoad(evento);
-			}
-
-
-
-			//handleEvents de los objetos
-			player->HandleEvents(evento);		
-		}
+		//cambiar al estado de pausa
+		
 	}
-}
-
-void PlayState::Run() {
-
-	
 }
 
 void PlayState::ReadMap(const std::string mapPath) {
@@ -219,6 +132,7 @@ void PlayState::ReadMap(const std::string mapPath) {
 	int objectType;	
 	int line = 0;
 
+	SceneObject* aux = nullptr;
 
 	map >> objectType;
 
@@ -231,36 +145,35 @@ void PlayState::ReadMap(const std::string mapPath) {
 
 		//sacar esto a una funcion?
 		if (objectType == CANNON) { //cannon			
-			player = new Cannon(this,arrayTexturas[SPACESHIP],map);
-			objects.push_back(player);
+			player = new Cannon(this, game->getTexture(SPACESHIP),map);
+			aux = player;
 		}
 		else if (objectType == ALIEN) { //alien 
-			objects.push_back(new Alien(this,arrayTexturas[ALIENS],mother,map));
+			aux = new Alien(this, game->getTexture(ALIENS), mother, map);		
 		}
 		else if (objectType == SHOOTER_ALIEN) { // alien disparador
-			objects.push_back(new ShooterAlien(this, arrayTexturas[ALIENS], mother,map));
+			aux = new ShooterAlien(this, game->getTexture(ALIENS), mother, map);
 		}
 		else if (objectType == MOTHERSHIP) { //mothership
 			mother->Initialize(map);					
 		}
 		else if (objectType == BUNKER_TYPE) { // bunker		
-			objects.push_back(new Bunker(this,arrayTexturas[BUNKER],map));
+			aux = new Bunker(this, game->getTexture(BUNKER), map);
 		}	
 		else if (objectType == UFO_TYPE) { //ovni
-			objects.push_back(new Ufo(this, arrayTexturas[UFO], map));
+			aux = new Ufo(this, game->getTexture(UFO), map);
 		}
 		else if (objectType == LASER) { //laser
-			objects.push_back(new Laser(this, map));
+			aux = new Laser(this, map);
 		}
 		else if (objectType == 7) { //infoBar(score)
 			map >> score;
 		}
 
-		//setear el iterador cuando toca
-		if (objectType != MOTHERSHIP && objectType != 7) {
-			objects.back()->setListIterator(--objects.end());
+		if (objectType != MOTHERSHIP && objectType != 7 && aux != nullptr) {
+			sceneObjects.push_back(aux);
+			gameObjects.push_back(aux);
 		}
-
 
 		map >> objectType;
 		line++;
@@ -270,9 +183,10 @@ void PlayState::ReadMap(const std::string mapPath) {
 
 
 void PlayState::fireLaser(Vector2D<> pos,char color) {
-	objects.push_back(new Laser(this, pos, color));	
-	//setear el iterador
-	objects.back()->setListIterator(--objects.end());
+	SceneObject* aux = new Laser(this, pos, color);
+
+	sceneObjects.push_back(aux);
+	gameObjects.push_back(aux);
 }
 
 
@@ -281,19 +195,19 @@ bool PlayState::collisions(const Laser* laser) {
 	SDL_Rect lRect = laser->getRect();
 	char c = laser->getColor();
 
-	std::list<SceneObject*>::iterator it = objects.begin();
+	GameList<SceneObject>::forward_iterator it = sceneObjects.begin();
 
 	//colision con la lista de SceneObjects
-	while (it != objects.end() && !((*it)->Hit(lRect, c))) ++it;
+	while (it != sceneObjects.end() && !(*it).Hit(lRect, c)) ++it;
 	
-	return it != objects.end();
+	return it != sceneObjects.end();
+
 }
 
 
 int PlayState::getRandomRange(int min, int max) {
 	return std::uniform_int_distribution<int>(min, max)(randomGenerator);
 }
-
 
 void PlayState::aliensLimitBotton() {
 	exit = true;//cambiar por un mensaje de los aliens demasiado abajo
@@ -315,7 +229,13 @@ void PlayState::SaveGame() {
 	out.open("partidas_guardadas/tmp.txt");
 
 	//guardado de todos los objetos de escena
-	for (SceneObject* ob : objects) ob->Save(out);
+	GameList<SceneObject>::forward_iterator it = sceneObjects.begin();
+
+	while (it != sceneObjects.end()) {
+		(*it).Save(out);
+
+		++it;
+	}
 
 	//guardado del mothership
 	mother->Save(out);
@@ -327,11 +247,22 @@ void PlayState::SaveGame() {
 
 void PlayState::LoadGame(std::string savePath) {
 
-	//borrar las entidades que hay actualmente
-	while (objects.size() > 0) {
-		delete objects.front();
-		objects.pop_front();
+	//borrar todos los sceneObjects actuales
+	
+	GameList<SceneObject>::forward_iterator it = sceneObjects.begin();
+
+	GameList<GameObject, true>::anchor aux;
+
+	while (it != sceneObjects.end()) {	
+
+		aux = (*it).GameObject::getListAnchor();
+		sceneObjects.erase((*it).getListAnchor());
+		gameObjects.erase(aux);
+
+
+		++it;
 	}
+
 
 	player = nullptr;
 
@@ -354,11 +285,9 @@ void PlayState::ChoseSlot(SDL_Event ev) {
 	if (ev.type == SDL_KEYDOWN) {
 		if (code >= 30 && code <= 38) {
 
-			slotNumber = code - 29;
+			int slotNumber = code - 29;
 			
-			saving = false;
-			currentInputFrames = 0;
-			
+					
 			std::string newName = "partidas_guardadas/save" + std::to_string(slotNumber)+ ".txt";
 			
 
@@ -380,10 +309,8 @@ void PlayState::TryLoad(SDL_Event ev) {
 	if (ev.type == SDL_KEYDOWN) {
 		if (code >= 30 && code <= 38) {
 
-			slotNumber = code - 29;
+			int slotNumber = code - 29;
 
-			loading = false;
-			currentInputFrames = 0;
 
 			std::string loadFile = "partidas_guardadas/save" + std::to_string(slotNumber) + ".txt";
 
@@ -404,6 +331,9 @@ void PlayState::UfoDied() {
 	score += SCORE_UFO;
 }
 
-void PlayState::HasDied(std::list<SceneObject*>::iterator it) {
-	iteratorsDied.push_back(it);
+//eliminar de las 2 listas
+void PlayState::HasDied(GameList<SceneObject>::anchor an) {
+	GameList<GameObject, true>::anchor aux = an->elem->GameObject::getListAnchor();
+	sceneObjects.erase(an);
+	gameObjects.erase(aux);
 }

@@ -9,11 +9,11 @@
 
 
 //constructor por parametros
-SceneObject::SceneObject(PlayState* game, Point2D<> _pos, int width, int height, int lifesLeft)
+SceneObject::SceneObject(GameState* game, Point2D<> _pos, int width, int height, int lifesLeft)
 	: GameObject(game), pos(_pos), width(width), height(height), lifesLeft(lifesLeft) {};
 
 //constructor por lectura de archivo
-SceneObject::SceneObject(PlayState* game, std::istream& in) : GameObject(game) {
+SceneObject::SceneObject(GameState* game, std::istream& in) : GameObject(game) {
 
 	int x, y;
 	in >> x >> y;

@@ -5,7 +5,7 @@
 #include "SDL.h"
 
 #include "Ufo.h"
-#include "Game.h"
+#include "PlayState.h"
 
 
 //constructor por parametros, sin terminar
@@ -78,7 +78,7 @@ void Ufo::Update() {
 				//siguiente  estado
 				currentState = (state)(((int)currentState + 1) % 4);
 
-				waitingFrames = game->getRandomRange(minWaitingTime, maxWaitingTime);
+				waitingFrames = playState->getRandomRange(minWaitingTime, maxWaitingTime);
 			}
 
 		}
@@ -88,7 +88,7 @@ void Ufo::Update() {
 		waitingFrames--;
 
 		if (waitingFrames <= 0) {
-			game->HasDied(iterator);
+			playState->HasDied(sceneAnchor);
 		}
 	}
 }
@@ -105,7 +105,7 @@ bool Ufo::Hit(SDL_Rect rect, char color) {
 	if (color == 'b' && SDL_HasIntersection(&rect, &aux)) {
 		currentState = destroyed;
 		waitingFrames = destroyedWaitingTime;
-		game->UfoDied();
+		playState->UfoDied();
 		return true;
 	}
 	else return false;

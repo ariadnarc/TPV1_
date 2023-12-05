@@ -12,6 +12,7 @@
 #include "Vector2D.h"
 #include "InvadersError.h"
 
+class PlayState;
 
 class SceneObject : public GameObject {
 
@@ -24,7 +25,9 @@ protected:
 
 	int lifesLeft = 1;
 
-	std::list<SceneObject*>::iterator iterator;
+	PlayState* playState;
+
+	GameList<SceneObject>::anchor sceneAnchor;
 
 public:
 
@@ -32,23 +35,26 @@ public:
 
 
 	//constructor por parametros
-	SceneObject(PlayState* game, Point2D<> _pos, int width, int height, int lifesLeft);
+	SceneObject(GameState* game, Point2D<> _pos, int width, int height, int lifesLeft);
 
 	//constructor por lectura de archivo
-	SceneObject(PlayState* game,std::istream& in);
+	SceneObject(GameState* game,std::istream& in);
 
 
 	//hace falta volver a poner el destructor?
 	virtual ~SceneObject() {};
 
-	void setListIterator(std::list<SceneObject*>::iterator it) { iterator = it; }
+	void setListAnchor(GameList<SceneObject>::anchor an) { sceneAnchor = an; }
 
 	virtual void Save(std::ostream& out) const;
 
 	SDL_Rect getRect()const;
 
+	GameList<SceneObject>::anchor getListAnchor() { return sceneAnchor; }
+
 protected:
 
+	//para lanzar excepciones en la lectura de archivos
 	template<typename T>
 	void readValue(T& v, std::istream& in) {
 		in >> v;
