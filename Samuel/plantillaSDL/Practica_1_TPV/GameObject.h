@@ -6,14 +6,20 @@
 #include <iostream>
 #include <SDL.h>
 
+#include "gameList.h"
 
-class Game;//declaracion anticipada
+
+class GameState;//declaracion anticipada
+class PlayState;
 
 class GameObject {//preguntar por privacidad de los metodos, estan bien publicos?
 
 protected:
-	//atributos
-	Game* game;
+	//puntero al estado
+	GameState* game;
+
+	//iterador
+	GameList<GameObject, true>::anchor anchor = nullptr;
 	
 public:
 	//metodos virtuales
@@ -24,9 +30,18 @@ public:
 	virtual void Save(std::ostream& out) const = 0;
 
 	//constructor
-	GameObject(Game* game) : game(game) {};
+	GameObject(GameState* game);
+
+	//constructor
+	GameObject(PlayState* game);
+
 	//destructor (siempre virtual)
 	virtual ~GameObject() {};
+
+
+	void setListAnchor(GameList<GameObject, true>::anchor an) { anchor = an; }
+
+	GameList<GameObject, true>::anchor getListAnchor() { return anchor; }
 
 };
 

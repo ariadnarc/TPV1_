@@ -4,19 +4,19 @@
 #include <iostream>
 #include "SDL.h"
 #include "Alien.h"
-#include "Game.h"
+#include "PlayState.h"
 
 
 
 //constructor por parametros
-Alien::Alien(Game* game, Texture* text, Mothership* mother, Point2D<> _pos, int _type)
+Alien::Alien(PlayState* game, Texture* text, Mothership* mother, Point2D<> _pos, int _type)
 	: SceneObject(game, _pos, 0, 0, 1), texture(text), type(_type), animFrame(0), mother(mother) {
 
 	mother->addAlien();
 };
 
 //constructor por lectura de archivo
-Alien::Alien(Game* game, Texture* text,Mothership* mother, std::istream& in) 
+Alien::Alien(PlayState* game, Texture* text,Mothership* mother, std::istream& in) 
 	: SceneObject(game,in),texture(text),mother(mother),animFrame(0) {
 	in >> type;
 	width = texture->getFrameWidth();
@@ -71,9 +71,9 @@ bool Alien::Hit(SDL_Rect rect, char tLaser) {
 			colision = true;
 			lifesLeft--;
 			if (lifesLeft <= 0) {
-				game->HasDied(iterator);
+				playState->HasDied(sceneAnchor);
 				mother->alienDied();
-				game->AlienDied(type);
+				playState->AlienDied(type);
 			}
 			//falta llamar al motherShip para disminuir el numero de aliens
 		}
@@ -100,7 +100,7 @@ void Alien::Move() {
 			pos.getX() <= (0 + mother->getVelocityX()) ) ||
 
 		( dir.getX() ==  1 && 
-			pos.getX() >= (game->getWinWidht() - (texture->getFrameWidth() ) - mother->getVelocityX()) )
+			pos.getX() >= (winWidth - (texture->getFrameWidth() ) - mother->getVelocityX()) )
 		) 
 	{
 		mother->cannotMove();

@@ -5,16 +5,16 @@
 #include "SDL.h"
 
 #include "Ufo.h"
-#include "Game.h"
+#include "PlayState.h"
 
 
 //constructor por parametros, sin terminar
-Ufo::Ufo(Game* game, Point2D<> pos)
+Ufo::Ufo(PlayState* game, Point2D<> pos)
 	:SceneObject(game, pos, 0, 0, 1) {};
 
 
 //constructor por lectura de archivo
-Ufo::Ufo(Game* game,Texture* texture, std::istream& in)
+Ufo::Ufo(PlayState* game,Texture* texture, std::istream& in)
 	:SceneObject(game, in),texture(texture) {
 
 	//leer estado y espera
@@ -78,7 +78,7 @@ void Ufo::Update() {
 				//siguiente  estado
 				currentState = (state)(((int)currentState + 1) % 4);
 
-				waitingFrames = game->getRandomRange(minWaitingTime, maxWaitingTime);
+				waitingFrames = playState->getRandomRange(minWaitingTime, maxWaitingTime);
 			}
 
 		}
@@ -88,7 +88,7 @@ void Ufo::Update() {
 		waitingFrames--;
 
 		if (waitingFrames <= 0) {
-			game->HasDied(iterator);
+			playState->HasDied(sceneAnchor);
 		}
 	}
 }
@@ -105,7 +105,7 @@ bool Ufo::Hit(SDL_Rect rect, char color) {
 	if (color == 'b' && SDL_HasIntersection(&rect, &aux)) {
 		currentState = destroyed;
 		waitingFrames = destroyedWaitingTime;
-		game->UfoDied();
+		playState->UfoDied();
 		return true;
 	}
 	else return false;

@@ -20,10 +20,10 @@ class Bunker : public SceneObject{
 public:
 
 	//constructor por parametros
-	Bunker(Game* game, Texture* text, Point2D<> _pos, int lifes);
+	Bunker(PlayState* game, Texture* text, Point2D<> _pos, int lifes);
 
 	//constructor por lectura de archivo
-	Bunker(Game* game, Texture* text, std::istream& in);
+	Bunker(PlayState* game, Texture* text, std::istream& in);
 	
 	void Render()const override;
 

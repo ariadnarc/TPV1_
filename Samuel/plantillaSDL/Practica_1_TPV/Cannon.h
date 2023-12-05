@@ -10,12 +10,12 @@
 #include "texture.h"
 #include "Vector2D.h"
 #include "SceneObject.h"
+#include "EventHandler.h"
 
 
+class PlayState;
 
-class Game;
-
-class Cannon : public SceneObject{
+class Cannon : public SceneObject, public EventHandler {
 
 	Texture* texture;
 
@@ -46,10 +46,10 @@ class Cannon : public SceneObject{
 public:
 
 	//constructor por parametros
-	Cannon(Game* game, Texture* text, Point2D<> pos, int lifes);
+	Cannon(PlayState* game, Texture* text, Point2D<> pos, int lifes);
 
 	//constructor por lectura de archivo
-	Cannon(Game* game, Texture* text, std::istream& in);
+	Cannon(PlayState* game, Texture* text, std::istream& in);
 
 	void Render()const override;
 
@@ -59,7 +59,7 @@ public:
 
 	bool Hit(SDL_Rect rect, char tLaser) override;
 
-	void HandleEvents(SDL_Event ev); 
+	void handleEvent(const SDL_Event& ev)override; 
 
 	int getLifes() const { return lifesLeft; }
 };

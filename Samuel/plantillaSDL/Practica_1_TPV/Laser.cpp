@@ -4,11 +4,11 @@
 #include <iostream>
 #include "SDL.h"
 #include "Laser.h"
-#include "Game.h"//para poder usar el game
+#include "PlayState.h"
 
 
 //constructor por parametros
-Laser::Laser(Game* game, Point2D<> pos, char color)
+Laser::Laser(PlayState* game, Point2D<> pos, char color)
 	: SceneObject(game, pos, WIDTH, HEIGHT, 1), color(color){
 
 	if (color == 'r') {
@@ -23,7 +23,7 @@ Laser::Laser(Game* game, Point2D<> pos, char color)
 }
 	
 //constructor por lectura de archivos
-Laser::Laser(Game* game, std::istream& in) 
+Laser::Laser(PlayState* game, std::istream& in) 
 	: SceneObject(game,in) {
 	in >> color;
 
@@ -66,7 +66,7 @@ void Laser::Move() {
 }
 
 bool Laser::Colisions() {
-	return game->collisions(this);;
+	return playState->collisions(this);;
 }
 
 void Laser::Update() {
@@ -82,7 +82,7 @@ void Laser::Update() {
 	}
 
 	if (Colisions() || pos.getY() < 0 || pos.getY() > winHeight) {
-		game->HasDied(iterator);
+		playState->HasDied(sceneAnchor);
 	}
 }
 
@@ -101,7 +101,7 @@ bool Laser::Hit(SDL_Rect rect, char tLaser) {
 		if (SDL_HasIntersection(&rect, &aux)) {
 			colision = true;
 			lifesLeft--;
-			if (lifesLeft <= 0) game->HasDied(iterator);
+			if (lifesLeft <= 0) playState->HasDied(sceneAnchor);
 			//falta logica pool de balas, llamar a otro metodo del game
 		}
 	}

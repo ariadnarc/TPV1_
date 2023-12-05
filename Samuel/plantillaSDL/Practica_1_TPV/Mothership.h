@@ -38,15 +38,15 @@ class Mothership : public GameObject {
 	const static int velocityX = 26;//movimiento horizontal
 	const static int velocityY = 10;//movimiento vertical
 
-	int nAliens;
+	int nAliens = 0;
 
 public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 
 	//constructor por paso de parametros, basico
-	Mothership(Game* game);
+	Mothership(PlayState* game);
 
 	//constructor por lectura de archivo
-	Mothership(Game* game, std::istream& in);
+	Mothership(PlayState* game, std::istream& in);
 
 	void Initialize(std::istream& in);
 
@@ -57,6 +57,8 @@ public://metodos, puede que esten mal los tipos o que haya que añadir parametros
 	bool shouldMove() const { return _shouldMove; };
 
 	void cannotMove() { _cannotMove = true; };
+
+	void resetAlienCount() { nAliens = 0; }
 
 	void alienDied() { nAliens--; };
 

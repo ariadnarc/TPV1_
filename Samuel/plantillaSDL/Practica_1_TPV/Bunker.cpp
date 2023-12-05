@@ -4,15 +4,15 @@
 #include <iostream>
 #include <SDL.h>
 #include "Bunker.h"
-#include "Game.h"
+#include "PlayState.h"
 
 
 //constructor por parametros
-Bunker::Bunker(Game* game, Texture* text, Point2D<> _pos, int lifes)
+Bunker::Bunker(PlayState* game, Texture* text, Point2D<> _pos, int lifes)
 	:SceneObject(game, _pos, 0, 0, lifes), texture(text) {};
 
 //constructor por lectura de archivo
-Bunker::Bunker(Game* game, Texture* text, std::istream& in)
+Bunker::Bunker(PlayState* game, Texture* text, std::istream& in)
 	: SceneObject(game, in), texture(text) {
 
 	in >> lifesLeft;
@@ -92,7 +92,7 @@ bool Bunker::Hit(SDL_Rect rect, char tLaser) {
 		colision = true;
 		lifesLeft--;
 		if (lifesLeft <= 0) {
-			game->HasDied(iterator);
+			playState->HasDied(sceneAnchor);
 		}
 	}
 

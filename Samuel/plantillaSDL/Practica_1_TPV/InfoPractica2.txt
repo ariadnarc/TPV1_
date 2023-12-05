@@ -1,0 +1,6 @@
+Grupo 15
+Ariadna Alicia Ruiz Castillo
+Samuel Garcia Bazan
+
+Funcionalidades basicas implementadas: todas las que se pedian para esta practica.
+Extensiones: 1 y 3, animacion de alienigenas y clase infoBar(estaban implementadas ya en la anterior entregag)

@@ -4,18 +4,18 @@
 #include <iostream>
 #include "SDL.h"
 #include "ShooterAlien.h"
-#include "Game.h"
+#include "PlayState.h"
 
 
 
 //constructor por parametros
-ShooterAlien::ShooterAlien(Game* game, Texture* text, Mothership* mother, Point2D<> pos, int type)
+ShooterAlien::ShooterAlien(PlayState* game, Texture* text, Mothership* mother, Point2D<> pos, int type)
 	: Alien(game,text,mother,pos,type) {
 	waitingShootFrames = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
 }
 
 //constructor por lectura de archivo
-ShooterAlien::ShooterAlien(Game* game, Texture* text, Mothership* mother, std::istream& in) 
+ShooterAlien::ShooterAlien(PlayState* game, Texture* text, Mothership* mother, std::istream& in) 
 	: Alien(game,text,mother,in) {
 	in >> waitingShootFrames;
 }
@@ -39,9 +39,9 @@ void ShooterAlien::Shoot() {
 
 	if (waitingShootFrames <= 0) {
 
-		game->fireLaser(Vector2D<>(pos.getX() + texture->getFrameWidth() / 2, pos.getY() + texture->getFrameHeight() / 2), 'r');
+		playState->fireLaser(Vector2D<>(pos.getX() + texture->getFrameWidth() / 2, pos.getY() + texture->getFrameHeight() / 2), 'r');
 
-		_shootFrameRate = game->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
+		_shootFrameRate = playState->getRandomRange(MIN_SHOOT_RATE, MAX_SHOOT_RATE);
 		waitingShootFrames = _shootFrameRate;
 	}
 	

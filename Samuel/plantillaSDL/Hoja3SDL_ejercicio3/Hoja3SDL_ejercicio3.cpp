@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
 	vector<string> texturesPath{ "../images/dog.png","../images/background1.png","../images/helicopter.png" };
 
-	Game game(texturesPath);
+	PlayState game(texturesPath);
 
 	game.Run();
 

@@ -35,10 +35,10 @@ class Ufo : public SceneObject {
 public:
 
 	//constructor por parametros, no esta completo
-	Ufo(Game* game, Point2D<> pos);
+	Ufo(PlayState* game, Point2D<> pos);
 
 	//constructor por lectura de archivo
-	Ufo(Game* game, Texture* texture, std::istream& in);
+	Ufo(PlayState* game, Texture* texture, std::istream& in);
 
 	void Save(std::ostream& out) const override;
 

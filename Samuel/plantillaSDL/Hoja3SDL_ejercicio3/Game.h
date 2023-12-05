@@ -24,7 +24,7 @@ constexpr uint NUM_TEXTURAS = 3;
 
 enum Texturas { DOG, BACKGROUND, HELICOPTER };
 
-class Game {
+class PlayState {
 	
 	SDL_Window* window;
 	SDL_Renderer* renderer;
@@ -48,9 +48,9 @@ public:
 	void Run();
 
 	//constructor
-	Game(std::vector<std::string> texturesPath);
+	PlayState(std::vector<std::string> texturesPath);
 	//destructor
-	~Game();
+	~PlayState();
 };
 
 

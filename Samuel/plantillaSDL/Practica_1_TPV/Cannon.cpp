@@ -4,20 +4,26 @@
 #include <iostream>
 #include "SDL.h"
 #include "Cannon.h"
-#include "Game.h"
+#include "PlayState.h"
 
 //constructor por parametros
-Cannon::Cannon(Game* game, Texture* text, Point2D<> pos, int lifes)
-	: SceneObject(game, pos, 0, 0, lifes), texture(text), direction(0, 0) {};
+Cannon::Cannon(PlayState* game, Texture* text, Point2D<> pos, int lifes)
+	: SceneObject(game, pos, 0, 0, lifes), texture(text), direction(0, 0) {
+
+	playState->addEventListener(this);
+
+};
 
 
 //constructor por lectura de archivo
-Cannon::Cannon(Game* game, Texture* text, std::istream& in) 
+Cannon::Cannon(PlayState* game, Texture* text, std::istream& in) 
 	: SceneObject(game,in), texture(text) {
 	
 	in >> lifesLeft >> shootReload;	
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
+
+	playState->addEventListener(this);
 }
 
 void Cannon::Save(std::ostream& out) const {
@@ -50,7 +56,7 @@ void Cannon::Update() {
 }
 
 
-void Cannon::HandleEvents(SDL_Event ev) {
+void Cannon::handleEvent(const SDL_Event& ev) {
 
 	SDL_Scancode code = ev.key.keysym.scancode;
 
@@ -83,11 +89,11 @@ bool Cannon::Hit(SDL_Rect rect, char tLaser) {
 		if (SDL_HasIntersection(&rect, &aux)){
 			colision = true;
 			lifesLeft--;
-			game->UpdateLifesUI();
+			playState->UpdateLifesUI();
 
 			if (lifesLeft <= 0) {
-				game->HasDied(iterator);
-				game->playerDied();
+				playState->HasDied(sceneAnchor);
+				playState->playerDied();
 			}
 
 		}
@@ -130,7 +136,7 @@ void Cannon::Move() {
 
 	//movimiento limitado con los bordes de la pantalla
 	if ((direction.getX() == -1 && pos.getX() >= 0 + velocity) ||
-		 (direction.getX() == 1  && pos.getX() < (game->getWinWidht() - texture->getFrameWidth()) - velocity )){
+		 (direction.getX() == 1  && pos.getX() < (winWidth - texture->getFrameWidth()) - velocity )){
 		pos = pos + direction*velocity;
 	}
 }
@@ -143,7 +149,7 @@ void Cannon::Shoot() {
 		shootReload = 0;
 
 		//sacar la posicion a un metodo spawnPoint
-		game->fireLaser(Vector2D<>(	pos.getX() + texture->getFrameWidth()/2,
+		playState->fireLaser(Vector2D<>(	pos.getX() + texture->getFrameWidth()/2,
 									pos.getY() - texture->getFrameHeight()/2), 
 									'b');
 	}
