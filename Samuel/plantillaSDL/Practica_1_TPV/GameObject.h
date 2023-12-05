@@ -10,6 +10,7 @@
 
 
 class GameState;//declaracion anticipada
+class PlayState;
 
 class GameObject {//preguntar por privacidad de los metodos, estan bien publicos?
 
@@ -29,7 +30,11 @@ public:
 	virtual void Save(std::ostream& out) const = 0;
 
 	//constructor
-	GameObject(GameState* game) : game(game) {};
+	GameObject(GameState* game);
+
+	//constructor
+	GameObject(PlayState* game);
+
 	//destructor (siempre virtual)
 	virtual ~GameObject() {};
 

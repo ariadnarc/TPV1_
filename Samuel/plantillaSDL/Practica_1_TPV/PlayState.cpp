@@ -45,7 +45,7 @@ void PlayState::LoadMusic() {
 }
 
 //constructor
-PlayState::PlayState()
+PlayState::PlayState(Game* game) :GameState(game)
 {
 	//inicializar el mothership antes que los aliens
 	mother = new Mothership(this);// se mueven hacia la derecha

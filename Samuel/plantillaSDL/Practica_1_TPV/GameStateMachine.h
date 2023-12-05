@@ -10,15 +10,17 @@
 
 #include "GameState.h"
 
+class Game;
+
 class GameStateMachine {
 
-
+	Game* game;
 	std::stack<GameState*> gameStack;
 
 public:
 
 	//constructor
-	GameStateMachine();
+	GameStateMachine(Game* game);
 
 	//destructor
 	~GameStateMachine();

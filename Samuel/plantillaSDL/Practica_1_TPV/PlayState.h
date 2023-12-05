@@ -87,7 +87,6 @@ class PlayState : public GameState{
 
 	bool exit;
 
-	void Inicializa();
 
 	//bucle de juego
 	void Render() const override;
@@ -145,7 +144,7 @@ public:
 	void playerDied() { exit = true; }
 
 	//constructor
-	PlayState();
+	PlayState(Game* game);
 
 	//destructor
 	~PlayState();

@@ -16,7 +16,7 @@ Game::Game(){
 	
 	LoadTextures();
 
-	gameStateMachine = new GameStateMachine();
+	gameStateMachine = new GameStateMachine(this);
 
 }
 
@@ -139,6 +139,7 @@ void Game::LoadTextures() {
 	textInfo.push_back(TextureInfo("stars.png", 1, 1));
 	textInfo.push_back(TextureInfo("font.png", 3, 30));
 	textInfo.push_back(TextureInfo("ufo.png", 1, 2));
+	textInfo.push_back(TextureInfo("fondos/mainMenu.png", 1, 2));
 
 
 	//crear las texturas

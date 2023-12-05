@@ -7,13 +7,14 @@
 #include "GameStateMachine.h"
 #include "MainMenuState.h"
 #include "PlayState.h"
+#include "Game.h"
 
 //constructor
-GameStateMachine::GameStateMachine() {
+GameStateMachine::GameStateMachine(Game* game) : game(game) {
 
 	//inicializamos la pila con el estado del menu inicial
 	//gameStack.push(new MainMenuState());
-	gameStack.push(new PlayState());
+	gameStack.push(new PlayState(game));
 }
 
 //destructor

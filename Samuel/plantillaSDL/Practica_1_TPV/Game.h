@@ -24,12 +24,12 @@ struct TextureInfo {
 using uint = unsigned int;
 
 //numero de texturas
-constexpr uint NUM_TEXTURAS = 6;
+constexpr uint NUM_TEXTURAS = 7;
 //ruta comun  de  las texturas
 const std::string TEXTURE_ROOT = "images/";
 
 //enumerado texturas
-enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, FONT, UFO };
+enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, FONT, UFO,MAINMENU };
 
 
 //DECLARACION DE CONSTANTES

@@ -27,6 +27,9 @@ protected:
 
 public:
 
+	GameState(Game* game) :game(game) {};
+
+	virtual ~GameState() {};
 	
 	virtual void Render() const ;
 
