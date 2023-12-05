@@ -10,12 +10,12 @@
 #include "texture.h"
 #include "Vector2D.h"
 #include "SceneObject.h"
-
+#include "EventHandler.h"
 
 
 class PlayState;
 
-class Cannon : public SceneObject{
+class Cannon : public SceneObject, public EventHandler {
 
 	Texture* texture;
 
@@ -59,7 +59,7 @@ public:
 
 	bool Hit(SDL_Rect rect, char tLaser) override;
 
-	void HandleEvents(SDL_Event ev); 
+	void handleEvent(const SDL_Event& ev)override; 
 
 	int getLifes() const { return lifesLeft; }
 };

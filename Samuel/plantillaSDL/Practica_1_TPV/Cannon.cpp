@@ -8,7 +8,11 @@
 
 //constructor por parametros
 Cannon::Cannon(PlayState* game, Texture* text, Point2D<> pos, int lifes)
-	: SceneObject(game, pos, 0, 0, lifes), texture(text), direction(0, 0) {};
+	: SceneObject(game, pos, 0, 0, lifes), texture(text), direction(0, 0) {
+
+	playState->addEventListener(this);
+
+};
 
 
 //constructor por lectura de archivo
@@ -18,6 +22,8 @@ Cannon::Cannon(PlayState* game, Texture* text, std::istream& in)
 	in >> lifesLeft >> shootReload;	
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
+
+	playState->addEventListener(this);
 }
 
 void Cannon::Save(std::ostream& out) const {
@@ -50,7 +56,7 @@ void Cannon::Update() {
 }
 
 
-void Cannon::HandleEvents(SDL_Event ev) {
+void Cannon::handleEvent(const SDL_Event& ev) {
 
 	SDL_Scancode code = ev.key.keysym.scancode;
 
