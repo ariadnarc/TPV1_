@@ -9,7 +9,6 @@ class Game;
 
 class Cannon {
 private:
-	Point2D<> pos;
 
 	Texture* texture;
 
