@@ -13,20 +13,25 @@
 #include "texture.h"
 #include "Vector2D.h"
 
+using Callback = std::function<void(void)>;
 
 
 class Button : public  GameObject , public EventHandler {
-
 	
+	//imagen del boton
 	Texture* texture;
 
+	//posicion
 	Point2D<> pos;
 
 	int width;
 	int height;
 
+	//Rect para detectar si el mouse esta encima
+	SDL_Rect myRect;
+
+	bool hover = false;
 	
-	using Callback = std::function<void(void)>;
 
 	std::list<Callback> callbackList;
 
@@ -46,7 +51,7 @@ public:
 	
 	void Render() const override;
 
- 	void Update() override{};
+ 	void Update() override;
 
 
 	//save vacio

@@ -12,21 +12,11 @@ void GameState::Render() const {
 }
 
 void GameState::Update() {
-	GameList<GameObject, true>::forward_iterator it = gameObjects.begin();
-
-	while (it != gameObjects.end()) {
-		(*it).Update();
-		++it;
-	}
+	for (GameObject& ob : gameObjects) ob.Update();
 }
 
 void GameState::HandleEvent(const SDL_Event& ev){
-	std::list<EventHandler*>::iterator it = handleEventsObjects.begin();
-
-	while (it != handleEventsObjects.end()) {
-		(*it)->handleEvent(ev);
-		++it;
-	}
+	for (EventHandler*& ob : handleEventsObjects) ob->handleEvent(ev);
 }
 
 

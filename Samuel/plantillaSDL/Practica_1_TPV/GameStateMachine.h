@@ -7,6 +7,7 @@
 #include <SDL.h>
 
 #include <stack>
+#include <functional>
 
 #include "GameState.h"
 
@@ -15,7 +16,8 @@ class Game;
 class GameStateMachine {
 
 	Game* game;
-	std::stack<GameState*> gameStack;
+	std::stack<GameState*> gameStack;	
+
 
 public:
 
@@ -33,6 +35,8 @@ public:
 	void Render()const;
 	void Update();
 	void HandleEvents(const SDL_Event& ev);
+
+	bool Empty() { return gameStack.empty(); }
 
 };
 

@@ -86,7 +86,7 @@ void Game::Run() {
 	//version suspendiendo el programa,consume menos recursos
 	//falta poner que la pila de estados esté vacia
 	
-	while (!exit ) {
+	while (!exit && !gameStateMachine->Empty()) {
 		//actualizar el start time
 		startTime = SDL_GetTicks();
 
@@ -140,6 +140,9 @@ void Game::LoadTextures() {
 	textInfo.push_back(TextureInfo("font.png", 3, 30));
 	textInfo.push_back(TextureInfo("ufo.png", 1, 2));
 	textInfo.push_back(TextureInfo("fondos/mainMenu.png", 1, 2));
+	textInfo.push_back(TextureInfo("textos/nuevaPartida.png", 1, 2));
+	textInfo.push_back(TextureInfo("textos/cargarPartida.png", 1, 2));
+	textInfo.push_back(TextureInfo("textos/salir.png", 1, 2));
 
 
 	//crear las texturas

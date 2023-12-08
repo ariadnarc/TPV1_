@@ -7,12 +7,26 @@
 #include <SDL.h>
 
 #include "GameState.h"
+#include "Button.h"
 
 class MainMenuState : public GameState {
 
+	Button* newGameButton;
+	Button* loadGameButton;
+	Button* exitButton;
+
+
+
 public:
 	
+	MainMenuState(Game* game);
 
+	void Render() const override;
+
+
+	void PlayGame();
+
+	void Exit();
 };
 
 

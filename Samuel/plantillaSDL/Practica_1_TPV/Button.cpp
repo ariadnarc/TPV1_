@@ -12,6 +12,8 @@ Button::Button(GameState* game,Texture* texture,Point2D<> pos)
 	height = texture->getFrameHeight();
 	width = texture->getFrameWidth();
 
+	myRect =  SDL_Rect{(int)pos.getX(), (int)pos.getY(), width, height };
+
 }
 
 void Button::connect(Callback c) {
@@ -23,6 +25,17 @@ void Button::handleEvent(const SDL_Event& ev) {
 
 	//ver si se ha pulsado el boton del raton y si el raton está encima del boton,
 	//si se ha pulsado llamar a todos los callbacks de la lista
+	if (ev.type == SDL_MOUSEBUTTONDOWN &&
+		ev.button.button == SDL_BUTTON_LEFT) {
+		
+		// Posición del ratón cuando se pulsó
+		SDL_Point point{ ev.button.x, ev.button.y };
+
+
+		if (SDL_PointInRect(&point, &myRect)) {
+			emit();
+		}
+	}
 }
 
 //llama a todas las funciones asociadas al boton
@@ -34,6 +47,14 @@ void Button::emit()const {
 }
 
 void Button::Render() const {
-	SDL_Rect rect{pos.getX(),pos.getY(),width,height };
-	texture->render();
+	texture->render(myRect);
+}
+
+void Button::Update(){
+
+	SDL_Point point;
+	SDL_GetMouseState(&point.x, &point.y);
+
+	// Comprueba si el ratón está sobre el rectángulo
+	hover = SDL_PointInRect(&point, &myRect);
 }
