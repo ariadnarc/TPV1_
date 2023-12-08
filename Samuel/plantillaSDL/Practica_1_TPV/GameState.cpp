@@ -7,13 +7,8 @@
 #include "Game.h"
 
 void GameState::Render() const {
-	GameList<GameObject,true>::forward_iterator it = gameObjects.begin();
 
-	while (it != gameObjects.end()) {
-		(*it).Render();
-		++it;
-	}
-
+	for (GameObject& ob : gameObjects) ob.Render();
 }
 
 void GameState::Update() {

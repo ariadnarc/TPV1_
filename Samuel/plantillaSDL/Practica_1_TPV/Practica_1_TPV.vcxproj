@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
     <ClCompile Include="Bunker.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="..\Hoja3SDL_ejercicio3\checkML.h" />
     <ClInclude Include="Alien.h" />
     <ClInclude Include="Bunker.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
