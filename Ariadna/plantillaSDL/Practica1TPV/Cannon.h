@@ -12,34 +12,46 @@ private:
 
 	Texture* texture;
 
-	Game* game;
-
-	int currentTime = 0, shootingTime = 5;
-
 	Vector2D<> direction;
 
-	const int velocity = 10;
-	int lifesLeft;
+	const int velocity = 2;
 
-	bool izqda = false, dcha = false, espacio = false;
+	//booleanos para control del input,cambiar por el otro metodo
+	bool rightWASD = false;
+	bool rightArrow = false;
+	bool leftWASD = false;
+	bool leftArrow = false;
+	bool space = false;
+
+	const int SHOOT_RATE = 25;
+
+	int shootReload = 0;
+
+	//gestion de diferentes frame rates
+	int waitingFrames = 0;
+	const static int _frameRate = 1;
+
 
 	void Move();
 
-	void Shoot(); //harán falta variables para el shoot
+	void Shoot();
 public:
 
-	Cannon(Texture* text, Point2D<> _pos, Game* _game, int lifes)
-		: texture(text), pos(_pos), game(_game), lifesLeft(lifes), direction(0, 0) {};
+	//constructor por parametros
+	Cannon(PlayState* game, Texture* text, Point2D<> pos, int lifes);
 
-	void Render()const;
+	//constructor por lectura de archivo
+	Cannon(PlayState* game, Texture* text, std::istream& in);
 
-	bool Update();
+	void Render()const override;
 
-	void HandleEvents(SDL_Event ev); // necesitaremos variables para el handleEvents
+	void Update() override;
 
-	void Hit();
+	void Save(std::ostream& out) const override;
 
-	SDL_Rect GetRect() const;
+	bool Hit(SDL_Rect rect, char tLaser) override;
 
-	int GetLifes();
+	void handleEvent(const SDL_Event& ev)override;
+
+	int getLifes() const { return lifesLeft; }
 };

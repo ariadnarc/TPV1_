@@ -5,72 +5,107 @@
 #include "Alien.h"
 
 
-Alien::Alien(Texture* text, Point2D<> _pos, int _type, Game* _game, MotherShip* _mother)
-	: SceneObject(game, pos, 0, 0, 1), texture(text), type(_type), mother(_mother)
-{
+//constructor por parametros
+Alien::Alien(PlayState* game, Texture* text, Mothership* mother, Point2D<> _pos, int _type)
+	: SceneObject(game, _pos, 0, 0, 1), texture(text), type(_type), animFrame(0), mother(mother) {
+
 	mother->addAlien();
 };
 
-//constructora por lectura de archivos
+//constructor por lectura de archivo
+Alien::Alien(PlayState* game, Texture* text, Mothership* mother, std::istream& in)
+	: SceneObject(game, in), texture(text), mother(mother), animFrame(0) {
+	in >> type;
+	width = texture->getFrameWidth();
+	height = texture->getFrameHeight();
+	mother->addAlien();
 
-
-
-
-
-void Alien::Render()const {
-
-	texture->renderFrame(GetRect(), type, frame);
 }
 
-void Alien::updateAnim() {
-	frame = (frame + 1) % texture->getNumColumns();
+void Alien::Save(std::ostream& out) const {
+	//pasar el magic number a un enumerado
+	if (getType() != 0) out << ALIEN << " ";
+
+	SceneObject::Save(out);
+
+	out << type << " ";
+
+	if (getType() != 0) out << '\n';
+
+}
+
+
+
+void Alien::Render() const {
+	texture->renderFrame(getRect(), type, animFrame);
+}
+
+void Alien::UpdateAnim() {
+	animFrame = (animFrame + 1) % texture->getNumColumns();
 }
 
 void Alien::Update() {
 
-	if (lifesleft <= 0) return;
+	if (lifesLeft <= 0) return;
 
 	if (mother->shouldMove()) {
-		updateAnim();
+		UpdateAnim();
 		Move();
 	}
 }
 
-bool Alien::Hit() {
+bool Alien::Hit(SDL_Rect rect, char tLaser) {
+
+	if (lifesLeft <= 0) return false;
 
 
-	return false;
+	bool colision = false;
+
+	SDL_Rect aux = getRect();
+
+	if (tLaser == 'b') {
+		if (SDL_HasIntersection(&rect, &aux)) {
+			colision = true;
+			lifesLeft--;
+			if (lifesLeft <= 0) {
+				playState->HasDied(sceneAnchor);
+				mother->alienDied();
+				playState->AlienDied(type);
+			}
+			//falta llamar al motherShip para disminuir el numero de aliens
+		}
+	}
+
+
+	return colision;
+
 }
+
 
 void Alien::Move() {
+	Vector2D<> dir = mother->getDirection();
 
-	pos = Vector2D<>(pos.getX() + game->GetDirection().getX() * velocityX, pos.getY() + game->GetDirection().getY() * velocityY);
+	//pos = Vector2D<>(pos.getX() +  (dir.getX() * mother->getVelocityX()),
+	//				 pos.getY() +  (dir.getY() * mother->getVelocityY()) );
 
-	//si no va a poder moverse llama al cannotMove del Game
-	if (game->GetDirection().getX() == 1 && pos.getX() >= (WIN_WIDTH - texture->getFrameWidth() - velocityX) || game->GetDirection().getX() == -1 && pos.getX() <= 1) {
-		game->CannotMove();
+	//otra version del move
+	pos = pos + (Vector2D<>(mother->getVelocityX() * dir.getX(),
+		mother->getVelocityY() * dir.getY()));
+
+	if (
+		(dir.getX() == -1 &&
+			pos.getX() <= (0 + mother->getVelocityX())) ||
+
+		(dir.getX() == 1 &&
+			pos.getX() >= (winWidth - (texture->getFrameWidth()) - mother->getVelocityX()))
+		)
+	{
+		mother->cannotMove();
 	}
-}
-
-SDL_Rect Alien::GetRect() const{
-
-	SDL_Rect target;
-
-	target.x = pos.getX();
-	target.y = pos.getY();
-	target.w = texture->getFrameWidth();
-	target.h = texture->getFrameHeight();
-
-	return target;
-}
-
-void Alien::Shoot() {
 
 
-	if (currenttime >= shootingtime) {
-		game->FireLaser(Vector2D<>((pos.getX() + texture->getFrameWidth() / 2), pos.getY()), true);
-		currenttime = 0;
-		shootingtime = game->getRandomRange(MIN_TIME, MAX_TIME);
-
+	if (pos.getY() >= ALIENS_LIMIT_Y) {
+		mother->alienLanded();
 	}
+
 }
