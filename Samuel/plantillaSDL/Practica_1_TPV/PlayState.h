@@ -146,6 +146,8 @@ public:
 	//constructor
 	PlayState(Game* game);
 
+	PlayState(Game* game,std::string fileName);
+
 	//destructor
 	~PlayState();
 };

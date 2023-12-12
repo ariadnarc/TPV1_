@@ -24,13 +24,14 @@ struct TextureInfo {
 using uint = unsigned int;
 
 //numero de texturas
-constexpr uint NUM_TEXTURAS =10;
+constexpr uint NUM_TEXTURAS =15;
 //ruta comun  de  las texturas
 const std::string TEXTURE_ROOT = "images/";
 
 //enumerado texturas
 enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, FONT, UFO,
-				MAINMENU,NUEVA_PARTIDA,CARGAR_PARTIDA,SALIR };
+				MAINMENU,NUEVA_PARTIDA,CARGAR_PARTIDA,SALIR,GUARDAR_PARTIDA,CONTINUAR,
+				VOLVER_AL_MENU,GAMEOVER,HAS_GANADO};
 
 
 //DECLARACION DE CONSTANTES
@@ -82,7 +83,7 @@ public:
 
 	Texture* getTexture(TextureName name) const { return arrayTexturas[name]; }
 
-	void RenderClear() const { SDL_RenderClear(renderer); }
+	void RenderClear() const { SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); SDL_RenderClear(renderer); }
 
 	SDL_Renderer* getRenderer() { return renderer; }
 

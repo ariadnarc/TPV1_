@@ -7,9 +7,24 @@
 #include <SDL.h>
 
 #include "GameState.h"
+#include "Button.h"
 
 class EndState : public GameState {
 
+	
+	Button* returnToMenuButton;
+	Button* exitButton;
+
+	bool win;
+
+	void ReturnToMenu();
+	void Exit();
+
+public:
+
+	EndState(Game* game,bool win);
+
+	void Render()const override;
 
 
 };

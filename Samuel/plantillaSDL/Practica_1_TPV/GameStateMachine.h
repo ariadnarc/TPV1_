@@ -18,6 +18,7 @@ class GameStateMachine {
 	Game* game;
 	std::stack<GameState*> gameStack;	
 
+	std::list<GameState*> toBeDeleted;
 
 public:
 
@@ -36,7 +37,7 @@ public:
 	void Update();
 	void HandleEvents(const SDL_Event& ev);
 
-	bool Empty() { return gameStack.empty(); }
+	bool Empty() const { return gameStack.empty(); }
 
 };
 

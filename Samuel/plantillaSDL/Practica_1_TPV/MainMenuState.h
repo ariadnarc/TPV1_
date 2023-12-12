@@ -16,6 +16,11 @@ class MainMenuState : public GameState {
 	Button* exitButton;
 
 
+	void PlayGame();
+
+	void Exit();
+
+	void LoadGame();
 
 public:
 	
@@ -24,9 +29,6 @@ public:
 	void Render() const override;
 
 
-	void PlayGame();
-
-	void Exit();
 };
 
 

@@ -143,6 +143,11 @@ void Game::LoadTextures() {
 	textInfo.push_back(TextureInfo("textos/nuevaPartida.png", 1, 2));
 	textInfo.push_back(TextureInfo("textos/cargarPartida.png", 1, 2));
 	textInfo.push_back(TextureInfo("textos/salir.png", 1, 2));
+	textInfo.push_back(TextureInfo("textos/guardarPartida.png", 1, 2));
+	textInfo.push_back(TextureInfo("textos/continuar.png", 1, 2));
+	textInfo.push_back(TextureInfo("textos/volverAlMenu.png", 1, 2));
+	textInfo.push_back(TextureInfo("textos/gameOver.png", 1, 2));
+	textInfo.push_back(TextureInfo("textos/hasGanado.png", 1, 2));
 
 
 	//crear las texturas

@@ -7,9 +7,24 @@
 #include <SDL.h>
 
 #include "GameState.h"
+#include "Button.h"
 
 class PauseState : public GameState {
 
+	Button* continueGameButton;
+	Button* saveGameButton;
+	Button* loadGameButton;
+	Button* exitButton;
+
+	PlayState* previusPlayState;
+
+	void Continue();
+	void SaveGame();
+	void LoadGame();
+	void Exit();
+public:
+
+	PauseState(Game* game,PlayState* previusPlayState);
 
 
 };

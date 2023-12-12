@@ -8,6 +8,8 @@
 
 #include "Game.h"
 #include "PlayState.h"
+#include "PauseState.h"
+#include "EndState.h"
 
 #include "Alien.h"
 
@@ -44,17 +46,22 @@ void PlayState::LoadMusic() {
 	SDL_PauseAudioDevice(deviceId, 0);
 }
 
-//constructor
-PlayState::PlayState(Game* game) :GameState(game)
-{
+//constructor por puntero
+PlayState::PlayState(Game* game) 
+	: PlayState(game,MAP_PATH) {};
+
+//constructor valido para partidas cargadas y mapas iniciales
+PlayState::PlayState(Game* game, std::string fileName) 
+	:GameState(game) {
+
 	//inicializar el mothership antes que los aliens
 	mother = new Mothership(this);// se mueven hacia la derecha
-	
+
 	//inicializar los objetos
-	ReadMap(MAP_PATH);
+	ReadMap(fileName);
 
 	infoB = new InfoBar(game->getTexture(SPACESHIP), game->getTexture(FONT), this, PLAYER_LIFES);
-	
+
 	gameObjects.push_back(mother);
 	gameObjects.push_back(infoB);
 
@@ -63,12 +70,11 @@ PlayState::PlayState(Game* game) :GameState(game)
 
 	//modo aliens aleatorios
 	if (randomMode) RandomMode();
-	
+
 	if (musicOn) {
 		LoadMusic();
 	}
-	
-};
+}
 
 //destructor
 PlayState::~PlayState() {
@@ -104,6 +110,10 @@ void PlayState::Update() {
 
 	if (mother->haveLanded()) exit = true;
 	if (mother->getAlienCount() <= 0) exit = true;
+	
+	if (exit == true) {
+		game->getGameStateMachine()->replaceState(new EndState(game, false));
+	}
 		
 }
 
@@ -115,7 +125,7 @@ void PlayState::HandleEvent(const SDL_Event& ev) {
 		ev.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
 
 		//cambiar al estado de pausa
-		
+		game->getGameStateMachine()->pushState(new PauseState(game, this));
 	}
 }
 
