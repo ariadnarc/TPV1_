@@ -24,14 +24,14 @@ struct TextureInfo {
 using uint = unsigned int;
 
 //numero de texturas
-constexpr uint NUM_TEXTURAS =15;
+constexpr uint NUM_TEXTURAS =16;
 //ruta comun  de  las texturas
 const std::string TEXTURE_ROOT = "images/";
 
 //enumerado texturas
 enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, FONT, UFO,
 				MAINMENU,NUEVA_PARTIDA,CARGAR_PARTIDA,SALIR,GUARDAR_PARTIDA,CONTINUAR,
-				VOLVER_AL_MENU,GAMEOVER,HAS_GANADO};
+				VOLVER_AL_MENU,GAMEOVER,HAS_GANADO,CODIGO};
 
 
 //DECLARACION DE CONSTANTES

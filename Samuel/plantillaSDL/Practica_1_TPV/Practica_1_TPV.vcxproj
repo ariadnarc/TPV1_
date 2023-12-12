@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
+    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Bunker.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cannon.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="Mothership.cpp" />
     <ClCompile Include="Practica_1_TPV.cpp" />
+    <ClCompile Include="Reward.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="ShooterAlien.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -155,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="..\Hoja3SDL_ejercicio3\checkML.h" />
     <ClInclude Include="Alien.h" />
+    <ClInclude Include="Bomb.h" />
     <ClInclude Include="Bunker.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cannon.h" />
@@ -172,6 +175,7 @@
     <ClInclude Include="InvadersError.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Mothership.h" />
+    <ClInclude Include="Reward.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="ShooterAlien.h" />
     <ClInclude Include="texture.h" />

@@ -148,6 +148,7 @@ void Game::LoadTextures() {
 	textInfo.push_back(TextureInfo("textos/volverAlMenu.png", 1, 2));
 	textInfo.push_back(TextureInfo("textos/gameOver.png", 1, 2));
 	textInfo.push_back(TextureInfo("textos/hasGanado.png", 1, 2));
+	textInfo.push_back(TextureInfo("textos/codigo.png", 1, 2));
 
 
 	//crear las texturas
