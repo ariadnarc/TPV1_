@@ -39,7 +39,7 @@ void PauseState::Continue() {
 	game->getGameStateMachine()->popState();
 }
 void PauseState::SaveGame() {
-
+	previusPlayState->SaveGame("partidas_guardadas/save1.txt");
 }
 void PauseState::LoadGame() {
 	//leer el numero de partida a cargar

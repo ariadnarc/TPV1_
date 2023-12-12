@@ -46,9 +46,7 @@ void PlayState::LoadMusic() {
 	SDL_PauseAudioDevice(deviceId, 0);
 }
 
-//constructor por puntero
-PlayState::PlayState(Game* game) 
-	: PlayState(game,MAP_PATH) {};
+
 
 //constructor valido para partidas cargadas y mapas iniciales
 PlayState::PlayState(Game* game, std::string fileName) 
@@ -232,18 +230,18 @@ void PlayState::UpdateScoreUI() {
 }
 
 
+
 //falta guardar mas datos, direccion de los aliens,info de las balas, current AtkCD de los aliens...,musica...
-void PlayState::SaveGame() {
+void PlayState::SaveGame(std::string file = "partidas_guardadas/tmp.txt") {
 	std::ofstream out;
 
-	out.open("partidas_guardadas/tmp.txt");
+	out.open(file);
 
 	//guardado de todos los objetos de escena
 	GameList<SceneObject>::forward_iterator it = sceneObjects.begin();
 
 	while (it != sceneObjects.end()) {
 		(*it).Save(out);
-
 		++it;
 	}
 

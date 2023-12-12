@@ -105,14 +105,14 @@ class PlayState : public GameState{
 	//carga la musica de fondo del juego
 	void LoadMusic();
 
-	//guardar partida
-	void SaveGame();
 
 	//cargar partida
 	void LoadGame(std::string savePath);
 
 public:
 	
+
+	void SaveGame(std::string file);
 		
 	//disparar laser
 	void fireLaser(Vector2D<> pos,char color);
@@ -144,9 +144,7 @@ public:
 	void playerDied() { exit = true; }
 
 	//constructor
-	PlayState(Game* game);
-
-	PlayState(Game* game,std::string fileName);
+	PlayState(Game* game,std::string fileName= MAP_PATH);
 
 	//destructor
 	~PlayState();

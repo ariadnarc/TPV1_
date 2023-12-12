@@ -10,7 +10,7 @@ EndState::EndState(Game* game,bool win)
 	:GameState(game), win(win),
 
 	returnToMenuButton(new Button(this, game->getTexture(CONTINUAR), Point2D<>(365, 250))),
-	exitButton(new Button(this, game->getTexture(SALIR), Point2D<>(365, 400)))
+	exitButton(new Button(this, game->getTexture(SALIR), Point2D<>(390, 400)))
 {
 	addObject(returnToMenuButton);
 	addObject(exitButton);

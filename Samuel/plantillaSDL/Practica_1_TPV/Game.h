@@ -6,6 +6,7 @@
 #include <iostream>
 #include <SDL.h>
 
+
 #include "texture.h"
 #include "GameStateMachine.h"
 #include "InvadersError.h"
