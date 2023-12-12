@@ -99,6 +99,9 @@
     <ClCompile Include="Font.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="ReadCodeState.cpp">
+      <Filter>Archivos de origen\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InfoBar.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadCodeState.h">
+      <Filter>Archivos de encabezado\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

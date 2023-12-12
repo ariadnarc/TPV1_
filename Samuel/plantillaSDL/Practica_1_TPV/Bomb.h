@@ -11,6 +11,12 @@
 
 class Bomb : public SceneObject {
 
+
+public:
+
+	Bomb();
+
+
 };
 
 

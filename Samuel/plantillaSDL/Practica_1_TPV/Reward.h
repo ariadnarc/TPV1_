@@ -10,6 +10,10 @@
 
 class Reward : public SceneObject {
 
+
+public: 
+	Reward();
+
 };
 
 

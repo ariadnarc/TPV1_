@@ -149,6 +149,7 @@
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="Mothership.cpp" />
     <ClCompile Include="Practica_1_TPV.cpp" />
+    <ClCompile Include="ReadCodeState.cpp" />
     <ClCompile Include="Reward.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="ShooterAlien.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="InvadersError.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Mothership.h" />
+    <ClInclude Include="ReadCodeState.h" />
     <ClInclude Include="Reward.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="ShooterAlien.h" />
