@@ -10,6 +10,7 @@
 #include "texture.h"
 #include "GameStateMachine.h"
 #include "InvadersError.h"
+#include "Font.h"
 
 
 
@@ -25,7 +26,7 @@ struct TextureInfo {
 using uint = unsigned int;
 
 //numero de texturas
-constexpr uint NUM_TEXTURAS =16;
+constexpr uint NUM_TEXTURAS = 16;
 //ruta comun  de  las texturas
 const std::string TEXTURE_ROOT = "images/";
 
@@ -52,6 +53,10 @@ class Game {
 
 	//ARRAY DE TEXTURAS
 	Texture* arrayTexturas[NUM_TEXTURAS];
+
+	//fuente de texto
+	Font* font;
+
 
 	GameStateMachine* gameStateMachine;
 
@@ -90,6 +95,7 @@ public:
 
 	GameStateMachine* getGameStateMachine() { return gameStateMachine; }
 
+	Font* getFont() { return font; }
 
 	void Run();
 

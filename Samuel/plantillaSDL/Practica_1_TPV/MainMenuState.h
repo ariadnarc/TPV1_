@@ -8,6 +8,7 @@
 
 #include "GameState.h"
 #include "Button.h"
+#include "Font.h"
 
 class MainMenuState : public GameState {
 

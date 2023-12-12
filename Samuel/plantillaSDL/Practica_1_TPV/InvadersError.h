@@ -28,6 +28,8 @@ class SDLError : public InvadersError {
 public:
 	SDLError() 
 		: InvadersError("Error en SDL, " + std::string(SDL_GetError()) ) {};
+	SDLError(std::string message)
+		:InvadersError(message) {};
 
 };
 

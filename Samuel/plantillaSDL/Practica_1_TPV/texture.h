@@ -50,6 +50,8 @@ public:
 	            const SDL_Point* center = nullptr,
 	            SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 
+	void render(const SDL_Rect& rect, SDL_Color color) const;
+
 	/// Render a frame to the given rectangle
 	void renderFrame(const SDL_Rect& target, int row, int col) const;
 	/// Render a frame with additional options from SDL_RenderCopyEx

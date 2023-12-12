@@ -137,6 +137,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="EndState.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="MainMenuState.h" />

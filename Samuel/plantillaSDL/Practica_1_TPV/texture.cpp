@@ -72,6 +72,15 @@ Texture::render(const SDL_Rect& rect,
 	SDL_RenderCopyEx(renderer, texture, nullptr, &rect, angle, center, flip);
 }
 
+
+void
+Texture::render(const SDL_Rect& rect, SDL_Color color) const
+{
+	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+	render(rect);
+	//Restablece el color original de la textura
+	SDL_SetTextureColorMod(texture, 255, 255, 255);
+}
 void
 Texture::renderFrame(const SDL_Rect& rect, int row, int col) const
 {

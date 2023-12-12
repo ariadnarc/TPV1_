@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 #include <vector>
 
@@ -13,6 +14,10 @@
 Game::Game(){
 
 	InitializeSDL();
+
+	TTF_Init();
+
+	font = new Font("images/fuentes/font.ttf",35);
 	
 	LoadTextures();
 
@@ -30,6 +35,10 @@ Game::~Game() {
 	for (int i = 0; i < NUM_TEXTURAS; i++) {
 		delete arrayTexturas[i];
 	}
+
+	delete font;
+	
+	TTF_Quit();
 
 	//destructores(renderer window, y sdl quit)
 	SDL_DestroyRenderer(renderer);
@@ -140,20 +149,23 @@ void Game::LoadTextures() {
 	textInfo.push_back(TextureInfo("font.png", 3, 30));
 	textInfo.push_back(TextureInfo("ufo.png", 1, 2));
 	textInfo.push_back(TextureInfo("fondos/mainMenu.png", 1, 2));
-	textInfo.push_back(TextureInfo("textos/nuevaPartida.png", 1, 2));
-	textInfo.push_back(TextureInfo("textos/cargarPartida.png", 1, 2));
-	textInfo.push_back(TextureInfo("textos/salir.png", 1, 2));
-	textInfo.push_back(TextureInfo("textos/guardarPartida.png", 1, 2));
-	textInfo.push_back(TextureInfo("textos/continuar.png", 1, 2));
-	textInfo.push_back(TextureInfo("textos/volverAlMenu.png", 1, 2));
-	textInfo.push_back(TextureInfo("textos/gameOver.png", 1, 2));
-	textInfo.push_back(TextureInfo("textos/hasGanado.png", 1, 2));
-	textInfo.push_back(TextureInfo("textos/codigo.png", 1, 2));
+
+	
+	arrayTexturas[NUEVA_PARTIDA] = font->generateTexture(renderer, "NUEVA PARTIDA", SDL_Color{ 255,255,255,255 });
+	arrayTexturas[CARGAR_PARTIDA] = font->generateTexture(renderer, "CARGAR PARTIDA", SDL_Color{ 255,255,255,255 });
+	arrayTexturas[SALIR] = font->generateTexture(renderer, "SALIR", SDL_Color{ 255,255,255,255 });
+	arrayTexturas[GUARDAR_PARTIDA] = font->generateTexture(renderer, "GUARDAR PARTIDA", SDL_Color{ 255,255,255,255 });
+	arrayTexturas[CONTINUAR] = font->generateTexture(renderer, "CONTINUAR", SDL_Color{ 255,255,255,255 });
+	arrayTexturas[VOLVER_AL_MENU] = font->generateTexture(renderer, "VOLVER AL MENU", SDL_Color{ 255,255,255,255 });
+	arrayTexturas[GAMEOVER] = font->generateTexture(renderer, "GAMEOVER", SDL_Color{ 255,255,255,255 });
+	arrayTexturas[HAS_GANADO] = font->generateTexture(renderer, "HAS GANADO", SDL_Color{ 255,255,255,255 });
+	arrayTexturas[CODIGO] = font->generateTexture(renderer, "CODIGO", SDL_Color{ 255,255,255,255 });
 
 
 	//crear las texturas
-	for (int i = 0; i < NUM_TEXTURAS; i++) {
+	for (int i = 0; i < NUEVA_PARTIDA; i++) {
 		arrayTexturas[i] = new Texture(renderer, (TEXTURE_ROOT + textInfo[i].fileName).c_str(),
 			textInfo[i].horizontalFrames, textInfo[i].verticalFrames);
 	}
+
 }
