@@ -9,8 +9,8 @@
 
 MainMenuState::MainMenuState(Game* game) 
 	: GameState(game), 
-	newGameButton(new Button(this, game->getTexture(NUEVA_PARTIDA), Point2D<>(300, 150))), 
-	loadGameButton(new Button(this, game->getTexture(CARGAR_PARTIDA), Point2D<>(292,200))),
+	newGameButton(new Button(this, game->getTexture(NUEVA_PARTIDA), Point2D<>(245, 150))), 
+	loadGameButton(new Button(this, game->getTexture(CARGAR_PARTIDA), Point2D<>(232,200))),
 	exitButton(new Button(this, game->getTexture(SALIR), Point2D<>(345, 250)))
 {
 	//añadir los objetos a la lista de GameObjects, para el renderizado

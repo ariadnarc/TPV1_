@@ -17,7 +17,7 @@ Game::Game(){
 
 	TTF_Init();
 
-	font = new Font("images/fuentes/font.ttf",35);
+	font = new Font("fuentes/PressStart2P-Regular.ttf",25);
 	
 	LoadTextures();
 

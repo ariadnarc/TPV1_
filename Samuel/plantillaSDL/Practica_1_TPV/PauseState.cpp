@@ -10,10 +10,10 @@
 
 PauseState::PauseState(Game* game, PlayState* previusPlayState)
 	:GameState(game),previusPlayState(previusPlayState),
-	continueGameButton(new Button(this, game->getTexture(CONTINUAR), Point2D<>(365, 100))),
-	saveGameButton(new Button(this, game->getTexture(GUARDAR_PARTIDA), Point2D<>(330, 200))),
-	loadGameButton(new Button(this, game->getTexture(CARGAR_PARTIDA), Point2D<>(330, 300))),
-	exitButton(new Button(this, game->getTexture(SALIR), Point2D<>(380, 400)))
+	continueGameButton(new Button(this, game->getTexture(CONTINUAR), Point2D<>(315, 100))),
+	saveGameButton(new Button(this, game->getTexture(GUARDAR_PARTIDA), Point2D<>(240, 200))),
+	loadGameButton(new Button(this, game->getTexture(CARGAR_PARTIDA), Point2D<>(255, 300))),
+	exitButton(new Button(this, game->getTexture(SALIR), Point2D<>(360, 400)))
 {
 
 	addObject(continueGameButton);

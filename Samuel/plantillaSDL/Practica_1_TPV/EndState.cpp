@@ -9,8 +9,8 @@
 EndState::EndState(Game* game,bool win)
 	:GameState(game), win(win),
 
-	returnToMenuButton(new Button(this, game->getTexture(CONTINUAR), Point2D<>(365, 250))),
-	exitButton(new Button(this, game->getTexture(SALIR), Point2D<>(390, 400)))
+	returnToMenuButton(new Button(this, game->getTexture(CONTINUAR), Point2D<>(305, 250))),
+	exitButton(new Button(this, game->getTexture(SALIR), Point2D<>(355, 400)))
 {
 	addObject(returnToMenuButton);
 	addObject(exitButton);
@@ -31,7 +31,7 @@ void EndState::Render()const {
 
 	GameState::Render();
 
-	SDL_Rect aux{ 365,100,
+	SDL_Rect aux{ 315,100,
 		game->getTexture(win ? HAS_GANADO : GAMEOVER)->getFrameWidth(),
 		game->getTexture(win ? HAS_GANADO : GAMEOVER)->getFrameHeight() };
 	//render del mensaje de gameOver o has ganado
