@@ -105,7 +105,7 @@ bool Ufo::Hit(SDL_Rect rect, char color) {
 	if (color == 'b' && SDL_HasIntersection(&rect, &aux)) {
 		currentState = destroyed;
 		waitingFrames = destroyedWaitingTime;
-		playState->UfoDied();
+		playState->UfoDied(this);
 		return true;
 	}
 	else return false;

@@ -17,7 +17,8 @@ class PlayState;
 
 class Cannon : public SceneObject, public EventHandler {
 
-	Texture* texture;
+	Texture* cannonTexture;
+	Texture* shieldTexture;
 
 	Vector2D<> direction;
 
@@ -38,6 +39,10 @@ class Cannon : public SceneObject, public EventHandler {
 	int waitingFrames = 0;
 	const static int _frameRate = 1;
 
+	bool invencible = true;
+
+	int invencibleCurrentFrames = 0;
+	int invencibleFrames = 300;
 
 	void Move();
 
@@ -46,10 +51,10 @@ class Cannon : public SceneObject, public EventHandler {
 public:
 
 	//constructor por parametros
-	Cannon(PlayState* game, Texture* text, Point2D<> pos, int lifes);
+	Cannon(PlayState* game, Texture* cannonText,Texture* shieldTexture, Point2D<> pos, int lifes);
 
 	//constructor por lectura de archivo
-	Cannon(PlayState* game, Texture* text, std::istream& in);
+	Cannon(PlayState* game, Texture* cannonText, Texture* shieldTexture, std::istream& in);
 
 	void Render()const override;
 
@@ -62,6 +67,8 @@ public:
 	void handleEvent(const SDL_Event& ev)override; 
 
 	int getLifes() const { return lifesLeft; }
+
+	void Invencible();
 };
 
 

@@ -149,7 +149,10 @@ void Game::LoadTextures() {
 	textInfo.push_back(TextureInfo("stars.png", 1, 1));
 	textInfo.push_back(TextureInfo("ufo.png", 1, 2));
 
-	textInfo.push_back(TextureInfo("fondos/mainMenu.png", 1, 2));
+	textInfo.push_back(TextureInfo("fondos/mainMenu.png", 1, 1));
+	textInfo.push_back(TextureInfo("objetos/shield_reward.png", 1, 1));
+	textInfo.push_back(TextureInfo("objetos/shield.png", 1, 1));
+	textInfo.push_back(TextureInfo("objetos/bomb.png", 1, 1));
 
 
 	//crear las texturas de la ttf

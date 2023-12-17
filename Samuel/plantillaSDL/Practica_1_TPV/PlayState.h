@@ -137,11 +137,18 @@ public:
 
 	void HasDied(GameList<SceneObject>::anchor an);
 
+
+	void HasDied(GameList<GameObject,true>::anchor an);
+
 	void AlienDied(int type);
 
-	void UfoDied();
+	void UfoDied(Ufo* ufo);
 
 	void playerDied() { exit = true; }
+
+	bool mayGrantReward(SDL_Rect rewardRect)const;
+
+	void PlayerInvencible();
 
 	//constructor
 	PlayState(Game* game,std::string fileName= MAP_PATH);

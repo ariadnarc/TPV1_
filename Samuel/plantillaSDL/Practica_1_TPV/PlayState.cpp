@@ -12,6 +12,7 @@
 #include "EndState.h"
 
 #include "Alien.h"
+#include "Reward.h"
 
 
 void PlayState::RandomMode() {
@@ -153,7 +154,7 @@ void PlayState::ReadMap(const std::string mapPath) {
 
 		//sacar esto a una funcion?
 		if (objectType == CANNON) { //cannon			
-			player = new Cannon(this, game->getTexture(SPACESHIP),map);
+			player = new Cannon(this, game->getTexture(SPACESHIP), game->getTexture(REWARD_CANNON),map);
 			aux = player;
 		}
 		else if (objectType == ALIEN) { //alien 
@@ -335,8 +336,16 @@ void PlayState::AlienDied(int type) {
 	score += SCORE_ALIENS[type];
 }
 
-void PlayState::UfoDied() {
+void PlayState::UfoDied(Ufo* ufo) {
 	score += SCORE_UFO;
+
+	SDL_Rect rect = ufo->getRect();
+
+	Reward* aux = new Reward(this, Vector2D<>(rect.x, rect.y), 0, 0, 0,game->getTexture(REWARD_SIMBOL),
+		[this]() {PlayerInvencible(); });
+
+	gameObjects.push_back(aux);
+	sceneObjects.push_back(aux);
 }
 
 //eliminar de las 2 listas
@@ -344,4 +353,19 @@ void PlayState::HasDied(GameList<SceneObject>::anchor an) {
 	GameList<GameObject, true>::anchor aux = an->elem->GameObject::getListAnchor();
 	sceneObjects.erase(an);
 	gameObjects.erase(aux);
+}
+
+//eliminar solo de la lista de gameObjects
+void PlayState::HasDied(GameList<GameObject,true>::anchor an) {
+	gameObjects.erase(an);
+}
+
+//para el reward
+bool PlayState::mayGrantReward(SDL_Rect rewardRect)const {
+	SDL_Rect playerRect = player->getRect();
+	return SDL_HasIntersection(&rewardRect, &playerRect);
+}
+
+void PlayState::PlayerInvencible() {
+	player->Invencible();
 }

@@ -7,8 +7,9 @@
 #include "PlayState.h"
 
 //constructor por parametros
-Cannon::Cannon(PlayState* game, Texture* text, Point2D<> pos, int lifes)
-	: SceneObject(game, pos, 0, 0, lifes), texture(text), direction(0, 0) {
+Cannon::Cannon(PlayState* game, Texture* text, Texture* shieldTexture, Point2D<> pos, int lifes)
+	: SceneObject(game, pos, 0, 0, lifes),
+		cannonTexture(text),shieldTexture(shieldTexture), direction(0, 0) {
 
 	playState->addEventListener(this);
 
@@ -16,12 +17,12 @@ Cannon::Cannon(PlayState* game, Texture* text, Point2D<> pos, int lifes)
 
 
 //constructor por lectura de archivo
-Cannon::Cannon(PlayState* game, Texture* text, std::istream& in) 
-	: SceneObject(game,in), texture(text) {
+Cannon::Cannon(PlayState* game, Texture* text, Texture* shieldTexture, std::istream& in)
+	: SceneObject(game,in), cannonTexture(text), shieldTexture(shieldTexture) {
 	
 	in >> lifesLeft >> shootReload;	
-	width = texture->getFrameWidth();
-	height = texture->getFrameHeight();
+	width = cannonTexture->getFrameWidth();
+	height = cannonTexture->getFrameHeight();
 
 	playState->addEventListener(this);
 }
@@ -37,8 +38,14 @@ void Cannon::Save(std::ostream& out) const {
 }
 
 
-void Cannon::Render()const {	
-	texture->render(getRect());
+void Cannon::Render()const {
+	
+	cannonTexture->render(getRect());
+
+	if (invencible) {
+		SDL_Rect aux{ pos.getX()-3,pos.getY()-8,shieldTexture->getFrameWidth(),shieldTexture->getFrameHeight() };
+		shieldTexture->render(aux);
+	}
 }
 
 void Cannon::Update() {
@@ -53,6 +60,11 @@ void Cannon::Update() {
 		waitingFrames = _frameRate;
 	}
 
+	--invencibleCurrentFrames;
+
+	if (invencibleCurrentFrames <= 0) {
+		invencible = false;
+	}
 }
 
 
@@ -88,13 +100,17 @@ bool Cannon::Hit(SDL_Rect rect, char tLaser) {
 	if (tLaser == 'r') {
 		if (SDL_HasIntersection(&rect, &aux)){
 			colision = true;
-			lifesLeft--;
-			playState->UpdateLifesUI();
 
-			if (lifesLeft <= 0) {
-				playState->HasDied(sceneAnchor);
-				playState->playerDied();
+			if (!invencible) {
+				lifesLeft--;
+				playState->UpdateLifesUI();
+
+				if (lifesLeft <= 0) {
+					playState->HasDied(sceneAnchor);
+					playState->playerDied();
+				}
 			}
+			
 
 		}
 	}
@@ -136,7 +152,7 @@ void Cannon::Move() {
 
 	//movimiento limitado con los bordes de la pantalla
 	if ((direction.getX() == -1 && pos.getX() >= 0 + velocity) ||
-		 (direction.getX() == 1  && pos.getX() < (winWidth - texture->getFrameWidth()) - velocity )){
+		 (direction.getX() == 1  && pos.getX() < (winWidth - cannonTexture->getFrameWidth()) - velocity )){
 		pos = pos + direction*velocity;
 	}
 }
@@ -149,12 +165,17 @@ void Cannon::Shoot() {
 		shootReload = 0;
 
 		//sacar la posicion a un metodo spawnPoint
-		playState->fireLaser(Vector2D<>(	pos.getX() + texture->getFrameWidth()/2,
-									pos.getY() - texture->getFrameHeight()/2), 
+		playState->fireLaser(Vector2D<>(	pos.getX() + cannonTexture->getFrameWidth()/2,
+									pos.getY() - cannonTexture->getFrameHeight()/2),
 									'b');
 	}
 }
 
+
+void Cannon::Invencible() {
+	invencible = true;
+	invencibleCurrentFrames = invencibleFrames;
+}
 
 
 
