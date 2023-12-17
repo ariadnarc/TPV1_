@@ -6,18 +6,22 @@
 #include "Reward.h"
 #include "PlayState.h"
 
-Reward::Reward(PlayState* game, Point2D<> pos, int width, int height, int lifesLeft,Texture* texture,Callback callback) 
+Reward::Reward(PlayState* game, Point2D<> pos,  int lifesLeft,Texture* texture,Callback callback) 
 	:SceneObject(game,pos,width,height,lifesLeft),texture(texture),callback(callback) {
 
 	
-	this->width = texture->getFrameWidth();
-	this->height = texture->getFrameHeight();
+	width = texture->getFrameWidth();
+	height = texture->getFrameHeight();
 
 }
 
 void Reward::Update() {
 
-	Move();
+	waitingFrames--;
+	if (waitingFrames <= 0) {
+		waitingFrames = _frameRate;
+		Move();
+	}
 
 	//si colisionamos con el player
 	if (playState->mayGrantReward(getRect())) {
@@ -27,7 +31,6 @@ void Reward::Update() {
 		//eliminar este objeto	playState->HasDied(gameObjectAnchor);
 		playState->HasDied(sceneAnchor);
 	}
-
 	else if (pos.getY() > winHeight) {
 		//eliminar este objeto
 		playState->HasDied(sceneAnchor);

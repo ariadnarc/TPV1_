@@ -13,6 +13,7 @@
 
 #include "Alien.h"
 #include "Reward.h"
+#include "Bomb.h"
 
 
 void PlayState::RandomMode() {
@@ -204,15 +205,28 @@ bool PlayState::collisions(const Laser* laser) {
 	SDL_Rect lRect = laser->getRect();
 	char c = laser->getColor();
 
-	GameList<SceneObject>::forward_iterator it = sceneObjects.begin();
+	return collisions(lRect, c);
+}
 
-	//colision con la lista de SceneObjects
-	while (it != sceneObjects.end() && !(*it).Hit(lRect, c)) ++it;
+bool PlayState::collisions(const Bomb* bomb) {
+
+	SDL_Rect lRect = bomb->getRect();
+	char c = 'r';
 	
-	return it != sceneObjects.end();
+	return collisions(lRect, c);
 
 }
 
+bool PlayState::collisions(SDL_Rect rect,char color) {
+
+	GameList<SceneObject>::forward_iterator it = sceneObjects.begin();
+
+	//colision con la lista de SceneObjects
+	while (it != sceneObjects.end() && !(*it).Hit(rect, color)) ++it;
+
+	return it != sceneObjects.end();
+
+}
 
 int PlayState::getRandomRange(int min, int max) {
 	return std::uniform_int_distribution<int>(min, max)(randomGenerator);
@@ -341,8 +355,16 @@ void PlayState::UfoDied(Ufo* ufo) {
 
 	SDL_Rect rect = ufo->getRect();
 
-	Reward* aux = new Reward(this, Vector2D<>(rect.x, rect.y), 0, 0, 0,game->getTexture(REWARD_SIMBOL),
-		[this]() {PlayerInvencible(); });
+	SceneObject* aux = nullptr;
+
+	if (getRandomRange(0, 1) == 0) {
+		aux = new Reward(this, Vector2D<>(rect.x, rect.y),0,game->getTexture(REWARD_SIMBOL),
+			[this]() {PlayerInvencible(); });
+	}
+	else {
+		aux = new Bomb(this, Vector2D<>(rect.x, rect.y), 2, game->getTexture(BOMB));
+	}
+	
 
 	gameObjects.push_back(aux);
 	sceneObjects.push_back(aux);

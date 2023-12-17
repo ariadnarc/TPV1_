@@ -21,7 +21,7 @@
 #include "Cannon.h"
 #include "Laser.h"
 #include "Ufo.h"
-
+#include "Bomb.h"
 #include "InfoBar.h"
 
 
@@ -119,6 +119,8 @@ public:
 
 	//hace el calculo de colisiones
 	bool collisions(const Laser* laser);
+	bool collisions(const Bomb* bomb);
+	bool collisions(SDL_Rect rect, char color);
 
 	//devuelve un numero aleatorio con distrubucion uniforme en el rango dado
 	int getRandomRange(int min, int max);

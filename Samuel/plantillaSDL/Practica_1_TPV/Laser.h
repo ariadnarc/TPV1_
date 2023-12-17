@@ -25,13 +25,13 @@ private:
 	const static int HEIGHT = 18;
 
 
-	static const int alienLaserVel = 4;
-	static const int playerLaserVel = 12;
+	static const int alienLaserVel = 2;
+	static const int playerLaserVel = 8;
 	int velocity;
 
 	//gestion de diferentes frame rates
 	int waitingFrames = 0;
-	const static int _frameRate = 2;
+	const static int _frameRate = 1;
 
 	void Move();
 	bool Colisions();
