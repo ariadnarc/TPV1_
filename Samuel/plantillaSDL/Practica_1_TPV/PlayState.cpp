@@ -58,7 +58,7 @@ PlayState::PlayState(Game* game, std::string fileName)
 	//inicializar los objetos
 	ReadMap(fileName);
 
-	infoB = new InfoBar(game->getTexture(SPACESHIP), game->getTexture(FONT), this, PLAYER_LIFES);
+	infoB = new InfoBar(this,game->getFont(), game->getTexture(SPACESHIP), game->getTexture(SCORE), PLAYER_LIFES);
 
 	gameObjects.push_back(mother);
 	gameObjects.push_back(infoB);

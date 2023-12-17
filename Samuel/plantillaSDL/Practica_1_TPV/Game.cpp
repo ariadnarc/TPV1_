@@ -136,21 +136,24 @@ void Game::InitializeSDL() {
 		throw SDLError();
 }
 
-//falta carga de las nuevas imagenes
+//cambiar logica de texturas por clase label...
 void Game::LoadTextures() {
 
 	//creacion del vector de las texturas
 	std::vector<TextureInfo> textInfo;
 
+
 	textInfo.push_back(TextureInfo("aliens.png", 3, 2));
 	textInfo.push_back(TextureInfo("bunker.png", 1, 4));
 	textInfo.push_back(TextureInfo("spaceship.png", 1, 1));
 	textInfo.push_back(TextureInfo("stars.png", 1, 1));
-	textInfo.push_back(TextureInfo("font.png", 3, 30));
 	textInfo.push_back(TextureInfo("ufo.png", 1, 2));
+
 	textInfo.push_back(TextureInfo("fondos/mainMenu.png", 1, 2));
 
-	
+
+	//crear las texturas de la ttf
+	arrayTexturas[SCORE] = font->generateTexture(renderer, "SCORE:", SDL_Color{ 255,255,255,255 });
 	arrayTexturas[NUEVA_PARTIDA] = font->generateTexture(renderer, "NUEVA PARTIDA", SDL_Color{ 255,255,255,255 });
 	arrayTexturas[CARGAR_PARTIDA] = font->generateTexture(renderer, "CARGAR PARTIDA", SDL_Color{ 255,255,255,255 });
 	arrayTexturas[SALIR] = font->generateTexture(renderer, "SALIR", SDL_Color{ 255,255,255,255 });
@@ -162,8 +165,8 @@ void Game::LoadTextures() {
 	arrayTexturas[CODIGO] = font->generateTexture(renderer, "CODIGO", SDL_Color{ 255,255,255,255 });
 
 
-	//crear las texturas
-	for (int i = 0; i < NUEVA_PARTIDA; i++) {
+	//crear el resto de texturas
+	for (int i = 0; i < SCORE; i++) {
 		arrayTexturas[i] = new Texture(renderer, (TEXTURE_ROOT + textInfo[i].fileName).c_str(),
 			textInfo[i].horizontalFrames, textInfo[i].verticalFrames);
 	}

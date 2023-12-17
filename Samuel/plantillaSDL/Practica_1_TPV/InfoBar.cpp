@@ -3,9 +3,11 @@
 
 #include <iostream>
 #include <SDL.h>
+#include <string>
+
 
 #include "InfoBar.h"
-
+#include "Game.h"
 
 
 void InfoBar::RenderLifes() const {
@@ -23,42 +25,18 @@ void InfoBar::RenderLifes() const {
 	}
 }
 
+
 void InfoBar::RenderScore()const {
 
-	std::vector<int> rows = {1,1,1,1,1};
-	std::vector<int> cols = {'S'-'A','C' - 'A' ,'O' - 'A' ,'R' - 'A' ,'E' - 'A' };//cambiar a una funcion
+	//render del texto score
+	SDL_Rect scoreTarget{ scoreStartX,scoreStartY,scoreTexture->getFrameWidth(),scoreTexture->getFrameHeight() };
 
-	SDL_Rect target;
+	scoreTexture->render(scoreTarget);
 
-	target.y = scoreStartY;
+	//render del numero de la puntuacion actual
+	SDL_Rect numberTarget{ scoreStartX + 150,scoreStartY,numberTexture->getFrameWidth(),numberTexture->getFrameHeight()};
 
-	target.w = fontTexture->getFrameWidth();
-	target.h = fontTexture->getFrameHeight();
-
-	int i;
-	//render del SCORE
-	for (i = 0; i < 5; i++) {
-		target.x = scoreStartX + fontTexture->getFrameWidth()*i;
-
-		fontTexture->renderFrame(target, rows[i], cols[i]);
-	}
-	//render de :
-	target.x = scoreStartX + fontTexture->getFrameWidth() * i;
-	fontTexture->renderFrame(target, 2, 11);
-
-
-	int aux = currentScore;
-
-	target.x = scoreEndX;
-	//render de la puntuacion
-	while (aux >= 10) 
-	{
-		fontTexture->renderFrame(target, 2, aux%10);
-		target.x -= fontTexture->getFrameWidth();
-		aux /= 10;
-	}
-	fontTexture->renderFrame(target, 2, aux % 10);
-
+	numberTexture->render(numberTarget);
 
 }
 
@@ -74,5 +52,7 @@ void InfoBar::UpdateCurrentLifes(int lifes) {
 }
 
 void InfoBar::UpdateCurrentScore(int score) {
+	delete numberTexture;
+	numberTexture = font->generateTexture(game->getRenderer(), std::to_string(currentScore), SDL_Color{ 255,255,255,255 });
 	currentScore = score;
 }

@@ -11,7 +11,7 @@
 #include "GameObject.h"
 
 #include"texture.h"
-
+#include "Font.h"
 
 class PlayState;
 
@@ -21,8 +21,12 @@ private:
 	//textura para las vidas
 	Texture* cannonTexture;
 	//textura para la fuente de texto
-	Texture* fontTexture;
+	Texture* scoreTexture;
+
+	mutable Texture* numberTexture;
 	
+	Font* font;
+
 	//VARIABLES PARA MOSTRAR LAS VIDAS
 	const int lifesStartX = 20;
 	const int lifesStartY = 15;
@@ -50,8 +54,15 @@ private:
 public:
 	
 	//constructor
-	InfoBar(Texture* cannontext,Texture*fontText, GameState* game,int playerLifes)
-		: GameObject(game), cannonTexture(cannontext),fontTexture(fontText), currentLifes(playerLifes) {};
+	InfoBar(GameState* game,Font* font,Texture* cannontext,Texture*scoreText,int playerLifes)
+		: GameObject(game) , font(font),
+			cannonTexture(cannontext),scoreTexture(scoreText),numberTexture(nullptr),
+			currentLifes(playerLifes) {};
+
+	//destructor
+	~InfoBar() {
+		delete numberTexture;
+	}
 
 	//metodos heredados de Gam
 	void Render() const override;
