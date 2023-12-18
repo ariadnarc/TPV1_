@@ -8,6 +8,7 @@
 #include "PlayState.h"
 
 
+
 PauseState::PauseState(Game* game, PlayState* previusPlayState)
 	:GameState(game),previusPlayState(previusPlayState),
 	continueGameButton(new Button(this, game->getTexture(CONTINUAR), Point2D<>(315, 100))),
@@ -53,5 +54,25 @@ void PauseState::LoadGame() {
 void PauseState::Exit() {
 	game->getGameStateMachine()->popState();
 	game->getGameStateMachine()->popState();
+
+}
+
+void PauseState::Render() const {
+
+	previusPlayState->Render();
+
+	SDL_Rect aux{ 0, 0, winWidth, winHeight };
+
+	SDL_SetRenderDrawBlendMode(game->getRenderer(), SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(game->getRenderer(), 10, 10, 10, 100);
+
+	SDL_RenderFillRect(game->getRenderer(), &aux);
+
+	//SDL_SetRenderDrawBlendMode(game->getRenderer(), SDL_BLENDMODE_NONE);
+	//SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 0, 255);
+
+
+	GameState::Render();
+	
 
 }

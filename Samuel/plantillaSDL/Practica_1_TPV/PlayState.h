@@ -88,10 +88,6 @@ class PlayState : public GameState{
 	bool exit;
 
 
-	//bucle de juego
-	void Render() const override;
-	void Update() override;
-	void HandleEvent(const SDL_Event& ev) override ;
 
 
 	//carga de objetos de un archivo
@@ -110,7 +106,11 @@ class PlayState : public GameState{
 	void LoadGame(std::string savePath);
 
 public:
-	
+	//bucle de juego
+	void Render() const override;
+	void Update() override;
+	void HandleEvent(const SDL_Event& ev) override;
+
 
 	void SaveGame(std::string file);
 		

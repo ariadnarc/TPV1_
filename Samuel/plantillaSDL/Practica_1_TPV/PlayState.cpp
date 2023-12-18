@@ -65,6 +65,10 @@ PlayState::PlayState(Game* game, std::string fileName)
 	gameObjects.push_back(mother);
 	gameObjects.push_back(infoB);
 
+	//actualizar UI 
+	UpdateLifesUI();
+	UpdateScoreUI();
+
 	//inicializar el generador aleatorio con una semilla 
 	randomGenerator = std::mt19937_64(time(nullptr));
 

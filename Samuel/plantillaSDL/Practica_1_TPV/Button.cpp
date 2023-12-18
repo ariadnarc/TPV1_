@@ -47,7 +47,13 @@ void Button::emit()const {
 }
 
 void Button::Render() const {
-	texture->render(myRect);
+	if (hover) {
+		texture->render(myRect,SDL_Color{0,255,0,255});
+	}
+	else {
+		texture->render(myRect);
+	}
+	
 }
 
 void Button::Update(){

@@ -26,6 +26,7 @@ public:
 
 	PauseState(Game* game,PlayState* previusPlayState);
 
+	 void Render() const override;
 
 };
 
