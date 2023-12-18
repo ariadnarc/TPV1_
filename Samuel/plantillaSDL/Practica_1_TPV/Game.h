@@ -57,7 +57,7 @@ class Game {
 	//fuente de texto
 	Font* font;
 
-
+	//maquina de esrados
 	GameStateMachine* gameStateMachine;
 
 	//CICLO DE JUEGO

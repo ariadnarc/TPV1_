@@ -29,6 +29,7 @@ public:
 
 	void Move();
 
+	//falso siempre pq solo colisiona con el player a través de MayGrantReward
 	bool Hit(SDL_Rect rect, char tLaser) override { return false; };
 
 	//save vacio pq no se guardan

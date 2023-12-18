@@ -25,7 +25,6 @@ void InfoBar::RenderLifes() const {
 	}
 }
 
-
 void InfoBar::RenderScore()const {
 
 	//render del texto score
@@ -39,7 +38,6 @@ void InfoBar::RenderScore()const {
 	numberTexture->render(numberTarget);
 
 }
-
 
 void InfoBar::Render()const {
 	RenderLifes();

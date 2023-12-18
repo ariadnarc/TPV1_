@@ -7,7 +7,6 @@
 #include "Game.h"
 
 void GameState::Render() const {
-
 	for (GameObject& ob : gameObjects) ob.Render();
 }
 

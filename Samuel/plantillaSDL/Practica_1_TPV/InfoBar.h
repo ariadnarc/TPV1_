@@ -42,11 +42,8 @@ private:
 	//VARIABLES PARA MOSTRAR LA PUNTUACION
 	const int scoreStartX = 480;
 	const int scoreStartY = 15;
-	const int scoreEndX = 720;
-
 
 	int currentScore = 0;
-
 
 	void RenderLifes() const ;
 	void RenderScore() const ;

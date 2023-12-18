@@ -54,7 +54,7 @@ public:
 
 protected:
 
-	//para lanzar excepciones en la lectura de archivos
+	//para lanzar excepciones en la lectura de archivos,falta por implementar
 	template<typename T>
 	void readValue(T& v, std::istream& in) {
 		in >> v;

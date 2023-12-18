@@ -13,7 +13,6 @@
 GameStateMachine::GameStateMachine(Game* game) : game(game) {
 
 	//inicializamos la pila con el estado del menu inicial
-	//gameStack.push(new MainMenuState());
 	gameStack.push(new MainMenuState(game));
 }
 

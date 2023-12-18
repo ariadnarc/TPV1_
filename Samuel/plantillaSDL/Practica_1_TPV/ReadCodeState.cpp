@@ -44,9 +44,11 @@ void ReadCodeState::Render() const {
 	//render del relleno negro
 	SDL_RenderFillRect(game->getRenderer(), &blackBox);
 
+	//render del texto Codigo:
 	textoCodigoTexture->render(textoCodigoBox);
 
 	if (codeTexture != nullptr) {
+		//render del numero del codigo
 		SDL_Rect codeTarget{ 370,220,codeTexture->getFrameWidth(),codeTexture->getFrameHeight() };
 		codeTexture->render(codeTarget);
 
@@ -63,6 +65,7 @@ void ReadCodeState::HandleEvent(const SDL_Event& ev) {
 
 	//manejo del input
 	if (ev.type == SDL_KEYDOWN) {
+		//si es un numero y llevamos menos de 4 numeros
 		if (code >= 30 && code <= 38 && nDigits <4 ) {
 
 			int slotNumber = code - 29;
@@ -71,6 +74,7 @@ void ReadCodeState::HandleEvent(const SDL_Event& ev) {
 			codeNumber += slotNumber;
 			nDigits++;
 
+			//crear nueva textura
 			delete codeTexture;
 			codeTexture = font->generateTexture(game->getRenderer(), std::to_string(codeNumber), SDL_Color{ 255,255,0,255 });
 		}
@@ -79,12 +83,13 @@ void ReadCodeState::HandleEvent(const SDL_Event& ev) {
 			nDigits--;
 			if (nDigits < 0)nDigits = 0;
 
+			//crear nueva textura
 			delete codeTexture;
 			codeTexture = font->generateTexture(game->getRenderer(), std::to_string(codeNumber), SDL_Color{ 255,255,0,255 });
 
 		}
 		else if (code == SDL_SCANCODE_RETURN) {
-			//volver al estado de pausa 
+			//volver al estado anterior
 			game->getGameStateMachine()->popState();
 
 			if (previousPauseState != nullptr) {

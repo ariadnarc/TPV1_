@@ -12,7 +12,6 @@ Bomb::Bomb(PlayState* game, Point2D<> pos,int lifesLeft,Texture* texture)
 
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
-
 }
 
 void Bomb::Move() {
@@ -40,10 +39,10 @@ void Bomb::Update() {
 }
 
 void Bomb::Render()const {
+
 	SDL_Rect target = getRect();
 
 	texture->render(target);
-
 }
 
 bool Bomb::Hit(SDL_Rect rect, char tLaser) {

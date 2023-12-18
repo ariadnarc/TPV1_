@@ -8,11 +8,9 @@
 
 Reward::Reward(PlayState* game, Point2D<> pos,  int lifesLeft,Texture* texture,Callback callback) 
 	:SceneObject(game,pos,width,height,lifesLeft),texture(texture),callback(callback) {
-
 	
 	width = texture->getFrameWidth();
 	height = texture->getFrameHeight();
-
 }
 
 void Reward::Update() {
