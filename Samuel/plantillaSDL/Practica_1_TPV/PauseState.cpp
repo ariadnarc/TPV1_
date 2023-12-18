@@ -6,6 +6,7 @@
 #include "PauseState.h"
 #include "Game.h"
 #include "PlayState.h"
+#include "ReadCodeState.h"
 
 
 
@@ -40,7 +41,8 @@ void PauseState::Continue() {
 	game->getGameStateMachine()->popState();
 }
 void PauseState::SaveGame() {
-	previusPlayState->SaveGame("partidas_guardadas/save1.txt");
+	//previusPlayState->SaveGame("partidas_guardadas/save1.txt");
+	game->getGameStateMachine()->pushState(new ReadCodeState(game, this));
 }
 void PauseState::LoadGame() {
 	//leer el numero de partida a cargar
@@ -68,8 +70,8 @@ void PauseState::Render() const {
 
 	SDL_RenderFillRect(game->getRenderer(), &aux);
 
-	//SDL_SetRenderDrawBlendMode(game->getRenderer(), SDL_BLENDMODE_NONE);
-	//SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 0, 255);
+	SDL_SetRenderDrawBlendMode(game->getRenderer(), SDL_BLENDMODE_NONE);
+	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 0, 255);
 
 
 	GameState::Render();

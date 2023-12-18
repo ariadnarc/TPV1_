@@ -87,6 +87,7 @@ class PlayState : public GameState{
 
 	bool exit;
 
+	bool win;
 
 
 
@@ -146,7 +147,7 @@ public:
 
 	void UfoDied(Ufo* ufo);
 
-	void playerDied() { exit = true; }
+	void playerDied() { exit = true; win = false; }
 
 	bool mayGrantReward(SDL_Rect rewardRect)const;
 

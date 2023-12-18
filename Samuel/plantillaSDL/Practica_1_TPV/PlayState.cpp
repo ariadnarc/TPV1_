@@ -112,11 +112,17 @@ void PlayState::Update() {
 
 	UpdateScoreUI();	
 
-	if (mother->haveLanded()) exit = true;
-	if (mother->getAlienCount() <= 0) exit = true;
+	if (mother->haveLanded()) {
+		exit = true;
+		win = false;
+	}
+	if (mother->getAlienCount() <= 0) {
+		exit = true;
+		win = true;
+	}
 	
 	if (exit == true) {
-		game->getGameStateMachine()->replaceState(new EndState(game, false));
+		game->getGameStateMachine()->replaceState(new EndState(game, win));
 	}
 		
 }

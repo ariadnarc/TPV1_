@@ -7,17 +7,20 @@
 #include <SDL.h>
 
 #include "GameState.h"
-
+#include "PauseState.h"
 
 
 class ReadCodeState : public GameState {
 
+	PauseState* previousPauseState;
+
+	
 
 public:
 
-	ReadCodeState(Game* game);
+	ReadCodeState(Game* game,PauseState* previous);
 
-
+	void Render()const override;
 
 };
 

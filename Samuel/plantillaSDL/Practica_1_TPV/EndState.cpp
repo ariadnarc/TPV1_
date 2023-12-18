@@ -31,7 +31,7 @@ void EndState::Render()const {
 
 	GameState::Render();
 
-	SDL_Rect aux{ 315,100,
+	SDL_Rect aux{ win ? 295 :315,100,
 		game->getTexture(win ? HAS_GANADO : GAMEOVER)->getFrameWidth(),
 		game->getTexture(win ? HAS_GANADO : GAMEOVER)->getFrameHeight() };
 	//render del mensaje de gameOver o has ganado
