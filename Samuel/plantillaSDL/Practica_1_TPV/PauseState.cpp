@@ -17,17 +17,19 @@ PauseState::PauseState(Game* game, PlayState* previusPlayState)
 	loadGameButton(new Button(this, game->getTexture(CARGAR_PARTIDA), Point2D<>(255, 300))),
 	exitButton(new Button(this, game->getTexture(SALIR), Point2D<>(360, 400)))
 {
-
+	//añadir botones a la lista de objetos
 	addObject(continueGameButton);
 	addObject(saveGameButton);
 	addObject(loadGameButton);
 	addObject(exitButton);
 
+	//añadir botones a la lista de eventListener
 	addEventListener(continueGameButton);
 	addEventListener(saveGameButton);
 	addEventListener(loadGameButton);
 	addEventListener(exitButton);
 
+	//conectar cada funcion con su callback
 	continueGameButton->connect([this]() {Continue(); });
 	saveGameButton->connect([this]() {SaveGame(); });
 	loadGameButton->connect([this]() {LoadGame(); });
@@ -41,17 +43,12 @@ void PauseState::Continue() {
 	game->getGameStateMachine()->popState();
 }
 void PauseState::SaveGame() {
-	//previusPlayState->SaveGame("partidas_guardadas/save1.txt");
+	saving = true;
 	game->getGameStateMachine()->pushState(new ReadCodeState(game, this));
 }
 void PauseState::LoadGame() {
-	//leer el numero de partida a cargar
-	//...
-
-	//cargar la partida en un nuevo estado
-	game->getGameStateMachine()->popState();
-	game->getGameStateMachine()->replaceState(new PlayState(game, "partidas_guardadas/save1.txt"));
-
+	loading = true;
+	game->getGameStateMachine()->pushState(new ReadCodeState(game, this));
 }
 void PauseState::Exit() {
 	game->getGameStateMachine()->popState();
@@ -77,4 +74,18 @@ void PauseState::Render() const {
 	GameState::Render();
 	
 
+}
+
+void PauseState::ReturnFromReadCode(std::string codeNumber) {
+	if (saving) {
+		saving = false;
+		previusPlayState->SaveGame("partidas_guardadas/save" + codeNumber + ".txt");
+
+	}
+	else if (loading) {
+		loading = false;
+		//cargar la partida en un nuevo estado
+		game->getGameStateMachine()->popState();
+		game->getGameStateMachine()->replaceState(new PlayState(game, "partidas_guardadas/save" + codeNumber + ".txt"));
+	}
 }

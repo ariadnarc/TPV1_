@@ -22,11 +22,16 @@ class PauseState : public GameState {
 	void SaveGame();
 	void LoadGame();
 	void Exit();
+
+	bool saving = false;
+	bool loading = false;
 public:
 
 	PauseState(Game* game,PlayState* previusPlayState);
 
-	 void Render() const override;
+	void Render() const override;
+
+	void ReturnFromReadCode(std::string codeNumber);
 
 };
 

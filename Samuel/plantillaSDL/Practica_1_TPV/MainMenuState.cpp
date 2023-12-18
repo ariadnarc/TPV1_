@@ -4,6 +4,7 @@
 #include <SDL.h>
 
 #include "MainMenuState.h"
+#include "ReadCodeState.h"
 #include "Game.h"
 #include "PlayState.h"
 
@@ -52,11 +53,9 @@ void MainMenuState::Exit() {
 }
 
 void MainMenuState::LoadGame() {
-	//leer el numero de partida a cargar
-	//...
+	game->getGameStateMachine()->pushState(new ReadCodeState(game, this));
+}
 
-	//cargar la partida en un nuevo estado
-
-	game->getGameStateMachine()->pushState(new PlayState(game,"partidas_guardadas/save1.txt"));
-
+void MainMenuState::ReturnFromReadCode(std::string codeNumber) {
+	game->getGameStateMachine()->pushState(new PlayState(game,"partidas_guardadas/save" + codeNumber + ".txt"));
 }

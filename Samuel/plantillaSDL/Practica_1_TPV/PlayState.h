@@ -90,11 +90,9 @@ class PlayState : public GameState{
 	bool win;
 
 
-
 	//carga de objetos de un archivo
 	void ReadMap(const std::string mapPath);
 
-	//metodos privados auxiliares
 	
 	
 	//inicializa el randomMode, a lo mejor esto hay que cambiarlo
@@ -133,10 +131,6 @@ public:
 
 	void UpdateScoreUI();
 
-	//esto a lo mejor hay que cambiarlo a una clase,para la carga de partidas con slots
-	void ChoseSlot(SDL_Event ev);
-
-	void TryLoad(SDL_Event ev);
 
 	void HasDied(GameList<SceneObject>::anchor an);
 

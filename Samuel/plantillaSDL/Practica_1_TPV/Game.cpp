@@ -165,7 +165,7 @@ void Game::LoadTextures() {
 	arrayTexturas[VOLVER_AL_MENU] = font->generateTexture(renderer, "VOLVER AL MENU", SDL_Color{ 255,255,255,255 });
 	arrayTexturas[GAMEOVER] = font->generateTexture(renderer, "GAMEOVER", SDL_Color{ 255,255,255,255 });
 	arrayTexturas[HAS_GANADO] = font->generateTexture(renderer, "HAS GANADO", SDL_Color{ 255,255,255,255 });
-	arrayTexturas[CODIGO] = font->generateTexture(renderer, "CODIGO", SDL_Color{ 255,255,255,255 });
+	arrayTexturas[CODIGO] = font->generateTexture(renderer, "CODIGO:", SDL_Color{ 255,255,255,255 });
 
 
 	//crear el resto de texturas

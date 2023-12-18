@@ -29,6 +29,7 @@ public:
 
 	void Render() const override;
 
+	void ReturnFromReadCode(std::string codeNumber);
 
 };
 

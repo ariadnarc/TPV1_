@@ -258,6 +258,7 @@ void PlayState::UpdateScoreUI() {
 
 //falta guardar mas datos, direccion de los aliens,info de las balas, current AtkCD de los aliens...,musica...
 void PlayState::SaveGame(std::string file = "partidas_guardadas/tmp.txt") {
+
 	std::ofstream out;
 
 	out.open(file);
@@ -307,51 +308,6 @@ void PlayState::LoadGame(std::string savePath) {
 	//actualizar UI 
 	UpdateLifesUI();
 	UpdateScoreUI();
-
-}
-
-void PlayState::ChoseSlot(SDL_Event ev) {
-
-	SDL_Scancode code = ev.key.keysym.scancode;
-	
-	//manejo del input
-	if (ev.type == SDL_KEYDOWN) {
-		if (code >= 30 && code <= 38) {
-
-			int slotNumber = code - 29;
-			
-					
-			std::string newName = "partidas_guardadas/save" + std::to_string(slotNumber)+ ".txt";
-			
-
-			if (std::filesystem::exists(newName)) {
-				std::remove(newName.c_str());
-			}
-			//falta lanzar un error
-			int success = std::rename(std::string("partidas_guardadas/tmp.txt").c_str(),newName.c_str());
-		}	
-	}
-	
-}
-
-void PlayState::TryLoad(SDL_Event ev) {
-
-	SDL_Scancode code = ev.key.keysym.scancode;
-
-	//manejo del input
-	if (ev.type == SDL_KEYDOWN) {
-		if (code >= 30 && code <= 38) {
-
-			int slotNumber = code - 29;
-
-
-			std::string loadFile = "partidas_guardadas/save" + std::to_string(slotNumber) + ".txt";
-
-			LoadGame(loadFile);
-			
-		}
-	}
-
 
 }
 
