@@ -76,7 +76,7 @@ class PlayState : public GameState{
 
 	//audio,sacar a una clase
 
-	bool musicOn = true;
+	bool musicOn = false;
 
 	SDL_AudioSpec wavSpec;
 	Uint32 wavLength;

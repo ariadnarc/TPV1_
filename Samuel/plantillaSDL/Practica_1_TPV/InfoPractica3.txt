@@ -1,0 +1,7 @@
+Grupo 15
+Ariadna Alicia Ruiz Castillo
+Samuel Garcia Bazan
+
+Funcionalidades basicas implementadas: todas las que se pedían, sin fugas de memorias
+Funcionalidades opcionales implementadas: 2 y 4, botones usando ttf,
+infoBar con ttf y un estado extra para introducir el codigo al guardar y cargar partida.
