@@ -49,7 +49,6 @@ void PlayState::LoadMusic() {
 }
 
 
-
 //constructor valido para partidas cargadas y mapas iniciales
 PlayState::PlayState(Game* game, std::string fileName) 
 	:GameState(game) {
@@ -146,8 +145,12 @@ void PlayState::ReadMap(const std::string mapPath) {
 	map.open(mapPath);
 
 	if (map.fail()) {
+		//para no dejar basura,es el unico objeto creado anteriormente
+		delete mother;
+		//lanzar excepcion
 		throw FileNotFoundError(mapPath);
 	}
+	
 
 	int objectType;	
 	int line = 0;

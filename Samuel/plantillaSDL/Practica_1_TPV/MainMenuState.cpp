@@ -28,9 +28,6 @@ MainMenuState::MainMenuState(Game* game)
 	newGameButton->connect([this]() {PlayGame();});
 	loadGameButton->connect([this]() {LoadGame(); });
 	exitButton->connect([this]() {Exit();});
-	
-	
-	
 }
 
 void MainMenuState::Render() const {
@@ -57,5 +54,12 @@ void MainMenuState::LoadGame() {
 }
 
 void MainMenuState::ReturnFromReadCode(std::string codeNumber) {
-	game->getGameStateMachine()->pushState(new PlayState(game,"partidas_guardadas/save" + codeNumber + ".txt"));
+	try {
+		game->getGameStateMachine()->pushState(new PlayState(game,"partidas_guardadas/save" + codeNumber + ".txt"));
+
+	}
+	catch (FileNotFoundError error) {
+		SDL_ShowSimpleMessageBox(0, "Untitled", error.what(), nullptr);
+
+	}
 }

@@ -80,12 +80,19 @@ void PauseState::ReturnFromReadCode(std::string codeNumber) {
 	if (saving) {
 		saving = false;
 		previusPlayState->SaveGame("partidas_guardadas/save" + codeNumber + ".txt");
-
 	}
 	else if (loading) {
 		loading = false;
 		//cargar la partida en un nuevo estado
-		game->getGameStateMachine()->popState();
-		game->getGameStateMachine()->replaceState(new PlayState(game, "partidas_guardadas/save" + codeNumber + ".txt"));
+
+		try {
+			PlayState* aux = new PlayState(game, "partidas_guardadas/save" + codeNumber + ".txt");
+			game->getGameStateMachine()->popState();
+			game->getGameStateMachine()->replaceState(aux);
+		}
+		catch (FileNotFoundError error) {
+			SDL_ShowSimpleMessageBox(0, "Untitled", error.what(), nullptr);
+
+		}
 	}
 }
