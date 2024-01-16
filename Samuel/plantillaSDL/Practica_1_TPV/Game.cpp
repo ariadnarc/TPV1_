@@ -92,9 +92,7 @@ void Game::Run() {
 	}
 	*/
 
-	//version suspendiendo el programa,consume menos recursos
-	//falta poner que la pila de estados esté vacia
-	
+	//version suspendiendo el programa,consume menos recursos	
 	while (!exit && !gameStateMachine->Empty()) {
 		//actualizar el start time
 		startTime = SDL_GetTicks();
