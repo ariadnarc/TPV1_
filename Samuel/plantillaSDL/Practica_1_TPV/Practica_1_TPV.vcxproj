@@ -153,6 +153,7 @@
     <ClCompile Include="Reward.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="ShooterAlien.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="Ufo.cpp" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <ClInclude Include="Reward.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="ShooterAlien.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="Ufo.h" />
     <ClInclude Include="Vector2D.h" />

@@ -32,7 +32,4 @@ public:
 };
 
 
-
-
-
 #endif // !Font_H_

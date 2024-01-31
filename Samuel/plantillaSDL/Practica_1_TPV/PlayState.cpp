@@ -77,6 +77,10 @@ PlayState::PlayState(Game* game, std::string fileName)
 	if (musicOn) {
 		LoadMusic();
 	}
+
+
+	SoundManager::Instance()->load("sonidos/theme.wav", "theme", SOUND_MUSIC);
+	SoundManager::Instance()->playMusic("theme",-1);
 }
 
 //destructor

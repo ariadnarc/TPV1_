@@ -3,9 +3,10 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 
 #include <vector>
-
+#include "SoundManager.h"
 
 #include "Game.h"
 
@@ -21,7 +22,10 @@ Game::Game(){
 	
 	LoadTextures();
 
+	soundManager = SoundManager::Instance();
+
 	gameStateMachine = new GameStateMachine(this);
+
 
 }
 
@@ -37,6 +41,8 @@ Game::~Game() {
 	}
 
 	delete font;
+
+	delete soundManager;
 	
 	TTF_Quit();
 

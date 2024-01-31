@@ -11,7 +11,7 @@
 #include "GameStateMachine.h"
 #include "InvadersError.h"
 #include "Font.h"
-
+#include "SoundManager.h"
 
 
 //struct para informacion de las texturas
@@ -57,6 +57,10 @@ class Game {
 
 	//fuente de texto
 	Font* font;
+
+	//sound manager
+
+	SoundManager* soundManager;
 
 	//maquina de esrados
 	GameStateMachine* gameStateMachine;
